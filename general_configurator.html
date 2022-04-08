@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   	<meta charset="UTF-8">
+
+    <script src="./lib/jquery-3.6.0.min.js"></script>
+    <script src="./scripts/general_configurator.js"></script>
+    <script>
+		$(document).ready(function() {
+			initialize();
+		});
+    </script>
+
+    <style>
+	.container {
+	  width:100%;
+	  height:100%; 
+	  display: flex;
+	  justify-content: center;
+	}
+	
+	#general .btn {
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  margin:0px;
+	  padding:2px;
+	  transform: translate(-50%, -50%);
+	  -ms-transform: translate(-50%, -50%);
+	  background-color: #555;
+	  color: white;
+	  font-size: 16px;
+	  border: 2px solid blue;
+	  cursor: pointer;
+	  border-radius: 5px;
+	}
+	
+	.buff-table {
+		display: block;
+	}
+	
+	.material-table tr th {
+		padding:1px 2px 1px 2px;
+		text-align:center;
+	}
+	
+	.material-table tr td {
+		padding:1px 2px 1px 2px;
+		text-align:center;
+	}
+	
+	.buff-table tr th {
+		padding:1px 3px 1px 3px;
+		text-align:center;
+	}
+	
+	.buff-table tr td {
+		padding:1px 3px 1px 3px;
+		text-align:center;
+	}
+ 	</style>
+   </head>
+
+   <body>
+    <div class="container">
+		<div id="general" > <!-- style="width:50%; position: relative; height:auto" -->
+		   <img src="./assets/general.png" style="width:100%;" >
+		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
+		     <label style="display: block;">Weapon</label>
+			 <select style="display: block;" disabled="true">  
+			   <option value = "CArsB">Courageous Ares Bow</option>  
+			   <option value = "CAchB">Courageous Achae. Bow</option>  
+			   <option value = "CivB">Civilization Bow</option> 
+			 </select>  
+		   </form> 
+		   <form class="btn" id="selector-armor" style="top:36%; left:34%;">  
+		     <label style="display: block;">Armor</label>
+			 <select style="display: block;" disabled="true">  
+			   <option value = "CArsA">Courageous Ares Armor</option>
+			   <option value = "CAchA">Courageous Achae. Armor</option>  
+			 </select>  
+		   </form>  
+		   <form class="btn" id="selector-boots" style="top:52%; left:34%;">  
+		     <label style="display: block;">Boots</label>
+			 <select style="display: block;" disabled="true">  
+			   <option value = "CArsB">Courageous Ares Boots</option>
+			   <option value = "CAchB">Courageous Achae. Boots</option>  
+			 </select>  
+		   </form>  
+		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
+		     <label>Helmet</label>
+		     <label class="star" seq="0">☆</label>
+		     <label class="star" seq="1">☆</label>
+		     <label class="star" seq="2">☆</label>
+		     <label class="star" seq="3">☆</label>
+		     <label class="star" seq="4">☆</label>
+			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 </select>  
+		   </form> 
+		   <form class="btn" id="selector-legarmor" style="top:36%; left:65%;">  
+		     <label style="display: block;">Leg Armor</label>
+			 <select style="display: block;" disabled="true">  
+			   <option value = "CArsB">Courageous Ares Leg Armor</option>  
+			   <option value = "CAchB">Courageous Achae. Leg Armor</option>  
+			   <option value = "CivB">Civilization Leg Armor</option> 
+			 </select>  
+		   </form>  
+		   <form class="btn" id="selector-ring" style="top:52%; left:66%;">  
+		     <label style="display: block;">Ring</label>
+			 <select style="display: block;" disabled="true">  
+			   <option value = "CArsB">Courageous Ares Ring</option>  
+			   <option value = "CAchB">Courageous Achae. Ring</option>  
+			   <option value = "CivB">Civilization Ring</option> 
+			 </select>  
+		   </form>  
+		   </img>
+		</div>
+	</div>
+	
+	<div class="container" style="margin:1% 0% 0% 0%;">
+	MATERIALS
+	</div>
+    <div class="container">
+    	<div id="material-table" class="material-table" style="display: block;">
+		 <table>
+		  <tr> 
+			<th>Purple Crystal</th>
+			<th>Blue Stone</th>
+			<th>Red Agate</th>
+			<th>Silver Pearl</th>
+			<th>Meteorolite</th>
+			<th>Iron</th>
+			<th>Bronze</th>
+			<th>Wood</th>
+			<th>Animal Bone</th>
+			<th>Leather</th>
+			<th>Feather</th>
+			<th>Dragon Scale</th>
+		  </tr>
+		  <tr id="material-row"> 
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+			<td>30</td>
+		  </tr>
+		 </table> 
+		</div>
+	</div>
+	
+	<div class="container" style="margin:1% 0% 0% 0%;">
+	BUFF
+	</div>
+	<div class="container">
+    	<div id="buff-table" class="buff-table">
+		 <table>
+		  <tr>
+			<th colspan="3">Ground</th>
+			<th colspan="3">Mounted</th>
+			<th colspan="3">Ranged</th>
+			<th colspan="3">Siege</th>
+		  </tr>
+		  <tr>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+		  </tr>
+		  <tr id="buff-row"> 
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+			<td>+30%</td>
+		  </tr>
+		 </table>  
+		</div>
+	</div>
+	
+	<div class="container"  style="margin:1% 0% 0% 0%;">
+	DEBUFF
+	</div>
+	<div class="container">
+    	<div id="debuff-table" class="buff-table">
+		 <table>
+		  <tr>
+			<th colspan="3">Ground</th>
+			<th colspan="3">Mounted</th>
+			<th colspan="3">Ranged</th>
+			<th colspan="3">Siege</th>
+		  </tr>
+		  <tr>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+			<th>Attack</th>
+			<th>Defense</th>
+			<th>HP</th>
+		  </tr>
+		  <tr id="debuff-row"> 
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+			<td>-10%</td>
+		  </tr>
+		 </table>  
+		</div>
+	</div>
+   </body>
+</html>
+
+
+
+
