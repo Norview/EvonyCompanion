@@ -3,6 +3,9 @@ var sets = null;
 
 // Used by getBuffs(), getDebuffs()
 
+const c_data_equipment = "equipment";
+
+const c_scenario_debuffing = -1;
 const c_scenario_any = 0;
 const c_scenario_attacking = 1;
 const c_scenario_defending = 2;
@@ -29,15 +32,15 @@ var general = {
 	
 	_stars : [],
 	
-	_toIndex : function(equipment){
-		switch(equipment.type)
+	_toIndex : function(type){
+		switch(type)
 		{
-			case "weapon": return c_weapon;
-			case "armor": return c_armor;
-			case "boots": return c_boots;
-			case "helmet": return c_helmet;
-			case "legarmor": return c_legarmor;
-			case "ring": return c_ring;
+			case "weapon": return this.c_weapon;
+			case "armor": return this.c_armor;
+			case "boots": return this.c_boots;
+			case "helmet": return this.c_helmet;
+			case "legarmor": return this.c_legarmor;
+			case "ring": return this.c_ring;
 			default: return -1;
 		}
 	},
@@ -46,19 +49,22 @@ var general = {
 		_animal = animal;
 	},
 		
-	setEquipment : function(equipment, countOfStars) {
-		var index = _toIndex(equipment); 
-		_equipments[index] = equipment;
-		_stars[index] = countOfStars;
+	setEquipment : function(type, equipment, countOfStars) {
+		var index = this._toIndex(type); 
+		this._equipments[index] = equipment; // can be null
+		this._stars[index] = countOfStars;
 	},
 	
 	getBuffs : function(scenario, starring) {
 		// scenario: 
-		//   null            - the buffs are always applicable
+		//   "any"           - the buffs are always applicable
 		//   "attacking"     - when attacking
 		//   "defending"     - when defending the city (defense general)
 		//   "reinforcing"   - when reinforcing another city
 		//   "occupying"     - when defending an occupied building, including throne city and temples
+		//   "debuffing"     - a special value to indicate that we are calculating debuffs instead of buffs.
+		
+		var isDebuff = c_scenario_debuffing === scenario;
 		
 		var isAny = c_scenario_any === scenario;
 		var isAttacking = c_scenario_attacking === scenario;
@@ -70,24 +76,16 @@ var general = {
 		var useActualStars = starring === c_starring_equipped;
 		var useMaxStars = starring === c_starring_max;
 		
-		var buffs = {
-			groundAttack: 0,
-			groundDefense: 0,
-			groundHp: 0,
-			mountedAttack: 0,
-			mountedDefense: 0,
-			mountedHp: 0,
-			rangedAttack: 0,
-			rangedDefense: 0,
-			rangedHp: 0,
-			siegeAttack: 0,
-			siegeDefense: 0,
-			siegedHp: 0
-		}
+		var buffs = createBuffs();
 		
-		for (equipment of _equipments) {
+		for (equipment of this._equipments) {
+			if (!equipment){
+				// Skip unset equipment.
+				continue;
+			}
+			
 			for (attr of equipment.attributes) {
-			    /*
+			    /* attr:
 			  	  "condition": [],
   				  "troop": ["ground"],
   				  "type": "attack",
@@ -97,63 +95,81 @@ var general = {
 			  
 			    // 1. get the base buff value
 			    var value = attr.value;
-			    if (value <= 0) {
-			    	// This is debuff
+			    if (value == 0) {
+			    	// This shouldn't happen
 			    	continue;
+			    } else if (isDebuff && value > 0) {
+					// This is buff
+					continue;
+			    } else if (value < 0) {
+					// This is debuff
+					continue;
 			    }
 			    
 			    // 2. filter by conditions
-			    var conditions = attr.condition;
-			    var hasConditions = (!!conditions && conditions.length > 0);
-			    if (hasConditions && !isAny){
-			        // Must skip any conditional buffs since we are specifying a scenario.
-			        continue;
-			    }
-			    
-			    // In-city attribute only takes effect when defending the city.
-			    var isInCity = !!conditions["in-city"];
-			    if (isInCity && !isDefending) {
-			    	continue;
-			    }
-			       
-			    // Marching attribute doesn't take effect when defending own city or reinforcing others' city (?). 
-			    var isMarching = !!conditions["marching"];
-			    if (isMarching && (isDefending || isReinforcing)) {
-			    	continue;
-			    }
-			    
-			    // Requires attacking but we are not
-			    var isAttackingOnly = !!conditions["attacking"];
-			    if (isAttackingOnly && !isAttacking) {
-			    	continue;
-			    }
-			    
-			    // Requires defending but we are attacking
-			    var isDefendingOnly = !!conditions["defending"];
-			    if (isDefendingOnly && isAttacking) {
-			    	continue;
-			    }
-			    
-			    // Requires dragon but the general doesn't have one assigned
-			    var needsDragon = !!conditions["w/dragon"];
-			    if (needsDragon) {
-			    	if (!(!!this._animal && (this._animal.type == "dragon" || this._animal.type == "sacreddragon"))) {
-			    		continue;
-			    	}
+			    if (!isDebuff) {
+					var conditions = attr.condition;
+					var hasConditions = (!!conditions && conditions.length > 0);
+					if (hasConditions && !isAny){
+						// Must skip any conditional buffs since we are specifying a scenario.
+						continue;
+					}
+				
+					// In-city attribute only takes effect when defending the city.
+					var isInCity = !!conditions["in-city"];
+					if (isInCity && !isDefending) {
+						continue;
+					}
+				   
+					// Marching attribute doesn't take effect when defending own city or reinforcing others' city (?). 
+					var isMarching = !!conditions["marching"];
+					if (isMarching && (isDefending || isReinforcing)) {
+						continue;
+					}
+				
+					// Requires attacking but we are not
+					var isAttackingOnly = !!conditions["attacking"];
+					if (isAttackingOnly && !isAttacking) {
+						continue;
+					}
+				
+					// Requires defending but we are attacking
+					var isDefendingOnly = !!conditions["defending"];
+					if (isDefendingOnly && isAttacking) {
+						continue;
+					}
+				
+					// Requires dragon but the general doesn't have one assigned
+					var needsDragon = !!conditions["w/dragon"];
+					if (needsDragon) {
+						if (!(!!this._animal && (this._animal.type == "dragon" || this._animal.type == "sacreddragon"))) {
+							continue;
+						}
+					}
 			    }
 			 
 				// 3. calculate the actual buff value
 			    if (!useMinStars) {
-			    	var rate = attr.rate;
-			    	var count = useActualStars ? _stars[equipment.type] : 5;
-			    	value += rate * count;
+			    	var count = 0;
+			    	if (useActualStars){
+			 			var eqIndex = this._toIndex(equipment.type); 
+			    		var starCount = parseInt(this._stars[eqIndex]);
+			    		if (!isNaN(starCount)) {
+			    			count = starCount;
+			    		} // if unset, default to 0 
+			    	} else {
+			    		// useMaxStars
+			    		count = 5;
+			    	}
+			    	
+			    	value += attr.rate * count;
 			    }
 			    
 			    // 4. locate the attributes
-			    var catName = equipment.type;
+			    var catName = attr.type;
 			    catName = catName[0].toUpperCase() + catName.substring(1);
 			    var attrNames = [];
-			    for (troop of equipment.troop) {
+			    for (troop of attr.troop) {
 			    	attrNames.push(troop + catName);
 			    }
 			    
@@ -166,6 +182,57 @@ var general = {
 		
 		return buffs;
 	}
+}
+
+function createBuffs(){
+	return {
+		groundAttack: 0,
+		groundDefense: 0,
+		groundHp: 0,
+		mountedAttack: 0,
+		mountedDefense: 0,
+		mountedHp: 0,
+		rangedAttack: 0,
+		rangedDefense: 0,
+		rangedHp: 0,
+		siegeAttack: 0,
+		siegeDefense: 0,
+		siegeHp: 0
+	};
+}
+
+function updateBuffTable(buffs, isBuffOrDebuff) {
+	var buffCols = $("#" + (isBuffOrDebuff ? "buff" : "debuff") + "-row td");
+	var prefix = isBuffOrDebuff ? "" : "-";
+	
+	buffCols[0].textContent = prefix + buffs.groundAttack + "%";
+	buffCols[1].textContent = prefix + buffs.groundDefense + "%";
+	buffCols[2].textContent = prefix + buffs.groundHp + "%";
+	buffCols[3].textContent = prefix + buffs.mountedAttack + "%";
+	buffCols[4].textContent = prefix + buffs.mountedDefense + "%";
+	buffCols[5].textContent = prefix + buffs.mountedHp + "%";
+	buffCols[6].textContent = prefix + buffs.rangedAttack + "%";
+	buffCols[7].textContent = prefix + buffs.rangedDefense + "%";
+	buffCols[8].textContent = prefix + buffs.rangedHp + "%";
+	buffCols[9].textContent = prefix + buffs.siegeAttack + "%";
+	buffCols[10].textContent = prefix + buffs.siegeDefense + "%";
+	buffCols[11].textContent = prefix + buffs.siegeHp + "%";
+}
+
+function updateStats() {
+	// 1. Get battle type
+	var battleType = $("input[name='battle-type']:checked").val();
+	
+	// 2. Calculate and update the buffs
+	var buffs = general.getBuffs(battleType, c_starring_equipped);
+	updateBuffTable(buffs, true);
+	
+	// 3. Calculate and update the debuffs
+	var debuffs = general.getBuffs(c_scenario_debuffing, c_starring_equipped);
+	updateBuffTable(debuffs, false);
+	
+	// 4. Materials
+	// TODO
 }
 
 // Load data from the server
@@ -224,21 +291,68 @@ function enableUI(){
 	enableEquipmentDropDownMenu("helmet");
 }
 
+const starIcon = "★";
+const nonStarIcon = "☆";
+		
 function enableEquipmentDropDownMenu(type) {
+	// Routine: find the selected equipment
+	function findEquipment(sel){
+	    var typEqs = sel.data(c_data_equipment);
+        var eqName = sel.val();
+        var eq = typEqs[eqName];
+    	if (!eq){
+        	eq = null;
+        }
+        
+        return eq;
+	}
+	
+	// Routine: log the change of equipment
+	function logChange(name, count){
+	    var sts = "";
+        while(count > 0) {
+        	sts += starIcon;
+        	count--;
+        }
+        console.log("Changed " + type + " to " + name + (sts === "" ? "" : " (" + sts + ")") + ".");
+	}
+
 	// Locate the selector
 	var selector = findSelector(type);
 	selector.attr("disabled", false);
 	
-	// Install even handler
-	var stars = findStar(type);
-	stars.click(function(){
-		var starIcon = "★";
-		var nonStarIcon = "☆";
+	// Install event handlers
+	// (1) Dropdown
+	selector.change(function(){
+		// get equipment
+        var eq = findEquipment($(this));
+        
+        // get stars
+        var stars = findStar(type);
+        var count = 0;
+        stars.each(function(){
+			var st = $(this).text();
+			if (st === starIcon) {
+				count++;
+			}
+		});
+		
+		// set equipment along with stars
+        general.setEquipment(type, eq, count);
+        
+		logChange(eq.name, count);
+        
+        updateStats();
+    });
 	
+	// (2) Stars
+	var stars = findStar(type);
+	stars.click(function(){	
+		var count = 0;
 		var star = $(this);
 		var index = parseInt(star.attr("seq"));
-		// var text = star.text();
 		if (index > 0) {
+			count = index + 1;
 			// star up to here
 			for (var i = 0; i <= 4; i++) {
 				var st = stars[i];
@@ -256,6 +370,7 @@ function enableEquipmentDropDownMenu(type) {
 				st0.textContent = nonStarIcon;
 			} else {
 				st0.textContent = starIcon;
+				count = 1;
 			}
 			
 			// always remove the stars from the rest
@@ -265,8 +380,14 @@ function enableEquipmentDropDownMenu(type) {
 			}
 		}
 		
-		// trigger recalculation
-		// TODO
+        // set equipment along with stars
+        var eq = findEquipment(selector);
+        if (!!eq) {
+        	general.setEquipment(type, eq, count);
+        	logChange(eq.name, count);
+        }
+        
+        updateStats();
 	});
 }
 
@@ -349,6 +470,9 @@ function populateEquipmentDropDownMenu(type) {
 	// Always has an empty option
 	var opt = $("<option>", { value: "" }).text("");
 	selector.append(opt);
+	// All equipments of this type will be stored in a map, attached to the selector.
+	var typEqs = {};
+	selector.data(c_data_equipment, typEqs);
 
 	var count = 0;
 	for (var eq of eqs) {
@@ -360,6 +484,7 @@ function populateEquipmentDropDownMenu(type) {
 		}
 		
 		var opt = $("<option>", { value: eq.name }).text(name);
+		typEqs[eq.name] = eq;
 		selector.append(opt);
 		count++;
 	}

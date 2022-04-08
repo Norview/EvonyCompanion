@@ -7,6 +7,7 @@
     <script src="./scripts/general_configurator.js"></script>
     <script>
 		$(document).ready(function() {
+			// 
 			initialize();
 		});
     </script>
@@ -17,6 +18,10 @@
 	  height:100%; 
 	  display: flex;
 	  justify-content: center;
+	}
+	
+	#general .star {
+	  color: #FFD700;
 	}
 	
 	#general .btn {
@@ -40,12 +45,12 @@
 	}
 	
 	.material-table tr th {
-		padding:1px 2px 1px 2px;
+		padding:1px 3px 1px 3px;
 		text-align:center;
 	}
 	
 	.material-table tr td {
-		padding:1px 2px 1px 2px;
+		padding:1px 3px 1px 3px;
 		text-align:center;
 	}
 	
@@ -58,6 +63,11 @@
 		padding:1px 3px 1px 3px;
 		text-align:center;
 	}
+	
+	.grey {
+		background-color: #f2f2f2;
+	}
+	
  	</style>
    </head>
 
@@ -89,11 +99,13 @@
 		   </form>  
 		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
 		     <label>Helmet</label>
-		     <label class="star" seq="0">☆</label>
-		     <label class="star" seq="1">☆</label>
-		     <label class="star" seq="2">☆</label>
-		     <label class="star" seq="3">☆</label>
-		     <label class="star" seq="4">☆</label>
+		     <span id="selector-helmet-stars">
+				 <label class="star" seq="0">☆</label>
+				 <label class="star" seq="1">☆</label>
+				 <label class="star" seq="2">☆</label>
+				 <label class="star" seq="3">☆</label>
+				 <label class="star" seq="4">☆</label>
+		     </span>
 			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form> 
@@ -116,13 +128,15 @@
 		   </img>
 		</div>
 	</div>
-	
-	<div class="container" style="margin:1% 0% 0% 0%;">
+
+	<!-- Materials -->
+		
+	<div class="container" style="margin:1% 0% 0% 0%; font: sans-serif">
 	MATERIALS
 	</div>
     <div class="container">
     	<div id="material-table" class="material-table" style="display: block;">
-		 <table>
+		 <table style="border: 1px solid black;">
 		  <tr> 
 			<th>Purple Crystal</th>
 			<th>Blue Stone</th>
@@ -138,108 +152,139 @@
 			<th>Dragon Scale</th>
 		  </tr>
 		  <tr id="material-row"> 
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
-			<td>30</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
 		  </tr>
 		 </table> 
 		</div>
 	</div>
 	
-	<div class="container" style="margin:1% 0% 0% 0%;">
+	<div style="height:30px; margin: 2% 0% 0% 0%">
+	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
+	</div>
+	
+	<!-- Buff and Debuff stats -->
+	
+	<div style="width:50%; margin: auto;">
+	  <fieldset>
+		  <legend style="margin: auto;">What kind of battle?</legend>
+		  <input type="radio" id="opt-any"
+		   name="battle-type" value="any" checked>
+		  <label for="opt-any">Any</label>
+		  
+		  <input type="radio" id="opt-attacking"
+		   name="battle-type" value="attacking">
+		  <label for="opt-attacking">Attacking</label>
+
+		  <input type="radio" id="opt-defending"
+		   name="battle-type" value="defending">
+		  <label for="opt-defending">Defending main city</label>
+
+		  <input type="radio" id="opt-reinforcing"
+		   name="battle-type" value="reinforcing">
+		  <label for="opt-reinforcing">Reinforcing another city</label>
+		  
+		  <input type="radio" id="opt-occupying"
+		   name="battle-type" value="occupying">
+		  <label for="opt-occupying">Defending a building</label>
+	  </fieldset>
+	</div>
+
+	<div class="container" style="margin:1% 0% 0% 0%; font: sans-serif">
 	BUFF
 	</div>
 	<div class="container">
     	<div id="buff-table" class="buff-table">
 		 <table>
 		  <tr>
-			<th colspan="3">Ground</th>
-			<th colspan="3">Mounted</th>
-			<th colspan="3">Ranged</th>
-			<th colspan="3">Siege</th>
+			<th colspan="3" style="border: 1px solid black;">Ground</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Mounted</th>
+			<th colspan="3" style="border: 1px solid black;">Ranged</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Siege</th>
 		  </tr>
 		  <tr>
 			<th>Attack</th>
 			<th>Defense</th>
 			<th>HP</th>
+			<th class="grey">Attack</th>
+			<th class="grey">Defense</th>
+			<th class="grey">HP</th>
 			<th>Attack</th>
 			<th>Defense</th>
 			<th>HP</th>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
+			<th class="grey">Attack</th>
+			<th class="grey">Defense</th>
+			<th class="grey">HP</th>
 		  </tr>
 		  <tr id="buff-row"> 
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
-			<td>+30%</td>
+			<td>0%</td>
+			<td>0%</td>
+			<td>0%</td>
+			<td class="grey">0%</td>
+			<td class="grey">0%</td>
+			<td class="grey">0%</td>
+			<td>0%</td>
+			<td>0%</td>
+			<td>0%</td>
+			<td class="grey">0%</td>
+			<td class="grey">0%</td>
+			<td class="grey">0%</td>
 		  </tr>
 		 </table>  
 		</div>
 	</div>
 	
-	<div class="container"  style="margin:1% 0% 0% 0%;">
+	<div class="container"  style="margin:1% 0% 0% 0%; font: sans-serif">
 	DEBUFF
 	</div>
 	<div class="container">
     	<div id="debuff-table" class="buff-table">
 		 <table>
 		  <tr>
-			<th colspan="3">Ground</th>
-			<th colspan="3">Mounted</th>
-			<th colspan="3">Ranged</th>
-			<th colspan="3">Siege</th>
+			<th colspan="3" style="border: 1px solid black;">Ground</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Mounted</th>
+			<th colspan="3" style="border: 1px solid black;">Ranged</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Siege</th>
 		  </tr>
 		  <tr>
 			<th>Attack</th>
 			<th>Defense</th>
 			<th>HP</th>
+			<th class="grey">Attack</th>
+			<th class="grey">Defense</th>
+			<th class="grey">HP</th>
 			<th>Attack</th>
 			<th>Defense</th>
 			<th>HP</th>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
+			<th class="grey">Attack</th>
+			<th class="grey">Defense</th>
+			<th class="grey">HP</th>
 		  </tr>
-		  <tr id="debuff-row"> 
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
-			<td>-10%</td>
+		  <tr id="buff-row"> 
+			<td>-0%</td>
+			<td>-0%</td>
+			<td>-0%</td>
+			<td class="grey">-0%</td>
+			<td class="grey">-0%</td>
+			<td class="grey">-0%</td>
+			<td>-0%</td>
+			<td>-0%</td>
+			<td>-0%</td>
+			<td class="grey">-0%</td>
+			<td class="grey">-0%</td>
+			<td class="grey">-0%</td>
 		  </tr>
-		 </table>  
+		 </table>    
 		</div>
 	</div>
    </body>
