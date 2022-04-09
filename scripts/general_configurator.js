@@ -5,12 +5,12 @@ var sets = null;
 
 const c_data_equipment = "equipment";
 
-const c_scenario_debuffing = -1;
-const c_scenario_any = 0;
-const c_scenario_attacking = 1;
-const c_scenario_defending = 2;
-const c_scenario_reinforcing = 3;
-const c_scenario_occupying = 4;
+const c_scenario_debuffing = "debuffing";
+const c_scenario_any = "any";
+const c_scenario_attacking = "attacking";
+const c_scenario_defending = "defending";
+const c_scenario_reinforcing = "reinforcing";
+const c_scenario_occupying = "occupying";
 
 const c_starring_min = 0;
 const c_starring_equipped = 1;
@@ -18,7 +18,9 @@ const c_starring_max = 2;
 
 var general = {
 
-	// Used by _toIndex()
+	// Internal members
+	
+	// Used by _toEquipmentIndex()
 	c_weapon : 0,
 	c_armor : 1,
 	c_boots : 2,
@@ -32,7 +34,7 @@ var general = {
 	
 	_stars : [],
 	
-	_toIndex : function(type){
+	_toEquipmentIndex : function(type){
 		switch(type)
 		{
 			case "weapon": return this.c_weapon;
@@ -45,17 +47,132 @@ var general = {
 		}
 	},
 
+	// Recognize the full name with or without space, as well as the simple name.
+	// The index corresponds to the "official" order of those materials as they appear in the items.
+	_toMaterialIndex : function(matName){
+		/*
+		<th>Purple Crystal</th>
+		<th>Blue Stone</th>
+		<th>Red Agate</th>
+		<th>Silver Pearl</th>
+		<th>Meteorolite</th>
+		<th>Iron</th>
+		<th>Bronze</th>
+		<th>Wood</th>
+		<th>Animal Bone</th>
+		<th>Leather</th>
+		<th>Feather</th>
+		<th>Dragon Scale</th>
+		*/
+	
+		matName = matName.toLowerCase();
+		switch(matName)
+		{
+			case "purple crystal":
+			case "purplecrystal": 
+			case "crystal":
+				return 0;
+			case "blue stone":
+			case "bluestone": 
+			case "stone":
+				return 1;
+			case "red agate":
+			case "redagate": 
+			case "agate":
+				return 2;
+			case "silver pearl":
+			case "silverpearl": 
+			case "pearl":
+				return 3;
+			case "meteorolite":
+			case "meteor":
+				return 4;	
+			case "iron":
+				return 5;	
+			case "bronze":
+				return 6;	
+			case "wood":
+				return 7;
+			case "animal bone":
+			case "animalbone": 
+			case "bone":
+				return 8;	
+			case "leather":
+				return 9;
+			case "feather":
+				return 10;
+			case "dragon scale":
+			case "dragonscale": 
+			case "scale":
+				return 11;	
+			default:
+				return -1;
+		}
+	},
+	
+	// API
+	
+	// Setters
+	
 	setAnimal : function(animal) {
 		_animal = animal;
 	},
 		
 	setEquipment : function(type, equipment, countOfStars) {
-		var index = this._toIndex(type); 
+		var index = this._toEquipmentIndex(type); 
 		this._equipments[index] = equipment; // can be null
 		this._stars[index] = countOfStars;
 	},
 	
+	// Getters
+	
+	// Returns an object that represents the count of materiels of each type, at different levels.
+	// So far, we only support level 6 and 7 materials.
+	getMaterials : function() {
+		var materials = {
+			lv6 : [0,0,0,0,0,0,0,0,0,0,0,0],
+			lv7 : [0,0,0,0,0,0,0,0,0,0,0,0]  
+		};
+		
+		for (equipment of this._equipments) {
+			if (!equipment){
+				// Skip unset equipment.
+				continue;
+			}
+			
+			/*
+			  "cost": [ 
+                {
+                  "name": "agate",
+                  "level": 7,
+                  "quantity": 15
+                },
+                ...
+			*/
+			var cost = equipment.cost;
+			for (c of cost) {
+				var mats = c.level == 7 ? materials.lv7 : (c.level == 6 ? materials.lv6 : null);
+				if (!!mats) {
+					var index = this._toMaterialIndex(c.name);
+					if (index >= 0 // Name recognized
+						&& !isNaN(c.quantity)) { // Quantity is a number
+						mats[index] += c.quantity;
+					}
+				}
+			}
+		}
+		
+		return materials;
+	},
+	
+	// Returns a buffs object that contains buff value for each of 12 buff categories (G/M/R/S * A/D/HP).
 	getBuffs : function(scenario, starring) {
+		// Routine: find an element by absolute equality from the array.
+		// Returns true if found, false if not.
+		function findCond(conds, toFind){
+			return !!conds.find(function(e) { return e === toFind; });
+		}
+		
 		// scenario: 
 		//   "any"           - the buffs are always applicable
 		//   "attacking"     - when attacking
@@ -76,7 +193,20 @@ var general = {
 		var useActualStars = starring === c_starring_equipped;
 		var useMaxStars = starring === c_starring_max;
 		
-		var buffs = createBuffs();
+		var buffs = {
+			groundAttack: 0,
+			groundDefense: 0,
+			groundHp: 0,
+			mountedAttack: 0,
+			mountedDefense: 0,
+			mountedHp: 0,
+			rangedAttack: 0,
+			rangedDefense: 0,
+			rangedHp: 0,
+			siegeAttack: 0,
+			siegeDefense: 0,
+			siegeHp: 0
+		};
 		
 		for (equipment of this._equipments) {
 			if (!equipment){
@@ -101,7 +231,7 @@ var general = {
 			    } else if (isDebuff && value > 0) {
 					// This is buff
 					continue;
-			    } else if (value < 0) {
+			    } else if (!isDebuff && value < 0) {
 					// This is debuff
 					continue;
 			    }
@@ -110,37 +240,37 @@ var general = {
 			    if (!isDebuff) {
 					var conditions = attr.condition;
 					var hasConditions = (!!conditions && conditions.length > 0);
-					if (hasConditions && !isAny){
+					if (hasConditions && isAny){
 						// Must skip any conditional buffs since we are specifying a scenario.
 						continue;
 					}
 				
 					// In-city attribute only takes effect when defending the city.
-					var isInCity = !!conditions["in-city"];
+					var isInCity = findCond(conditions, "in-city");
 					if (isInCity && !isDefending) {
 						continue;
 					}
 				   
 					// Marching attribute doesn't take effect when defending own city or reinforcing others' city (?). 
-					var isMarching = !!conditions["marching"];
+					var isMarching = findCond(conditions, "marching");
 					if (isMarching && (isDefending || isReinforcing)) {
 						continue;
 					}
 				
 					// Requires attacking but we are not
-					var isAttackingOnly = !!conditions["attacking"];
+					var isAttackingOnly = findCond(conditions, "attacking");
 					if (isAttackingOnly && !isAttacking) {
 						continue;
 					}
 				
 					// Requires defending but we are attacking
-					var isDefendingOnly = !!conditions["defending"];
+					var isDefendingOnly = findCond(conditions, "defending");
 					if (isDefendingOnly && isAttacking) {
 						continue;
 					}
 				
 					// Requires dragon but the general doesn't have one assigned
-					var needsDragon = !!conditions["w/dragon"];
+					var needsDragon = findCond(conditions, "w/dragon");
 					if (needsDragon) {
 						if (!(!!this._animal && (this._animal.type == "dragon" || this._animal.type == "sacreddragon"))) {
 							continue;
@@ -152,7 +282,7 @@ var general = {
 			    if (!useMinStars) {
 			    	var count = 0;
 			    	if (useActualStars){
-			 			var eqIndex = this._toIndex(equipment.type); 
+			 			var eqIndex = this._toEquipmentIndex(equipment.type); 
 			    		var starCount = parseInt(this._stars[eqIndex]);
 			    		if (!isNaN(starCount)) {
 			    			count = starCount;
@@ -184,39 +314,71 @@ var general = {
 	}
 }
 
-function createBuffs(){
-	return {
-		groundAttack: 0,
-		groundDefense: 0,
-		groundHp: 0,
-		mountedAttack: 0,
-		mountedDefense: 0,
-		mountedHp: 0,
-		rangedAttack: 0,
-		rangedDefense: 0,
-		rangedHp: 0,
-		siegeAttack: 0,
-		siegeDefense: 0,
-		siegeHp: 0
-	};
+const buffNumShades = [
+	"#52be80",
+	"#27ae60",
+	"#229954",
+	"#1e8449",
+	"#196f3d",
+	"#145a32",
+];
+
+const buffRanges = buffNumShades.length - 1;
+const buffRangeSize = 200;
+const debuffRangeSize = Math.floor(buffRangeSize / 2);
+
+// Set buff number to a buff column. Apply color and font weight accordingly.
+function updateBuffColumn(buffCols, index, value){
+	var col = buffCols[index];
+	col.textContent = value + "%";
+	if (value < 0) {
+		value = -value;
+	}
+	
+	var color = (index >= 3 && index <=5 ||  index >= 9 && index <= 11) ? "#d0d0d0" : "#f0f0f0";
+	if (value > 0) {
+		var range = Math.floor(value / buffRangeSize);
+		if (range > buffRanges) {
+			range = buffRanges;
+		}
+		
+		color = buffNumShades[range];
+	}
+	
+	col.style.color = color;
+	if (range == buffRanges) {
+		col.style.fontWeight = "bold";
+	}
 }
 
 function updateBuffTable(buffs, isBuffOrDebuff) {
-	var buffCols = $("#" + (isBuffOrDebuff ? "buff" : "debuff") + "-row td");
-	var prefix = isBuffOrDebuff ? "" : "-";
+	var buffCols = $("#" + (isBuffOrDebuff ? "buff" : "debuff") + "-row td")
 	
-	buffCols[0].textContent = prefix + buffs.groundAttack + "%";
-	buffCols[1].textContent = prefix + buffs.groundDefense + "%";
-	buffCols[2].textContent = prefix + buffs.groundHp + "%";
-	buffCols[3].textContent = prefix + buffs.mountedAttack + "%";
-	buffCols[4].textContent = prefix + buffs.mountedDefense + "%";
-	buffCols[5].textContent = prefix + buffs.mountedHp + "%";
-	buffCols[6].textContent = prefix + buffs.rangedAttack + "%";
-	buffCols[7].textContent = prefix + buffs.rangedDefense + "%";
-	buffCols[8].textContent = prefix + buffs.rangedHp + "%";
-	buffCols[9].textContent = prefix + buffs.siegeAttack + "%";
-	buffCols[10].textContent = prefix + buffs.siegeDefense + "%";
-	buffCols[11].textContent = prefix + buffs.siegeHp + "%";
+	updateBuffColumn(buffCols, 0, buffs.groundAttack);
+	updateBuffColumn(buffCols, 1, buffs.groundDefense);
+	updateBuffColumn(buffCols, 2, buffs.groundHp);
+	updateBuffColumn(buffCols, 3, buffs.mountedAttack);
+	updateBuffColumn(buffCols, 4, buffs.mountedDefense);
+	updateBuffColumn(buffCols, 5, buffs.mountedHp);
+	updateBuffColumn(buffCols, 6, buffs.rangedAttack);
+	updateBuffColumn(buffCols, 7, buffs.rangedDefense);
+	updateBuffColumn(buffCols, 8, buffs.rangedHp);
+	updateBuffColumn(buffCols, 9, buffs.siegeAttack);
+	updateBuffColumn(buffCols,10, buffs.siegeDefense);
+	updateBuffColumn(buffCols,11, buffs.siegeHp);
+}
+
+function updateMaterialTable(materials) {
+	updateMaterialRow(6, materials.lv6);
+	updateMaterialRow(7, materials.lv7);
+}
+
+function updateMaterialRow(lvl, mats){
+	var row = findMaterialRow(lvl);
+	row.each(function(index){
+		var count = mats[index];
+		$(this).text(count);
+	});
 }
 
 function updateStats() {
@@ -232,44 +394,45 @@ function updateStats() {
 	updateBuffTable(debuffs, false);
 	
 	// 4. Materials
-	// TODO
+	var materials = general.getMaterials();
+	updateMaterialTable(materials);
 }
 
 // Load data from the server
 function initialize() {
-$.getJSON("../data/equipments.json", function(data) {
-	// All equipments
-	equipments = {};
-	for (var eq of data.equipments){
-		equipments[eq.name] = eq;
-	}
-	
-	// All equipment sets
-	sets = {};
-	for (var eqSet of data.sets){
-		sets[eqSet.name] = eqSet;
-	}
-	for (var equipment of data.equipments){
-		var s = sets[equipment.set];
-		if (!!s) {
-			equipment.set = s;
-		} else {
-			console.warn("Equipment " + equipment.name + "'s set doesn't exist.");
+	$.getJSON("../data/equipments.json", function(data) {
+		// All equipments
+		equipments = {};
+		for (var eq of data.equipments){
+			equipments[eq.name] = eq;
 		}
-	}
+	
+		// All equipment sets
+		sets = {};
+		for (var eqSet of data.sets){
+			sets[eqSet.name] = eqSet;
+		}
+		for (var equipment of data.equipments){
+			var s = sets[equipment.set];
+			if (!!s) {
+				equipment.set = s;
+			} else {
+				console.warn("Equipment " + equipment.name + "'s set doesn't exist.");
+			}
+		}
 
-	console.log("Data loaded.");
+		console.log("Data loaded.");
 	
-	var result = loadUI();
-	if (!result) {
-		panic("");
-		return;
-	}
+		var result = loadUI();
+		if (!result) {
+			panic("");
+			return;
+		}
 	
-	enableUI();
+		enableUI();
 	
-	console.log("UI initiated.");
-});
+		console.log("UI initiated.");
+	});
 }
 
 function panic(message){
@@ -288,7 +451,13 @@ function loadUI(){
 }
 
 function enableUI(){
+	enableEquipmentDropDownMenu("weapon");
+	enableEquipmentDropDownMenu("armor");
+	enableEquipmentDropDownMenu("boots");
 	enableEquipmentDropDownMenu("helmet");
+	enableEquipmentDropDownMenu("legarmor");
+	enableEquipmentDropDownMenu("ring");
+	configureBattleTypeSelector();
 }
 
 const starIcon = "★";
@@ -403,6 +572,38 @@ function findStar(type){
 
 function findStatRow(type){
 	return $("#" + type + "-row");
+}
+
+function findMaterialRow(level){
+	return $("#material-row-" + level + " td");
+}
+
+function configureBattleTypeSelector() {
+	var inputs = $("#battle-types input");
+	
+	/* 
+	  <input type="radio" id="opt-any"
+	    name="battle-type" value="any" checked>
+     */
+
+    inputs.each(function(){
+     	var input = $(this);
+     	
+     	// 1. Check "any" as the default
+     	var value = input.val();
+		input.prop("checked", value == "any");
+		
+		// 2. Add event handler
+		input.change(function() {
+			var radBtn = $(this);
+			if (radBtn.prop("checked")) {
+				// New battle type selected, update stats
+				var btype = radBtn.val();
+				console.log("Selected new battle type: " + radBtn.val());
+				updateStats();
+			}
+		});
+     });
 }
 
 function populateEquipmentDropDownMenu(type) {

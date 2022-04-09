@@ -3,14 +3,15 @@
    <head>
    	<meta charset="UTF-8">
 
+<!-- -->
     <script src="./lib/jquery-3.6.0.min.js"></script>
     <script src="./scripts/general_configurator.js"></script>
     <script>
 		$(document).ready(function() {
-			// 
 			initialize();
 		});
     </script>
+<!-- -->
 
     <style>
 	.container {
@@ -40,10 +41,6 @@
 	  border-radius: 5px;
 	}
 	
-	.buff-table {
-		display: block;
-	}
-	
 	.material-table tr th {
 		padding:1px 3px 1px 3px;
 		text-align:center;
@@ -54,14 +51,22 @@
 		text-align:center;
 	}
 	
+	.buff-table {
+		display: block;
+		margin: auto;
+		//table-layout: fixed;
+		//width: 50%;
+	}
+	
 	.buff-table tr th {
-		padding:1px 3px 1px 3px;
+		padding:1px 1px 1px 1px;
 		text-align:center;
 	}
 	
 	.buff-table tr td {
-		padding:1px 3px 1px 3px;
+		padding:1px 1px 1px 1px;
 		text-align:center;
+		width:8%;
 	}
 	
 	.grey {
@@ -77,24 +82,38 @@
 		   <img src="./assets/general.png" style="width:100%;" >
 		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
 		     <label style="display: block;">Weapon</label>
-			 <select style="display: block;" disabled="true">  
-			   <option value = "CArsB">Courageous Ares Bow</option>  
-			   <option value = "CAchB">Courageous Achae. Bow</option>  
-			   <option value = "CivB">Civilization Bow</option> 
+		     <span id="selector-helmet-stars">
+				 <label class="star" seq="0">☆</label>
+				 <label class="star" seq="1">☆</label>
+				 <label class="star" seq="2">☆</label>
+				 <label class="star" seq="3">☆</label>
+				 <label class="star" seq="4">☆</label>
+		     </span>
+			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form> 
 		   <form class="btn" id="selector-armor" style="top:36%; left:34%;">  
 		     <label style="display: block;">Armor</label>
-			 <select style="display: block;" disabled="true">  
-			   <option value = "CArsA">Courageous Ares Armor</option>
-			   <option value = "CAchA">Courageous Achae. Armor</option>  
+		     <span id="selector-helmet-stars">
+				 <label class="star" seq="0">☆</label>
+				 <label class="star" seq="1">☆</label>
+				 <label class="star" seq="2">☆</label>
+				 <label class="star" seq="3">☆</label>
+				 <label class="star" seq="4">☆</label>
+		     </span>
+			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-boots" style="top:52%; left:34%;">  
 		     <label style="display: block;">Boots</label>
-			 <select style="display: block;" disabled="true">  
-			   <option value = "CArsB">Courageous Ares Boots</option>
-			   <option value = "CAchB">Courageous Achae. Boots</option>  
+		     <span id="selector-helmet-stars">
+				 <label class="star" seq="0">☆</label>
+				 <label class="star" seq="1">☆</label>
+				 <label class="star" seq="2">☆</label>
+				 <label class="star" seq="3">☆</label>
+				 <label class="star" seq="4">☆</label>
+		     </span>
+			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
@@ -111,18 +130,26 @@
 		   </form> 
 		   <form class="btn" id="selector-legarmor" style="top:36%; left:65%;">  
 		     <label style="display: block;">Leg Armor</label>
-			 <select style="display: block;" disabled="true">  
-			   <option value = "CArsB">Courageous Ares Leg Armor</option>  
-			   <option value = "CAchB">Courageous Achae. Leg Armor</option>  
-			   <option value = "CivB">Civilization Leg Armor</option> 
+		     <span id="selector-helmet-stars">
+				 <label class="star" seq="0">☆</label>
+				 <label class="star" seq="1">☆</label>
+				 <label class="star" seq="2">☆</label>
+				 <label class="star" seq="3">☆</label>
+				 <label class="star" seq="4">☆</label>
+		     </span>
+			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-ring" style="top:52%; left:66%;">  
 		     <label style="display: block;">Ring</label>
-			 <select style="display: block;" disabled="true">  
-			   <option value = "CArsB">Courageous Ares Ring</option>  
-			   <option value = "CAchB">Courageous Achae. Ring</option>  
-			   <option value = "CivB">Civilization Ring</option> 
+		     <span id="selector-helmet-stars">
+				 <label class="star" seq="0">☆</label>
+				 <label class="star" seq="1">☆</label>
+				 <label class="star" seq="2">☆</label>
+				 <label class="star" seq="3">☆</label>
+				 <label class="star" seq="4">☆</label>
+		     </span>
+			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   </img>
@@ -136,22 +163,36 @@
 	</div>
     <div class="container">
     	<div id="material-table" class="material-table" style="display: block;">
-		 <table style="border: 1px solid black;">
+		 <table style="border: 1px solid black; font-size: smaller;">
 		  <tr> 
-			<th>Purple Crystal</th>
-			<th>Blue Stone</th>
-			<th>Red Agate</th>
-			<th>Silver Pearl</th>
-			<th>Meteorolite</th>
-			<th>Iron</th>
-			<th>Bronze</th>
-			<th>Wood</th>
-			<th>Animal Bone</th>
-			<th>Leather</th>
-			<th>Feather</th>
-			<th>Dragon Scale</th>
+			<th style="width:8%">Purple Crystal</th>
+			<th style="width:8%">Blue Stone</th>
+			<th style="width:8%">Red Agate</th>
+			<th style="width:8%">Silver Pearl</th>
+			<th style="width:8%">Meteor-olite</th>
+			<th style="width:8%">Iron</th>
+			<th style="width:8%">Bronze</th>
+			<th style="width:8%">Wood</th>
+			<th style="width:8%">Animal Bone</th>
+			<th style="width:8%">Leather</th>
+			<th style="width:8%">Feather</th>
+			<th style="width:8%">Dragon Scale</th>
 		  </tr>
-		  <tr id="material-row"> 
+		  <tr id="material-row-6" style="background: #f0e816;"> 
+			<td>0</td> 
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+		  </tr>
+		  <tr id="material-row-7" style="background: #eb4f34; color: #f2f0eb;"> 
 			<td>0</td>
 			<td>0</td>
 			<td>0</td>
@@ -176,7 +217,7 @@
 	<!-- Buff and Debuff stats -->
 	
 	<div style="width:50%; margin: auto;">
-	  <fieldset>
+	  <fieldset id="battle-types">
 		  <legend style="margin: auto;">What kind of battle?</legend>
 		  <input type="radio" id="opt-any"
 		   name="battle-type" value="any" checked>
@@ -270,7 +311,7 @@
 			<th class="grey">Defense</th>
 			<th class="grey">HP</th>
 		  </tr>
-		  <tr id="buff-row"> 
+		  <tr id="debuff-row"> 
 			<td>-0%</td>
 			<td>-0%</td>
 			<td>-0%</td>
