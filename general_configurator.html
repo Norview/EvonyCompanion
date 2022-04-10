@@ -5,6 +5,7 @@
 <!-- -->
 	<link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
     <script src="./lib/jquery-3.6.0.min.js"></script>
+    <script src="./scripts/general.js"></script>
     <script src="./scripts/general_configurator.js"></script>
     <script>
 		$(document).ready(function() {
@@ -17,10 +18,10 @@
    <body>
     <div class="container">
 		<div id="general">
-		   <img src="./assets/general.png" style="width:100%;" >
+		   <img class="general-image" src="./assets/general.png">
 		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
 		     <label style="display: block;">Weapon</label>
-		     <span id="selector-weapon-stars">
+		     <span class="stars-span" id="selector-weapon-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -32,7 +33,7 @@
 		   </form> 
 		   <form class="btn" id="selector-armor" style="top:36%; left:34%;">  
 		     <label style="display: block;">Armor</label>
-		     <span id="selector-armor-stars">
+		     <span class="stars-span" id="selector-armor-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -44,7 +45,7 @@
 		   </form>  
 		   <form class="btn" id="selector-boots" style="top:52%; left:34%;">  
 		     <label style="display: block;">Boots</label>
-		     <span id="selector-boots-stars">
+		     <span class="stars-span" id="selector-boots-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -56,7 +57,7 @@
 		   </form>  
 		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
 		     <label style="display: block;">Helmet</label>
-		     <span id="selector-helmet-stars">
+		     <span class="stars-span" id="selector-helmet-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -68,7 +69,7 @@
 		   </form> 
 		   <form class="btn" id="selector-legarmor" style="top:36%; left:65%;">  
 		     <label style="display: block;">Leg Armor</label>
-		     <span id="selector-legarmor-stars">
+		     <span class="stars-span" id="selector-legarmor-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -80,7 +81,7 @@
 		   </form>  
 		   <form class="btn" id="selector-ring" style="top:52%; left:66%;">  
 		     <label style="display: block;">Ring</label>
-		     <span id="selector-ring-stars">
+		     <span class="stars-span" id="selector-ring-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -89,7 +90,13 @@
 		     </span>
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
-		   </form>  
+		   </form>
+		   <form id="add-to-comparison-form"> 
+			 <button type="button" style="top:62%; left:66%;">
+			 	<image src="../assets/add.png"/>
+			 	<span>Compare</span>
+			 </button>   
+		   </form>		    
 		   </img>
 		</div>
 	</div>
@@ -158,31 +165,31 @@
 	  <fieldset id="battle-types">
 		  <legend style="margin: auto; font-style: italic;">What kind of battle?</legend>
 		  <table>
-		  <tr><td>
-		  <input class="battle-type" type="radio" id="opt-any"
-		   name="battle-type" value="any" checked>
-		  <label for="opt-any">Any</label>
-		  </td></tr>
-		  <tr><td>
-		  <input class="battle-type" type="radio" id="opt-attacking"
-		   name="battle-type" value="attacking">
-		  <label for="opt-attacking">Attacking</label>
-		  </td></tr>
-		  <tr><td>
-		  <input class="battle-type" type="radio" id="opt-defending"
-		   name="battle-type" value="defending">
-		  <label for="opt-defending">Defending main city</label>  
-		  </td></tr>
-		  <tr><td>
-		  <input class="battle-type" type="radio" id="opt-reinforcing"
-		   name="battle-type" value="reinforcing">
-		  <label for="opt-reinforcing">Reinforcing another city</label>
-		  </td></tr>
-		  <tr><td> 
-		  <input class="battle-type" type="radio" id="opt-occupying"
-		   name="battle-type" value="occupying">
-		  <label for="opt-occupying">Defending a building</label>
-		  </td></tr>
+			  <tr><td>
+			  <input class="battle-type" type="radio" id="opt-any"
+			   name="battle-type" value="any" checked>
+			  <label for="opt-any">Any</label>
+			  </td></tr>
+			  <tr><td>
+			  <input class="battle-type" type="radio" id="opt-attacking"
+			   name="battle-type" value="attacking">
+			  <label for="opt-attacking">Attacking</label>
+			  </td></tr>
+			  <tr><td>
+			  <input class="battle-type" type="radio" id="opt-defending"
+			   name="battle-type" value="defending">
+			  <label for="opt-defending">Defending main city</label>  
+			  </td></tr>
+			  <tr><td>
+			  <input class="battle-type" type="radio" id="opt-reinforcing"
+			   name="battle-type" value="reinforcing">
+			  <label for="opt-reinforcing">Reinforcing another city</label>
+			  </td></tr>
+			  <tr><td> 
+			  <input class="battle-type" type="radio" id="opt-occupying"
+			   name="battle-type" value="occupying">
+			  <label for="opt-occupying">Defending a building</label>
+			  </td></tr>
 		  </table>
 	  </fieldset>
 	</div>
@@ -271,6 +278,76 @@
 			<td class="grey">-0%</td>
 			<td class="grey">-0%</td>
 		  </tr>
+		 </table>    
+		</div>
+	</div>
+	
+	<div style="height:30px; margin: 2% 0% 0% 0%">
+	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
+	</div>
+	<div class="container stats-title" style="margin-top: 0%; margin-bottom: 1%">
+	COMPARISON
+	</div>
+	<div class="container">
+    	<div id="comparison-table" class="buff-table">
+		 <table>
+		  <tr>
+			<th></th>
+			<th><image src="./assets/delete.png" style="width:24px"></th>
+			<th><image src="./assets/delete.png" style="width:24px"></th>
+			<th><image src="./assets/delete.png" style="width:24px"></th>
+			<th><image src="./assets/delete.png" style="width:24px"></th>
+		  </tr>
+		  <tr>
+			<th></th>
+			<th>Achae./Ares/<br>Ares/Achae./<br>Plant./Plant.</th>
+			<th class="grey">Achae./Ares/<br>Ares/Achae./<br>Plant./Plant.</th>
+			<th>Achae./Ares/Ares/<br>Achae./Plant./Plant.</th>
+			<th class="grey">Achae./Ares/Ares/<br>Achae./Plant./Plant.</th>
+		  </tr>
+		  <tr> 
+			<td>Ground Att.</td>
+			<td>20%</td>
+			<td>10%</td>
+			<td>30%</td>
+			<td>5%</td>
+		  </tr>
+		  <tr> 
+			<td>Ground Def.</td>
+			<td>20%</td>
+			<td>10%</td>
+			<td>30%</td>
+			<td>5%</td>
+		  </tr>	 
+		  <tr> 
+			<td>Ground HP</td>
+			<td>20%</td>
+			<td>10%</td>
+			<td>30%</td>
+			<td>5%</td>
+		  </tr>	 
+		  <tr> 
+		    <td>Mounted Att.</td>
+			<td>20%</td>
+			<td>10%</td>
+			<td>30%</td>
+			<td>5%</td>
+		  </tr>
+		  <tr> 
+			<td>Mounted Def.</td>
+			<td>20%</td>
+			<td>10%</td>
+			<td>30%</td>
+			<td>5%</td>
+		  </tr>	 
+		  <tr> 
+			<td>Mounted HP</td>
+			<td>20%</td>
+			<td>10%</td>
+			<td>30%</td>
+			<td>5%</td>
+		  </tr>			  
+		  
 		 </table>    
 		</div>
 	</div>

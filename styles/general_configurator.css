@@ -5,6 +5,25 @@
   justify-content: center;
 }
 
+#general .general-image {
+  width: 100%;
+}
+
+#general .stars-span {
+	display: block;
+}
+	
+@media(max-width: 1024px){
+	#general .general-image {
+		width: 150%;
+		margin-left: -24%;
+	}
+	
+	#general .stars-span {
+		margin-bottom: 19px;
+	}
+}
+
 #general .star {
   color: #FFD700;
 }
@@ -27,7 +46,7 @@
 
 @media(max-width: 1024px){
 	#general .btn {
-		font-size: 24px;
+		font-size: 28px;
 	}
 }
 
@@ -37,7 +56,39 @@
 
 @media(max-width: 1024px){
 	.btn select {
-		font-size: 24px;
+        height:50px;
+        line-height:50px;
+        font-size: 28px;
+	}
+}
+
+#add-to-comparison-form button {
+  position: absolute;
+  margin:0px;
+  padding:3px 3px 0px 2px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 16px;
+  border-radius: 8px;
+  color: white;
+  background-color:#3E3E3E;
+  // font-size: 16px;
+  font: sans-serif;
+  font-style: italic; 
+}
+
+#add-to-comparison-form span {
+  vertical-align: middle;
+  margin-top: -24px;
+  display:inline-block;
+}
+
+@media(max-width: 1024px){
+	#add-to-comparison-form button  {
+		font-size: 28px;
+	}
+	#add-to-comparison-form span {
+	  margin-top: -18px;
 	}
 }
 
