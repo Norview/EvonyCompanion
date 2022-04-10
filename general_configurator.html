@@ -2,8 +2,8 @@
 <html>
    <head>
    	<meta charset="UTF-8">
-
 <!-- -->
+	<link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
     <script src="./lib/jquery-3.6.0.min.js"></script>
     <script src="./scripts/general_configurator.js"></script>
     <script>
@@ -12,144 +12,82 @@
 		});
     </script>
 <!-- -->
-
-    <style>
-	.container {
-	  width:100%;
-	  height:100%; 
-	  display: flex;
-	  justify-content: center;
-	}
-	
-	#general .star {
-	  color: #FFD700;
-	}
-	
-	#general .btn {
-	  position: absolute;
-	  top: 50%;
-	  left: 50%;
-	  margin:0px;
-	  padding:2px;
-	  transform: translate(-50%, -50%);
-	  -ms-transform: translate(-50%, -50%);
-	  background-color: #555;
-	  color: white;
-	  font-size: 16px;
-	  border: 2px solid blue;
-	  cursor: pointer;
-	  border-radius: 5px;
-	}
-	
-	.material-table tr th {
-		padding:1px 3px 1px 3px;
-		text-align:center;
-	}
-	
-	.material-table tr td {
-		padding:1px 3px 1px 3px;
-		text-align:center;
-	}
-	
-	.buff-table {
-		display: block;
-		margin: auto;
-		//table-layout: fixed;
-		//width: 50%;
-	}
-	
-	.buff-table tr th {
-		padding:1px 1px 1px 1px;
-		text-align:center;
-	}
-	
-	.buff-table tr td {
-		padding:1px 1px 1px 1px;
-		text-align:center;
-		width:8%;
-	}
-	
-	.grey {
-		background-color: #f2f2f2;
-	}
-	
- 	</style>
    </head>
 
    <body>
     <div class="container">
-		<div id="general" > <!-- style="width:50%; position: relative; height:auto" -->
+		<div id="general">
 		   <img src="./assets/general.png" style="width:100%;" >
 		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
 		     <label style="display: block;">Weapon</label>
-		     <span id="selector-helmet-stars">
-				 <label class="star" seq="0">☆</label>
-				 <label class="star" seq="1">☆</label>
-				 <label class="star" seq="2">☆</label>
-				 <label class="star" seq="3">☆</label>
-				 <label class="star" seq="4">☆</label>
+		     <span id="selector-weapon-stars">
+				 <label class="star" seq="0">★</label>
+				 <label class="star" seq="1">★</label>
+				 <label class="star" seq="2">★</label>
+				 <label class="star" seq="3">★</label>
+				 <label class="star" seq="4">★</label>
 		     </span>
-			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form> 
 		   <form class="btn" id="selector-armor" style="top:36%; left:34%;">  
 		     <label style="display: block;">Armor</label>
-		     <span id="selector-helmet-stars">
-				 <label class="star" seq="0">☆</label>
-				 <label class="star" seq="1">☆</label>
-				 <label class="star" seq="2">☆</label>
-				 <label class="star" seq="3">☆</label>
-				 <label class="star" seq="4">☆</label>
+		     <span id="selector-armor-stars">
+				 <label class="star" seq="0">★</label>
+				 <label class="star" seq="1">★</label>
+				 <label class="star" seq="2">★</label>
+				 <label class="star" seq="3">★</label>
+				 <label class="star" seq="4">★</label>
 		     </span>
-			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-boots" style="top:52%; left:34%;">  
 		     <label style="display: block;">Boots</label>
-		     <span id="selector-helmet-stars">
-				 <label class="star" seq="0">☆</label>
-				 <label class="star" seq="1">☆</label>
-				 <label class="star" seq="2">☆</label>
-				 <label class="star" seq="3">☆</label>
-				 <label class="star" seq="4">☆</label>
+		     <span id="selector-boots-stars">
+				 <label class="star" seq="0">★</label>
+				 <label class="star" seq="1">★</label>
+				 <label class="star" seq="2">★</label>
+				 <label class="star" seq="3">★</label>
+				 <label class="star" seq="4">★</label>
 		     </span>
-			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
-		     <label>Helmet</label>
+		     <label style="display: block;">Helmet</label>
 		     <span id="selector-helmet-stars">
-				 <label class="star" seq="0">☆</label>
-				 <label class="star" seq="1">☆</label>
-				 <label class="star" seq="2">☆</label>
-				 <label class="star" seq="3">☆</label>
-				 <label class="star" seq="4">☆</label>
+				 <label class="star" seq="0">★</label>
+				 <label class="star" seq="1">★</label>
+				 <label class="star" seq="2">★</label>
+				 <label class="star" seq="3">★</label>
+				 <label class="star" seq="4">★</label>
 		     </span>
-			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form> 
 		   <form class="btn" id="selector-legarmor" style="top:36%; left:65%;">  
 		     <label style="display: block;">Leg Armor</label>
-		     <span id="selector-helmet-stars">
-				 <label class="star" seq="0">☆</label>
-				 <label class="star" seq="1">☆</label>
-				 <label class="star" seq="2">☆</label>
-				 <label class="star" seq="3">☆</label>
-				 <label class="star" seq="4">☆</label>
+		     <span id="selector-legarmor-stars">
+				 <label class="star" seq="0">★</label>
+				 <label class="star" seq="1">★</label>
+				 <label class="star" seq="2">★</label>
+				 <label class="star" seq="3">★</label>
+				 <label class="star" seq="4">★</label>
 		     </span>
-			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-ring" style="top:52%; left:66%;">  
 		     <label style="display: block;">Ring</label>
-		     <span id="selector-helmet-stars">
-				 <label class="star" seq="0">☆</label>
-				 <label class="star" seq="1">☆</label>
-				 <label class="star" seq="2">☆</label>
-				 <label class="star" seq="3">☆</label>
-				 <label class="star" seq="4">☆</label>
+		     <span id="selector-ring-stars">
+				 <label class="star" seq="0">★</label>
+				 <label class="star" seq="1">★</label>
+				 <label class="star" seq="2">★</label>
+				 <label class="star" seq="3">★</label>
+				 <label class="star" seq="4">★</label>
 		     </span>
-			 <select style="display: block;" disabled="true"><!-- to be populated by code -->
+			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   </img>
@@ -158,12 +96,12 @@
 
 	<!-- Materials -->
 		
-	<div class="container" style="margin:1% 0% 0% 0%; font: sans-serif">
+	<div class="container stats-title">
 	MATERIALS
 	</div>
     <div class="container">
     	<div id="material-table" class="material-table" style="display: block;">
-		 <table style="border: 1px solid black; font-size: smaller;">
+		 <table class="material-table-rows">
 		  <tr> 
 			<th style="width:8%">Purple Crystal</th>
 			<th style="width:8%">Blue Stone</th>
@@ -216,32 +154,40 @@
 	
 	<!-- Buff and Debuff stats -->
 	
-	<div style="width:50%; margin: auto;">
+	<div id="battle-types-div">
 	  <fieldset id="battle-types">
-		  <legend style="margin: auto;">What kind of battle?</legend>
-		  <input type="radio" id="opt-any"
+		  <legend style="margin: auto; font-style: italic;">What kind of battle?</legend>
+		  <table>
+		  <tr><td>
+		  <input class="battle-type" type="radio" id="opt-any"
 		   name="battle-type" value="any" checked>
 		  <label for="opt-any">Any</label>
-		  
-		  <input type="radio" id="opt-attacking"
+		  </td></tr>
+		  <tr><td>
+		  <input class="battle-type" type="radio" id="opt-attacking"
 		   name="battle-type" value="attacking">
 		  <label for="opt-attacking">Attacking</label>
-
-		  <input type="radio" id="opt-defending"
+		  </td></tr>
+		  <tr><td>
+		  <input class="battle-type" type="radio" id="opt-defending"
 		   name="battle-type" value="defending">
-		  <label for="opt-defending">Defending main city</label>
-
-		  <input type="radio" id="opt-reinforcing"
+		  <label for="opt-defending">Defending main city</label>  
+		  </td></tr>
+		  <tr><td>
+		  <input class="battle-type" type="radio" id="opt-reinforcing"
 		   name="battle-type" value="reinforcing">
 		  <label for="opt-reinforcing">Reinforcing another city</label>
-		  
-		  <input type="radio" id="opt-occupying"
+		  </td></tr>
+		  <tr><td> 
+		  <input class="battle-type" type="radio" id="opt-occupying"
 		   name="battle-type" value="occupying">
 		  <label for="opt-occupying">Defending a building</label>
+		  </td></tr>
+		  </table>
 	  </fieldset>
 	</div>
 
-	<div class="container" style="margin:1% 0% 0% 0%; font: sans-serif">
+	<div class="container stats-title">
 	BUFF
 	</div>
 	<div class="container">
@@ -285,7 +231,7 @@
 		</div>
 	</div>
 	
-	<div class="container"  style="margin:1% 0% 0% 0%; font: sans-serif">
+	<div class="container stats-title">
 	DEBUFF
 	</div>
 	<div class="container">
