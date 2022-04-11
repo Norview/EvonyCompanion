@@ -1,3 +1,7 @@
+// File: general_configurator.js
+//
+// The GUI for general configuration
+
 var equipments = null;
 var sets = null;
 
@@ -20,7 +24,8 @@ const c_starring_max = 2;
 var general = new General();
 
 // The general in comparison
-var generals = [];
+const c_maxGenerals = 3;
+var generalSet = new GeneralSet(c_maxGenerals);
 
 const buffNumShades = [
     "#52be80",
@@ -89,9 +94,13 @@ function updateMaterialRow(lvl, mats){
     });
 }
 
+function getBattleType(){
+	return $("input[name='battle-type']:checked").val();
+}
+
 function updateStats() {
     // 1. Get battle type
-    var battleType = $("input[name='battle-type']:checked").val();
+    var battleType = getBattleType();
     
     // 2. Calculate and update the buffs
     var buffs = general.getBuffs(battleType, c_starring_equipped);
@@ -205,6 +214,7 @@ function configureUI(reposOnly){
     
     if (!reposOnly){
         configureBattleTypeSelector();
+        enableCompareButton();
     }
 }
 
@@ -248,7 +258,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         var isStretched = !!picLoc.stretched;
         
         const leftBase = isStretched ? 0.23 : 0.18;
-        const rightBase = isStretched ? 0.82 : 0.84;
+        const rightBase = isStretched ? 0.78 : 0.84;
         var top = 0;
         var left = 0;
         switch(type){
@@ -292,10 +302,6 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         
         selector.css("top", topPt);
         selector.css("left", leftPt);
-        
-        // if (isStretched) {
-        //	selector.find("option").css("font-size", "28px");
-        // }
     }
     
     // Reposition its container
@@ -304,7 +310,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     
     // Reposition the "Compare" button
     if (type === "ring") {
-    	var compBtn = $("#add-to-comparison-form button");
+    	var compBtn = findCompareButton();
     	setLocation(compBtn, "compare", picLoc);
     }
     
@@ -386,7 +392,19 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     });
 }
 
+function enableCompareButton(){
+	var compBtn = findCompareButton();
+    compBtn.attr("disabled", false);
+	compBtn.click(function(){ 
+		addGeneral(general);
+	});
+}
+
 // UI component finders
+
+function findCompareButton(){
+	return $("#add-to-comparison-form button");
+}
 
 function findSelector(type){
     return $("#selector-" + type);
@@ -527,4 +545,225 @@ function populateEquipmentDropDownMenu(type) {
     
     console.info("Populated " + count + " equipments of type " + type + ".");
     return true;
+}
+
+/////// Comparison Table ///////
+
+var ctable = null;
+
+function addGeneral(general){
+	var succ = generalSet.add(general.clone());
+	if (succ) {
+	    if (ctable == null) {
+	    	// Initialize the table
+    		ctable = new ComparisonTable();
+    	}
+    	
+    	var battleType = getBattleType();
+    	 
+		// This unfortunately doesn't cover the case when the last slot is filled.
+		var genCount = generalSet.getAll().length;
+		var appendOnly = genCount < c_maxGenerals;
+		if (appendOnly) {
+			ctable.append(general, battleType);
+			console.info("Appended general to the comparison table.");
+		} else {
+			ctable.clearAll();
+			var generals = generalSet.getAll();
+			for (var general of generals) {
+				ctable.append(general, battleType);
+			}
+			
+			console.info("Refreshed all generals in the comparison table.");
+		}
+		
+		if (genCount === 1) {
+			// This is the first one, let's display the view parts.
+			var view = $(".comparison-component");
+			view.css("display", "");
+		}
+	}
+}
+
+// removeGeneral
+// updateGenerals
+
+const entry_class = ".ctentry";
+const entry_index_class_prefix = ".ctentry-";
+const c_buff_row_id_prefix = "ct-buff-";
+const c_debuff_row_id_prefix = "ct-debuff-";
+
+function ComparisonTable(){
+	function initialize(){
+		var equipments = [];
+		var buffs = [];
+		var debuffs = [];
+		var deleteRow = null;
+		var rows = $("#comparison-table tr");
+		if (!!rows){
+			rows.each(function(){
+				var child = $(this);
+				var id = child.attr("id");
+				if (!!id){
+					if (id.startsWith("ct-equipment-")) {
+						equipments.push(child);
+					} else if (id.startsWith(c_buff_row_id_prefix)) {
+						buffs.push(child);
+					} else if (id.startsWith(c_debuff_row_id_prefix)) {
+						debuffs.push(child);
+					} else if (id === "ct-delete-row") {
+						deleteRow = child;
+					}
+				}
+			});
+		}
+	
+		if (buffs.length != 12) {
+			console.warn("Located " + buffs.length + " buff rows in the comparison table instead 12.");
+		}
+		if (debuffs.length != 12) {
+			console.warn("Located " + debuffs.length + " debuff rows in the comparison table instead 12.");
+		}
+		if (equipments.length != 6) {
+			console.warn("Located " + debuffs.length + " equipment rows in the comparison table instead 6.");
+		}
+		if (!deleteRow) {
+			console.warn("Couldn't locate the delete row in the comparison table.");
+		}
+	
+		return {
+			equipments : equipments,
+			buffs : buffs,
+			debuffs : debuffs,
+			deleteRow : deleteRow
+		};
+	}
+	
+	// [C. |F. ](<First 5 Letters>.|<First 6 Letters>) (Last Word)
+	//   - Achae. Sword
+	//   - C. Achae.
+	//   - Plant. Bow
+	function getSimplifiedName(name, type) {
+		var prefix = "";
+		if (name.startsWith("Courageous ")) {
+			name = name.substring("Courageous ".length);
+			prefix = "C. ";
+		} else if (name.startsWith("Fearless ")) {
+			name = name.substring("Fearless ".length);
+			prefix = "F. ";
+		}
+	
+		var index = name.indexOf(" ");
+		if (index <= 6) {
+			// King => King
+			// Dragon => Dragon
+			return prefix + name.substring(0, 6);
+		} else {
+			// Achaemenidae => Achae.
+			var weaponType = "";
+			if (type === "weapon") {
+				var lindex = name.lastIndexOf(" ");
+				weaponType = name.substring(lindex);
+			}
+			
+			name = prefix + name.substring(0, 5) + ".";
+			
+			if (type === "weapon") {
+				name += weaponType;
+			}
+			
+			return name;
+		}
+	}
+	
+	var obj = initialize();
+	
+	this._equipments = obj.equipments;
+	this._buffs = obj.buffs;
+	this._debuffs = obj.debuffs;
+	this._deleteRow = obj.deleteRow;
+	this._index = -1;
+	
+	this.clearAll = function() {
+		if (!!this._deleteRow){
+		 	var entries = this._deleteRow.find(entry_class);
+			entries.remove();
+		}
+		for (var row of this._equipments) {
+			var entries = row.find(entry_class);
+			entries.remove();
+		}
+		for (var row of this._buffs) {
+			var entries = row.find(entry_class);
+			entries.remove();
+		}
+		for (var row of this._debuffs) {
+			var entries = row.find(entry_class);
+			entries.remove();
+		}
+		
+		this._index = -1;
+	};
+	
+	this.append = function(general, scenario){
+		// Add the entry at the next index
+		this._index++;
+		var index = this._index;
+		
+		// 1. Add delete button
+		if (!!this._deleteRow) {
+			// Example:
+			// <th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
+			var btn = $("<th class=\"ctentry ctentry-" + index + "\"><image src=\"./assets/delete.png\" style=\"width:24px\"></th>");
+		 	this._deleteRow.append(btn);
+		}
+		
+		// 2. Add equipment names
+		var eqs = general.getEquipments();
+		for (var i = 0; i < 6; i++) {
+			// Example:
+			// <th class="ctentry ctentry-0">Achae.</th>
+			var eq = eqs[i];
+			var row = this._equipments[i];
+			if (!!row){
+				var name = ""; // Need a placeholder if no equipment is found at this body part.
+				if (!!eq){
+					name = getSimplifiedName(eq.name, eq.type);
+				}
+				
+				var th = $("<th class=\"ctentry ctentry-" + index + "\">" + name + "</th>");
+				row.append(th);
+			}
+		}
+		
+		// 3. Add buffs
+		var buffs = general.getBuffs(scenario, c_starring_max);
+		var offset = c_buff_row_id_prefix.length;
+		addBuffs(this._buffs, offset, buffs, index);
+		
+		var debuffs = general.getDebuffs(scenario, c_starring_max);
+		offset = c_debuff_row_id_prefix.length;
+		addBuffs(this._debuffs, offset, debuffs, index);
+	};
+	
+	function addBuffs(buffRows, offset, buffs, index){
+		for (var buffRow of buffRows) {
+			var id = buffRow.attr("id");
+			// Example: ct-buff-groundAttack-row
+			// Note the part in the middle is same as the property name in buff object
+			var idPart = id.substring(offset); // remove the prefix
+			idPart = idPart.substring(0, idPart.length - 4); // remove the suffix ("-row")
+			var val = buffs[idPart];
+			if (isNaN(val)){
+				val = 0;
+			}
+			
+			var valStr = val + "%";
+			
+			// Example:
+			// <td class="ctentry ctentry-0">15%</td>
+			var td = $("<td class=\"ctentry ctentry-" + index + "\">" + valStr + "</td>");
+		 	buffRow.append(td);
+		}
+	}
 }

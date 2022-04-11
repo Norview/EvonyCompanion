@@ -1,3 +1,9 @@
+// File: general.js
+//
+// Defines a data model to represent a general.
+// For now, this is only used for the equipment configurator, so it only contains equipments (starred) and the animal.
+// In the future, will expand this to contain general identity, specialties, skills, the level, etc.
+
 /////////// Private //////////
 
 // Used by _toEquipmentIndex()
@@ -90,8 +96,8 @@ function _toMaterialIndex(matName){
 
 function General(){
 	this._animal = null;
-    this._equipments = [];
-    this._stars = [];
+    this._equipments = [null, null, null, null, null, null];
+    this._stars = [0, 0, 0, 0, 0, 0];
 }
 
 General.prototype.clone = function(){
@@ -99,13 +105,18 @@ General.prototype.clone = function(){
 	
 	another._animal = this._aminal;
 	
+	// Must copy each element faithfully. 
+    // Using "for ... of" would be problematic as it will end at the last element.
+    	
     another._equipments = [];
-    for (eq of this._equipments) {
+    for (var index = 0; index < 6; index++) {
+    	var eq = this._equipments[index];
     	another._equipments.push(eq);
     }
     
     another._stars = [];
-    for (star of this._stars) {
+    for (var index = 0; index < 6; index++) {
+    	var star = this._stars[index];
     	another._stars.push(star);
     }
     
@@ -125,6 +136,77 @@ General.prototype.setEquipment = function(type, equipment, countOfStars) {
 }
     
 ///////// Getters /////////
+
+// Get the equipments
+General.prototype.getEquipments = function() {
+	var equipments = [];
+    for (var index = 0; index < 6; index++) {
+    	var eq = this._equipments[index];
+    	equipments.push(eq);
+    }
+    
+	return equipments;
+}
+
+// Get a string key that represents the current equipment combination.
+//
+// - includeAnimal: if true, also includes the animal
+// - starring: if given a valid value, also includes the stars
+//
+// Returns a string of format ((<eqName>|null)(\(<eqStars>\))?}/){6}{animalName}
+//
+// Examples:
+// (1) getStringKey()
+//     (Do not include animal; do not use stars) 
+//     => "Ares Bow/Ares Armor/.../Ares Ring"
+// (2) getStringKey(true, c_starring_equipped)
+//     (Include animal; use assigned stars)
+//     => "Ares Bow(3)/Ares Armor(4)/.../Fafnir"
+General.prototype.getStringKey = function(includeAnimal, starring) {
+	var useMinStars = starring === c_starring_min;
+	var useActualStars = starring === c_starring_equipped;
+	var useMaxStars = starring === c_starring_max;
+			
+	var key = "";
+    for (eq of this._equipments) {
+    	if (!!eq){
+    		key += eq.name;
+			
+			var stars = -1;
+			if (useMinStars){
+				stars = 0;
+			} else if (useMaxStars){
+				stars = 5;
+			} else if (useActualStars) {
+				var index = _toEquipmentIndex(eq.type);
+				stars = this._stars[index];
+				if (isNaN(stars)){
+					stars = 0;
+				}
+			}
+			
+			if (stars > -1){
+				key += "(";
+				key += stars;
+				key += ")";
+			}
+			
+			key += "/";
+    	} else {
+    		key += "null/";
+    	}
+    }
+    
+    if (!!includeAnimal){
+    	if (!!this._animal){
+    		key += this._animal.name;
+    	} else {
+    		key += "null";
+    	}
+    }
+    
+	return key;
+}
 
 // Returns an object that represents the count of materials of each type, at different levels.
 // So far, we only support level 6 and 7 materials.
@@ -164,7 +246,12 @@ General.prototype.getMaterials = function() {
 	
 	return materials;
 }
-    
+
+// Returns a buffs object that contains debuff value for each of 12 debuff categories (Enemy G/M/R/S * A/D/HP).
+General.prototype.getDebuffs = function(scenario, starring) {
+	return this.getBuffs(c_scenario_debuffing);
+}
+
 // Returns a buffs object that contains buff value for each of 12 buff categories (G/M/R/S * A/D/HP).
 General.prototype.getBuffs = function(scenario, starring) {
 	// Routine: find an element by absolute equality from the array.

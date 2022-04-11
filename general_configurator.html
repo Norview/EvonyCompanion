@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
     <script src="./lib/jquery-3.6.0.min.js"></script>
     <script src="./scripts/general.js"></script>
+    <script src="./scripts/generalset.js"></script>
     <script src="./scripts/general_configurator.js"></script>
     <script>
 		$(document).ready(function() {
@@ -92,7 +93,7 @@
 			 </select>  
 		   </form>
 		   <form id="add-to-comparison-form"> 
-			 <button type="button" style="top:62%; left:66%;">
+			 <button type="button" disabled="true" style="top:62%; left:66%;">
 			 	<image src="../assets/add.png"/>
 			 	<span>Compare</span>
 			 </button>   
@@ -282,78 +283,156 @@
 		</div>
 	</div>
 	
-	<div style="height:30px; margin: 2% 0% 0% 0%">
+	<div class="comparison-component" style="display:none; height:30px; margin: 2% 0% 0% 0%">
 	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
 	</div>
-	<div class="container stats-title" style="margin-top: 0%; margin-bottom: 1%">
-	COMPARISON
+	<div class="container stats-title comparison-component" style="display:none; margin-top: 0%; margin-bottom: 1%">
+	COMPARISON OF COMBINATIONS
 	</div>
-	<div class="container">
+	<div class="container comparison-component" style="display:none;">
     	<div id="comparison-table" class="buff-table">
 		 <table>
-		  <tr>
-			<th></th>
-			<th><image src="./assets/delete.png" style="width:24px"></th>
-			<th><image src="./assets/delete.png" style="width:24px"></th>
-			<th><image src="./assets/delete.png" style="width:24px"></th>
-			<th><image src="./assets/delete.png" style="width:24px"></th>
+		  <tr id="ct-delete-row">
+			<th colspan="2"></th><!-- fixed -->
+			<!-- ->
+			<th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
+			<th class="ctentry ctentry-1"><image src="./assets/delete.png" style="width:24px"></th>
+			<th class="ctentry ctentry-2"><image src="./assets/delete.png" style="width:24px"></th>
+			<th class="ctentry ctentry-3"><image src="./assets/delete.png" style="width:24px"></th>
+			<!- -->
 		  </tr>
-		  <tr>
-			<th></th>
-			<th>Achae./Ares/<br>Ares/Achae./<br>Plant./Plant.</th>
-			<th class="grey">Achae./Ares/<br>Ares/Achae./<br>Plant./Plant.</th>
-			<th>Achae./Ares/Ares/<br>Achae./Plant./Plant.</th>
-			<th class="grey">Achae./Ares/Ares/<br>Achae./Plant./Plant.</th>
+		  <tr id="ct-equipment-weapon-row" >
+			<th colspan="2">Weapon</th><!-- fixed -->
+			<!--
+			<th class="ctentry ctentry-0">Achae.</th>
+			<th class="ctentry ctentry-1">Ares</th>
+			<th class="ctentry ctentry-2">Achae.</th>
+			<th class="ctentry ctentry-3">Plant.</th>
+			-->
 		  </tr>
-		  <tr> 
-			<td>Ground Att.</td>
-			<td>20%</td>
-			<td>10%</td>
-			<td>30%</td>
-			<td>5%</td>
+		  <tr id="ct-equipment-armor-row" class="grey">
+			<th colspan="2">Armor</th><!-- fixed -->
 		  </tr>
-		  <tr> 
-			<td>Ground Def.</td>
-			<td>20%</td>
-			<td>10%</td>
-			<td>30%</td>
-			<td>5%</td>
-		  </tr>	 
-		  <tr> 
-			<td>Ground HP</td>
-			<td>20%</td>
-			<td>10%</td>
-			<td>30%</td>
-			<td>5%</td>
-		  </tr>	 
-		  <tr> 
-		    <td>Mounted Att.</td>
-			<td>20%</td>
-			<td>10%</td>
-			<td>30%</td>
-			<td>5%</td>
+		  <tr id="ct-equipment-boots-row">
+			<th colspan="2">Boots</th><!-- fixed -->
 		  </tr>
-		  <tr> 
-			<td>Mounted Def.</td>
-			<td>20%</td>
-			<td>10%</td>
-			<td>30%</td>
-			<td>5%</td>
-		  </tr>	 
-		  <tr> 
-			<td>Mounted HP</td>
-			<td>20%</td>
-			<td>10%</td>
-			<td>30%</td>
-			<td>5%</td>
-		  </tr>			  
+		  <tr id="ct-equipment-helmet-row" class="grey">
+			<th colspan="2">Helmet</th><!-- fixed -->
+		  </tr>
+		  <tr id="ct-equipment-legarmor-row">
+			<th colspan="2">Leg Armor</th><!-- fixed -->
+		  </tr>
+		  <tr id="ct-equipment-ring-row" class="grey">
+			<th colspan="2">Ring</th><!-- fixed -->
+		  </tr>
 		  
+		  <tr id="ct-buff-groundAttack-row"> 
+			<td rowspan="3">Ground</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-buff-groundDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-buff-groundHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 		  
+		  <tr id="ct-buff-mountedAttack-row"> 
+	        <td rowspan="3">Mounted</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-buff-mountedDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-buff-mountedHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 		  
+		  <tr id="ct-buff-rangedAttack-row"> 
+	        <td rowspan="3">Ranged</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-buff-rangedDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-buff-rangedHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>			  
+		  <tr id="ct-buff-siegeAttack-row"> 
+	        <td rowspan="3">Siege</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-buff-siegeDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-buff-siegeHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	
+		  
+		  <tr id="ct-debuff-groundAttack-row"> 
+			<td rowspan="3">Enemy<br>Ground</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-debuff-groundDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-debuff-groundHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 		  
+		  <tr id="ct-debuff-mountedAttack-row"> 
+	        <td rowspan="3">Enemy<br>Mounted</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-debuff-mountedDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-debuff-mountedHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 		  
+		  <tr id="ct-debuff-rangedAttack-row"> 
+	        <td rowspan="3">Enemy<br>Ranged</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-debuff-rangedDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-debuff-rangedHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>			  
+		  <tr id="ct-debuff-siegeAttack-row"> 
+	        <td rowspan="3">Enemy<br>Siege</td><!-- fixed -->
+			<td>Att.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>
+		  <tr id="ct-debuff-siegeDefense-row"> 
+			<td>Def.</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>	 
+		  <tr id="ct-debuff-siegeHp-row"> 
+			<td>HP</td><!-- fixed -->
+			<!-- Add here -->
+		  </tr>			  
 		 </table>    
 		</div>
 	</div>
    </body>
 </html>
-
-
-
-
