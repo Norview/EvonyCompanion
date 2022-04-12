@@ -62,3 +62,22 @@ GeneralSet.prototype.remove = function(index) {
 
 	return false;
 };
+
+// Remove the given general.
+// Returns true if successfully removed. False mostly likely indicates absence of the general.
+GeneralSet.prototype.removeExact = function(general) {
+	var key = _getKey(general);
+	if (!!key) {
+		for (var i = 0; i < this._generals.length; i++) {
+			var gen = this._generals[i];
+			if (_getKey(gen) === key) {
+				// Remove it.
+				this._generals.splice(i, 1);
+				this._genSet.delete(key);
+				return true;
+			}
+		}
+	}
+	
+	return false;
+};

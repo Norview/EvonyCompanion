@@ -449,6 +449,7 @@ function configureBattleTypeSelector() {
                 var btype = radBtn.val();
                 console.log("Selected new battle type: " + radBtn.val());
                 updateStats();
+                updateGenerals();
             }
         });
      });
@@ -552,7 +553,10 @@ function populateEquipmentDropDownMenu(type) {
 var ctable = null;
 
 function addGeneral(general){
-	var succ = generalSet.add(general.clone());
+	// Create and insert a replica. Through the end we should only refer to the replica.
+	var generalRep = general.clone();
+	var succ = generalSet.add(generalRep);
+	
 	if (succ) {
 	    if (ctable == null) {
 	    	// Initialize the table
@@ -565,13 +569,13 @@ function addGeneral(general){
 		var genCount = generalSet.getAll().length;
 		var appendOnly = genCount < c_maxGenerals;
 		if (appendOnly) {
-			ctable.append(general, battleType);
+			ctable.append(generalRep, battleType);
 			console.info("Appended general to the comparison table.");
 		} else {
 			ctable.clearAll();
 			var generals = generalSet.getAll();
-			for (var general of generals) {
-				ctable.append(general, battleType);
+			for (var gen of generals) {
+				ctable.append(gen, battleType);
 			}
 			
 			console.info("Refreshed all generals in the comparison table.");
@@ -585,21 +589,58 @@ function addGeneral(general){
 	}
 }
 
-// removeGeneral
-// updateGenerals
+function removeGeneral(index, general) {
+	if (!ctable) {
+		return;
+	}
+	
+	var succ = generalSet.removeExact(general);
+	if (succ) {
+		ctable.remove(index);
+	}
+	
+	var genCount = generalSet.getAll().length;
+	if (genCount < 1) {
+		// That was the last one, let's hide the view parts.
+		var view = $(".comparison-component");
+		view.css("display", "none");
+	}
+}
+
+function updateGenerals(){
+	if (!ctable) {
+		return;
+	}
+	
+	var battleType = getBattleType();
+	ctable.updateAll(battleType);
+}
+
+const c_comparison_table = "#comparison-table";
+const c_comparison_table_delete_row = "#ct-delete-row";
 
 const entry_class = ".ctentry";
-const entry_index_class_prefix = ".ctentry-";
+const _entry_index_class_prefix = "ctentry-";
+const entry_index_class_prefix = "." + _entry_index_class_prefix;
 const c_buff_row_id_prefix = "ct-buff-";
 const c_debuff_row_id_prefix = "ct-debuff-";
 
+const c_data_general_obj = "data_general";
+const c_data_index_num = "data_index";
+
 function ComparisonTable(){
+
+	// Locate all the display rows and cache them.
+	//   - 1 delete button
+	//   - 6 equipments
+	//   - 12 buff values
+	//   - 12 debuff values
 	function initialize(){
 		var equipments = [];
 		var buffs = [];
 		var debuffs = [];
 		var deleteRow = null;
-		var rows = $("#comparison-table tr");
+		var rows = $(c_comparison_table + " tr");
 		if (!!rows){
 			rows.each(function(){
 				var child = $(this);
@@ -643,6 +684,9 @@ function ComparisonTable(){
 	//   - Achae. Sword
 	//   - C. Achae.
 	//   - Plant. Bow
+	// WARNING: Can handle English text only. 
+	// This code needs to be refactored if we decide to add multiple language support.
+	// Most likely, we will just add a shortened name to the data.
 	function getSimplifiedName(name, type) {
 		var prefix = "";
 		if (name.startsWith("Courageous ")) {
@@ -676,6 +720,51 @@ function ComparisonTable(){
 		}
 	}
 	
+	function getBuffValFromBuffRow(buffRow, buffs, isBuff){
+		var offset = isBuff ? c_buff_row_id_prefix.length : c_debuff_row_id_prefix.length;
+		var id = buffRow.attr("id");
+		// Example: ct-buff-groundAttack-row
+		// Note the part in the middle is same as the property name in buff object
+		var idPart = id.substring(offset); // remove the prefix
+		idPart = idPart.substring(0, idPart.length - 4); // remove the suffix ("-row")
+		var val = buffs[idPart];
+		if (isNaN(val)){
+			val = 0;
+		}
+			
+		var valStr = val + "%";
+		return valStr;
+	}
+	
+	// Populate the column for (de)buff properties
+	function addBuffs(buffRows, isBuff, buffs, index){
+		for (var buffRow of buffRows) {
+			var valStr = getBuffValFromBuffRow(buffRow, buffs, isBuff);
+			
+			// Example:
+			// <td class="ctentry ctentry-0">15%</td>
+			var td = $("<td class=\"ctentry ctentry-" + index + "\">" + valStr + "</td>");
+		 	buffRow.append(td);
+		}
+	}
+	
+	function updateBuffs(buffRows, columns, isBuff) {
+		var propName = isBuff ? "buffs" : "debuffs";
+		// Update per row
+		for (var buffRow of buffRows) {
+			var tds = buffRow.find(entry_class);
+			tds.each(function(_index){
+				var td = $(this);
+				var column = columns[_index];
+				
+				// Update the value
+				var buffs = column[propName];
+				var buffValStr = getBuffValFromBuffRow(buffRow, buffs, isBuff);
+				td.text(buffValStr);
+			});
+		}
+	}
+	
 	var obj = initialize();
 	
 	this._equipments = obj.equipments;
@@ -683,6 +772,30 @@ function ComparisonTable(){
 	this._debuffs = obj.debuffs;
 	this._deleteRow = obj.deleteRow;
 	this._index = -1;
+	
+	this.updateAll = function(scenario) {
+		var delHeaders = this._deleteRow.find(entry_class);
+		// var delHeaders = $(c_comparison_table_delete_row + " " + entry_class);
+		
+		// Each contains the index of the column and the buffs objects
+		var columns = [];
+		
+		// Locate each general on the row
+		delHeaders.each(function(){
+			var header = $(this);
+			var general = header.data(c_data_general_obj);
+			
+			columns.push({
+				// index: index,
+				buffs: general.getBuffs(scenario, c_starring_max),
+				debuffs: general.getDebuffs(scenario, c_starring_max)
+			});
+		});
+		
+		// Update
+		updateBuffs(this._buffs, columns, true);
+		updateBuffs(this._debuffs, columns, false);
+	};
 	
 	this.clearAll = function() {
 		if (!!this._deleteRow){
@@ -705,17 +818,34 @@ function ComparisonTable(){
 		this._index = -1;
 	};
 	
+	this.remove = function(index){
+		var cells = $(c_comparison_table + " " + entry_index_class_prefix + index);
+		cells.remove();
+		
+		// No need to update index for the following columns. Their event handlers 
+		// will still work, as they keep referring to the original index.
+	};
+	
 	this.append = function(general, scenario){
 		// Add the entry at the next index
 		this._index++;
 		var index = this._index;
 		
-		// 1. Add delete button
+		// 1. Add delete button, which is also used as the data bearer.
 		if (!!this._deleteRow) {
 			// Example:
 			// <th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
 			var btn = $("<th class=\"ctentry ctentry-" + index + "\"><image src=\"./assets/delete.png\" style=\"width:24px\"></th>");
 		 	this._deleteRow.append(btn);
+		 	
+		 	// Add handler
+		 	btn.click(function(){
+				removeGeneral(index, general);
+			});
+			
+			// Attach the metadata
+			btn.data(c_data_general_obj, general);
+			// btn.data(c_data_index_num, index);
 		}
 		
 		// 2. Add equipment names
@@ -738,32 +868,9 @@ function ComparisonTable(){
 		
 		// 3. Add buffs
 		var buffs = general.getBuffs(scenario, c_starring_max);
-		var offset = c_buff_row_id_prefix.length;
-		addBuffs(this._buffs, offset, buffs, index);
+		addBuffs(this._buffs, true, buffs, index);
 		
 		var debuffs = general.getDebuffs(scenario, c_starring_max);
-		offset = c_debuff_row_id_prefix.length;
-		addBuffs(this._debuffs, offset, debuffs, index);
+		addBuffs(this._debuffs, false, debuffs, index);
 	};
-	
-	function addBuffs(buffRows, offset, buffs, index){
-		for (var buffRow of buffRows) {
-			var id = buffRow.attr("id");
-			// Example: ct-buff-groundAttack-row
-			// Note the part in the middle is same as the property name in buff object
-			var idPart = id.substring(offset); // remove the prefix
-			idPart = idPart.substring(0, idPart.length - 4); // remove the suffix ("-row")
-			var val = buffs[idPart];
-			if (isNaN(val)){
-				val = 0;
-			}
-			
-			var valStr = val + "%";
-			
-			// Example:
-			// <td class="ctentry ctentry-0">15%</td>
-			var td = $("<td class=\"ctentry ctentry-" + index + "\">" + valStr + "</td>");
-		 	buffRow.append(td);
-		}
-	}
 }
