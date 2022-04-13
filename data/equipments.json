@@ -1,33 +1,33 @@
 {
   "equipments": [
-       {
-          "name": "Courageous Dragon Helmet",
+  	   {
+          "name": "Fearless King's Helmet",
           "type": "helmet",
           "condition": {
               "building": "forge",
-              "level": 27,
-              "scroll": "Dragon Helmet Scroll",
+              "level": 26,
+              "scroll": "King's Helmet Scroll",
               "base": null
           },
           "cost": [ 
               {
-                "name": "agate",
-                "level": 7,
+                "name": "bluestone",
+                "level": 6,
                 "quantity": 15
               },
               {
-                "name": "iron",
-                "level": 7,
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
                 "quantity": 15
               },
               {
                 "name": "bronze",
-                "level": 7,
-                "quantity": 15
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
+                "level": 6,
                 "quantity": 15
               }
           ],
@@ -36,61 +36,54 @@
                   "condition": [],
                   "troop": ["ground"],
                   "type": "attack",
-                  "value": 15,
+                  "value": 12,
                   "rate": 1
               },
               {
                   "condition": [],
                   "troop": ["siege"],
                   "type": "defense",
-                  "value": 15,
-                  "rate": 1
-              },
-              {
-                  "condition": ["in-city"],
-                  "troop": ["ground"],
-                  "type": "defense",
-                  "value": 5,
+                  "value": 12,
                   "rate": 1
               },
               {
                   "condition": [],
                   "troop": ["ground"],
-                  "type": "defense",
-                  "value": 15,
+                  "type": "hp",
+                  "value": 12,
                   "rate": 1
               }
           ],
-          "set": "Dragon"
+          "set": "King"
        },
-       {
-          "name": "Fearless Dragon Helmet",
+	   {
+          "name": "Courageous King's Helmet",
           "type": "helmet",
           "condition": {
               "building": "forge",
-              "level": 27,
-              "scroll": "Dragon Helmet Scroll",
+              "level": 26,
+              "scroll": "King's Helmet Scroll",
               "base": null
           },
           "cost": [ 
               {
-                "name": "agate",
-                "level": 7,
+                "name": "bluestone",
+                "level": 6,
                 "quantity": 15
               },
               {
-                "name": "iron",
-                "level": 7,
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
                 "quantity": 15
               },
               {
                 "name": "bronze",
-                "level": 7,
-                "quantity": 15
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
+                "level": 6,
                 "quantity": 15
               }
           ],
@@ -99,33 +92,1374 @@
                   "condition": [],
                   "troop": ["mounted"],
                   "type": "hp",
-                  "value": 15,
+                  "value": 12,
                   "rate": 1
               },
               {
                   "condition": [],
                   "troop": ["siege"],
                   "type": "attack",
-                  "value": 15,
-                  "rate": 1
-              },
-              {
-                  "condition": ["marching"],
-                  "troop": ["siege"],
-                  "type": "defense",
-                  "value": 5,
+                  "value": 12,
                   "rate": 1
               },
               {
                   "condition": [],
                   "troop": ["ranged"],
                   "type": "attack",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Fearless King's Armor",
+          "type": "armor",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	  {
+          "name": "Courageous King's Armor",
+          "type": "armor",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Fearless King's Leg Armor",
+          "type": "legarmor",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "purplecrystal",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Courageous King's Leg Armor",
+          "type": "legarmor",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "purplecrystal",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Fearless King's Boots",
+          "type": "boots",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "redagate",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "bronze",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Courageous King's Boots",
+          "type": "boots",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "redagate",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "bronze",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 12,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 12,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Fearless King's Ring",
+          "type": "ring",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Ring Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "silverpearl",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "bronze",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 16,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "Courageous King's Ring",
+          "type": "ring",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Ring Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "silverpearl",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "bronze",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 16,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "King's Bow",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Bow Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "King's Spear",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Spear Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "King's Axe",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Axe Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 1
+              }
+          ],
+          "set": "King"
+       },
+	   {
+          "name": "King's Sword",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Sword Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "load",
                   "value": 15,
                   "rate": 1
               }
           ],
-          "set": "Dragon"
+          "set": "King"
        },
+       
+       {
+			"name": "Courageous Dragon Helmet",
+			"type": "helmet",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Helmet Scroll",
+				"base": null
+			},
+			"cost": [
+				{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bluestone",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "attack",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["Siege"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 5,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Fearless Dragon Helmet",
+			"type": "helmet",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Helmet Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bluestone",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["siege"],
+					"type": "defense",
+					"value": 5,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 15,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Courageous Dragon Armor",
+			"type": "armor",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Armor Scroll",
+				"base": null
+			},
+			"cost": [
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "leather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 5,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Fearless Dragon Armor",
+			"type": "armor",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Armor Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "feather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "leather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 5,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Courageous Dragon Leg Armor",
+			"type": "legarmor",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Leg Armor Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "dragon scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "pearl",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 5,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["siege"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Fearless Dragon Leg Armor",
+			"type": "legarmor",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Leg Armor Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "pearl",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "defence",
+					"value": 5,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Courageous Dragon Boots",
+			"type": "boots",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Boots Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "leather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defence",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 5,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Fearless Dragon Boots",
+			"type": "boots",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Boots Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "leather",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defence",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 5,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Fearless Dragon Ring",
+			"type": "ring",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Ring Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bluestone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "attack",
+					"value": 18,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "HP",
+					"value": 18,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Courageous Dragon Ring",
+			"type": "ring",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Ring Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bluestone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+				"condition": [],
+				"troop": ["siege"],
+				"type": "attack",
+				"value": 18,
+				"rate": 1
+			}],
+			"set": "Dragon"
+		},
+		{
+			"name": "Dragon Bow",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Bow Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 25,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 6,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Dragon Spear",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Spear Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 25,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ranged"],
+					"type": "defence",
+					"value": 5,
+					"rate": 1
+				},
+				{
+					"condition": ["attaking"],
+					"troop": ["siege"],
+					"type": "defence",
+					"value": 20,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Dragon Axe",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Axe Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 25,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 6,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defence",
+					"value": 20,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+		},
+		{
+			"name": "Dragon Sword",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 27,
+				"scroll": "Dragon Axe Scroll",
+				"base": null
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 15
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 15
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["gound"],
+					"type": "attack",
+					"value": 25,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ground"],
+					"type": "defence",
+					"value": 5,
+					"rate": 1
+				}
+			],
+			"set": "Dragon"
+	   },
+
        {
           "name": "Courageous Achaemenidae Helmet",
           "type": "helmet",
@@ -625,6 +1959,39 @@
        }
   ],
   "sets": [
+      {
+        "name": "King",
+        "attributes": [
+              {
+                  "pieces": 4,
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 10
+              },
+              {
+                  "pieces": 4,
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 10
+              },
+              {
+                  "pieces": 6,
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 10
+              },
+              {
+                  "pieces": 6,
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 10
+              }
+          ]
+    },
     {
         "name": "Dragon",
         "attributes": [

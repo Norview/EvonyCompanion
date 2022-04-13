@@ -1,1 +1,1 @@
-A suite of applications to faciliate gameplay of Evony ROTK.
+A suite of applications to facilitate gameplay of Evony TKR.

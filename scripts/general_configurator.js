@@ -25,7 +25,7 @@ const c_starring_max = 2;
 var general = new General();
 
 // The general in comparison
-const c_maxGenerals = 3;
+const c_maxGenerals = 4;
 var generalSet = new GeneralSet(c_maxGenerals);
 
 const buffNumShades = [
