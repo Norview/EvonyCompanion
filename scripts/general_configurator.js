@@ -2,6 +2,7 @@
 //
 // The GUI for general configuration
 
+// The equipment data, deserialized
 var equipments = null;
 var sets = null;
 
@@ -40,15 +41,14 @@ const buffRanges = buffNumShades.length - 1;
 const buffRangeSize = 20;
 const debuffRangeSize = 20;
 
-// Set buff number to a buff column. Apply color and font weight accordingly.
-function updateBuffColumn(buffCols, index, value){
-    var col = buffCols[index];
-    col.textContent = value + "%";
+// For a given buff number, get the styling info.
+function getBuffDeco(func, value){
     if (value < 0) {
-        value = -value;
+        value = -value; // A debuff value
     }
     
-    var color = (index >= 3 && index <=5 ||  index >= 9 && index <= 11) ? "#d0d0d0" : "#f0f0f0";
+    var range = 0;
+    var color = !!func() ? "#d0d0d0" : "#f0f0f0";
     if (value > 0) {
         var range = Math.floor(value / buffRangeSize);
         if (range > buffRanges) {
@@ -58,8 +58,23 @@ function updateBuffColumn(buffCols, index, value){
         color = buffNumShades[range];
     }
     
-    col.style.color = color;
-    if (range == buffRanges) {
+    return {
+    	color: color,
+    	isMax: range === buffRanges
+    }
+}
+
+// Set buff number to a buff column. Apply color and font weight accordingly.
+function updateBuffColumn(buffCols, index, value){
+    var col = buffCols[index];
+    col.textContent = value + "%";
+    
+    var deco = getBuffDeco(function(){
+    	return index >= 3 && index <=5 ||  index >= 9 && index <= 11;
+    }, value);
+    
+    col.style.color = deco.color;
+    if (!!deco.isMax) {
         col.style.fontWeight = "bold";
     }
 }
@@ -111,7 +126,7 @@ function updateStats() {
     updateBuffTable(debuffs, false);
     
     // 4. Materials
-    var materials = general.getMaterials();
+    var materials = general.getMaterials(true);
     updateMaterialTable(materials);
 }
 
@@ -134,7 +149,24 @@ function initialize() {
             if (!!s) {
                 equipment.set = s;
             } else {
-                console.warn("Equipment " + equipment.name + "'s set doesn't exist.");
+                console.warn("Equipment " + equipment.name + "'s set '" + equipment.set + "' doesn't exist.");
+            }
+            
+            var setBase = false;
+            var bn = equipment.condition.base;
+            if (!!bn) {
+            	var b = equipments[bn];
+            	if (!!b) {
+					equipment.condition.base = b;
+					setBase = true;
+				} else {
+					console.warn("Equipment " + equipment.name + "'s base '" + bn + "' doesn't exist.");
+				}
+            }
+            
+            if (!setBase) {
+            	// Sanitize this property
+            	equipment.condition.base = null;
             }
         }
 
@@ -214,7 +246,7 @@ function configureUI(reposOnly){
     
     if (!reposOnly){
         configureBattleTypeSelector();
-        enableCompareButton();
+        configureCompareButton();
     }
 }
 
@@ -298,10 +330,64 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         var topPt = Math.floor(topRatio) + "%";
         var leftPt = Math.floor(leftRatio) + "%";
         
-        console.info("Set postion for " + type + " - left: " + leftPt + "; top: " + topPt);
+        // console.info("Set position for " + type + " - left: " + leftPt + "; top: " + topPt);
         
         selector.css("top", topPt);
         selector.css("left", leftPt);
+    }
+    
+    function getSetColor(setName) {
+    	setName = setName.trim().toLowerCase();
+    	switch (setName) {
+    	case "king": return "#fcf403";
+    	case "dragon": return "#fcba03";
+    	case "ares": return "#fc6b03";
+    	case "achaemenidae": return "#fc2403";
+    	default: // Civilization use the same color. Not ideal as they belong to different sets.
+    		return "#c603fc";
+    	}
+    }
+    
+    function updateSets() {
+    	// Collect pieces by set
+    	var map = new Map();
+    	for (var eq of general.getEquipments()) {
+    		if (!!eq) {
+    			var setName = eq.set.name;
+    			if (!map.has(setName)) {
+    				map.set(setName, []);
+    			}
+    			
+    			map.get(setName).push(eq);
+    		}
+    	}
+    	
+    	var allTypes = new Set();
+    	allTypes.add("weapon");
+    	allTypes.add("armor");
+    	allTypes.add("boots");
+    	allTypes.add("helmet");
+    	allTypes.add("legarmor");
+    	allTypes.add("ring");
+    	
+    	map.forEach(function(value, key) {
+    		if (!!value && value.length >= 2) {
+    			// Minimal set requirement met
+    			var color = getSetColor(key);
+    			for (var eq of value) {
+    				var type = eq.type;
+    				var selector = findSelector(type);
+    				selector.css("border", "2px solid " + color + "");
+    				allTypes.delete(type);
+    			}
+    		}
+    	});
+    	
+    	allTypes.forEach(function(value) {
+    		// Minimal set requirement not met
+    		var selector = findSelector(value);
+    		selector.css("border", "2px solid blue");
+    	});
     }
     
     // Reposition its container
@@ -343,7 +429,11 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         
         logChange(!!eq ? eq.name : "", count);
         
+        tryEnableCompareButton(general);
+        
         updateStats();
+        
+        updateSets();
     });
     
     // (2) Stars
@@ -392,11 +482,28 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     });
 }
 
-function enableCompareButton(){
+// The "Compare" button
+
+function disableCompareButton(btn){
+    btn.attr("disabled", true);
+    btn.css("background-color", "grey");
+    btn.css("color", "#d0d0d0");
+    btn.find("img").attr("src", "../assets/add_disabled.png");
+}
+
+function enableCompareButton(btn){
+    btn.attr("disabled", false);
+    btn.css("background-color", "");
+    btn.css("color", "");
+    btn.find("img").attr("src", "../assets/add.png");
+}
+
+function configureCompareButton(){
 	var compBtn = findCompareButton();
-    compBtn.attr("disabled", false);
-	compBtn.click(function(){ 
+	disableCompareButton(compBtn);
+	compBtn.click(function(){
 		addGeneral(general);
+		disableCompareButton(compBtn);
 	});
 }
 
@@ -552,6 +659,28 @@ function populateEquipmentDropDownMenu(type) {
 
 var ctable = null;
 
+// Enable "Compare" button if 
+// (1) we have at least one piece of equipment.
+// (2) the combination is not found in the set.
+// Otherwise, disable it instead.
+function tryEnableCompareButton(general){
+	var equipped = false;
+	var eqs = general.getEquipments();
+	for (var eq of eqs) {
+		if (!!eq) {
+			equipped = true;
+			break;
+		}
+	}
+
+	var compBtn = findCompareButton();
+	if (equipped && !generalSet.has(general)){
+		enableCompareButton(compBtn);
+	} else {
+		disableCompareButton(compBtn);
+	}
+}
+
 function addGeneral(general){
 	// Create and insert a replica. Through the end we should only refer to the replica.
 	var generalRep = general.clone();
@@ -605,6 +734,8 @@ function removeGeneral(index, general) {
 		var view = $(".comparison-component");
 		view.css("display", "none");
 	}
+	
+	tryEnableCompareButton(window.general);
 }
 
 function updateGenerals(){
@@ -720,7 +851,11 @@ function ComparisonTable(){
 		}
 	}
 	
-	function getBuffValFromBuffRow(buffRow, buffs, isBuff){
+	// Returns the info on the buff that should be put into the given row
+	//  - buffRow has an id of ct-(de)buff-{buffType}-row
+	//  - buffs has a property of name {buffType}
+	// So this function is able to find the property corresponding to this row.
+	function getBuffInfoForRow(buffRow, buffs, isBuff){
 		var offset = isBuff ? c_buff_row_id_prefix.length : c_debuff_row_id_prefix.length;
 		var id = buffRow.attr("id");
 		// Example: ct-buff-groundAttack-row
@@ -729,22 +864,41 @@ function ComparisonTable(){
 		idPart = idPart.substring(0, idPart.length - 4); // remove the suffix ("-row")
 		var val = buffs[idPart];
 		if (isNaN(val)){
-			val = 0;
+			val = 0;		
+			if (!idPart){
+				idPart = "";
+			}
 		}
-			
-		var valStr = val + "%";
-		return valStr;
+
+		return {
+			value : val,
+			type : idPart
+		};
 	}
 	
 	// Populate the column for (de)buff properties
 	function addBuffs(buffRows, isBuff, buffs, index){
 		for (var buffRow of buffRows) {
-			var valStr = getBuffValFromBuffRow(buffRow, buffs, isBuff);
+			var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
 			
+			var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
+			var bgColor = isGrey ? "grey " : "";
+			var value = buffVal.value;
+			var valStr = value + "%";
 			// Example:
 			// <td class="ctentry ctentry-0">15%</td>
-			var td = $("<td class=\"ctentry ctentry-" + index + "\">" + valStr + "</td>");
-		 	buffRow.append(td);
+			var td = $("<td class=\"" + bgColor + "ctentry ctentry-" + index + "\">" + valStr + "</td>");
+
+		 	var deco = getBuffDeco(function(){
+				return isGrey;
+			}, value);
+	
+			td.css("color", deco.color);
+			if (!!deco.isMax) {
+				td.css("fontWeight");
+			}
+			
+			buffRow.append(td);
 		}
 	}
 	
@@ -759,8 +913,19 @@ function ComparisonTable(){
 				
 				// Update the value
 				var buffs = column[propName];
-				var buffValStr = getBuffValFromBuffRow(buffRow, buffs, isBuff);
-				td.text(buffValStr);
+				var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
+				var value = buffVal.value;
+				td.text(value + "%");
+				
+				var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
+				var deco = getBuffDeco(function(){
+					return isGrey;
+				}, value);
+	
+				td.css("color", deco.color);
+				if (!!deco.isMax) {
+					td.css("fontWeight");
+				}
 			});
 		}
 	}

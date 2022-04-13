@@ -26,6 +26,12 @@ GeneralSet.prototype.getAll = function() {
 	return gens;
 };
 
+// Check if the given general already exists.
+GeneralSet.prototype.has = function(general) {
+	var key = _getKey(general);
+	return this._genSet.has(key);
+}
+
 // Add a new general.
 // Returns true if successfully added.
 GeneralSet.prototype.add = function(general) {

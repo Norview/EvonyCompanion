@@ -210,13 +210,31 @@ General.prototype.getStringKey = function(includeAnimal, starring) {
 
 // Returns an object that represents the count of materials of each type, at different levels.
 // So far, we only support level 6 and 7 materials.
-General.prototype.getMaterials = function() {
+//
+// - includeBase: if true, also count in the materials for crafting the "base" equipment. An Ares
+// equipment has a Dragon equipment as the base.
+General.prototype.getMaterials = function(includeBase) {
+	var countBase = !!includeBase;
 	var materials = {
 		lv6 : [0,0,0,0,0,0,0,0,0,0,0,0],
 		lv7 : [0,0,0,0,0,0,0,0,0,0,0,0]  
 	};
 	
-	for (equipment of this._equipments) {
+	var eqs = [];
+	for (var i = 0; i < 6; i++) {
+		var eq = this._equipments[i];
+		if (!!eq) {
+			eqs.push(eq);
+			if (countBase) {
+				var baseEq = eq.condition.base;
+				if (!!baseEq) {
+					eqs.push(baseEq);
+				}
+			}
+		}
+	}
+	
+	for (equipment of eqs) {
 		if (!equipment){
 			// Skip unset equipment.
 			continue;
