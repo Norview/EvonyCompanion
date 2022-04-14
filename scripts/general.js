@@ -477,3 +477,178 @@ General.prototype.getBuffs = function(scenario, starring) {
 	
 	return buffs;
 }
+
+///////// Static Helpers /////////
+
+var _matNames = [
+	"purple crystal",
+	"purplecrystal",
+	"crystal",
+	"blue stone",
+	"bluestone", 
+	"stone",
+	"red agate",
+	"redagate", 
+	"agate",
+	"silver pearl",
+	"silverpearl", 
+	"pearl",
+	"meteorolite",
+	"meteor",   
+	"iron",    
+	"bronze", 
+	"wood",
+	"animal bone",
+	"animalbone", 
+	"bone",  
+	"leather",
+	"feather",
+	"dragon scale",
+	"dragonscale", 
+	"scale"
+];
+
+// Validate that the equipment contains data matching the expected semantics.
+// Throws an error message in string if any invalid case is detected.
+General.validateEquipment = function(equipment) {
+	function assertString(name, arg, allowEmpty){
+		if (typeof(arg) !== "string") {
+    		throw name + " is not a string.";
+    	}
+    	
+    	if (!allowEmpty && !arg) {
+    		throw name + " is not a non-empty string.";
+    	}
+	}
+	
+	function assertOneOf(name, arg, values){
+		for (var val of values) {
+			if (arg === val) {
+				return;
+			}
+		}
+    	
+		throw name + " is not recognized: " + arg;
+	}
+	
+	function assertObject(name, arg, ctor) {
+		if (!arg) {
+    		throw name + " is null, undefined or having invalid value.";
+		}
+		
+		if (typeof(arg) !== "object") {
+    		throw name + " is not an object.";
+    	}
+    	
+    	if (!!ctor && arg.constructor !== ctor) {
+    		throw name + " is not a(n) " + ctor.name;
+    	}
+	}
+	
+	function assertNumeral(name, arg) {
+		if (isNaN(arg)) {
+    		throw name + " is not a number.";
+    	}
+	}
+	
+	// Example data:
+	/*
+		{
+          "name": "Fearless Achaemenidae Boots",
+          "set": "Achaemenidae",
+          "type": "boots",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": "Achaemenidae Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 30
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 17,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["sege"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -3
+              }
+          ]
+       },
+    */
+    
+    var setName = equipment.set;
+    assertString("equipment.set", setName, false);
+    
+    var typeName = equipment.type;
+    assertString("equipment.type", setName, false);
+    
+    var condition = equipment.condition;
+    assertObject("equipment.condition", condition);
+    
+    var building = condition.building;
+    assertOneOf("equipment.condition.building", building, ["forge", "wonder"]);
+    
+    var costs = equipment.cost;
+    assertObject("equipment.cost", costs, Array);
+    for (var cost of costs) {
+    	var cname = cost.name;
+    	assertOneOf("equipment.cost.name", cname, _matNames);
+    }
+    
+    for (var attr of equipment.attributes) {
+    	var hasConds = false;
+    	
+    	var conds = attr.condition;
+    	assertObject("equipment.attributes.condition", conds, Array);
+      	for (var cond of conds) {
+    		assertOneOf(
+    			"equipment.attributes.condition[]",
+    			cond,
+    			["in-city", "attacking", "defending", "marching", "reinforcing"]);
+    		hasConds = true;
+    	}
+
+    	var troops = attr.troop;
+    	assertObject("equipment.attributes.troop", troops, Array);
+    	for (var troop of troops) {
+    		assertOneOf(
+    			"equipment.attributes.troop[]",
+    			troop,
+    			["ground", "mounted", "ranged", "siege"]);
+    	}
+    	
+		assertOneOf(
+			"equipment.attributes.type",
+			 attr.type,
+			["attack", "defense", "hp", "range"]);
+    	
+    	var value = attr.value;
+    	assertNumeral("equipment.attributes.value", value);
+    	if (value === 0) {
+    		throw "equipment.attributes.value is 0.";
+    	}
+    	
+    	var rate = attr.rate;
+    	assertNumeral("equipment.attributes.rate", rate);
+    	if (rate === 0) {
+    		throw "equipment.attributes.rate is 0.";
+    	}    	
+    	
+    	if (value > 0 && rate < 0 || value < 0 && rate > 0) {
+    		throw "equipment.attributes.value and equipment.attributes.rate do not have the same sign.";
+    	}
+    }   
+}

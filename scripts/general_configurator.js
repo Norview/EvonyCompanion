@@ -145,6 +145,14 @@ function initialize() {
             sets[eqSet.name] = eqSet;
         }
         for (var equipment of data.equipments){
+        	try {
+        		General.validateEquipment(equipment);
+        	} catch (error) {
+        		var msg = "Invalid equipment '" + equipment.name + "': " + error;
+        		panic(msg);
+        		return;
+        	}
+        	
             var s = sets[equipment.set];
             if (!!s) {
                 equipment.set = s;
@@ -189,7 +197,15 @@ function initialize() {
 }
 
 function panic(message){
-    // TODO: this function should show a big red warning and ask for contact to the code owner.
+	console.error("FAILED: " + message);
+	
+    var box = $("#panic-box");
+    box.html(
+    	"<strong>WARNING</strong><br>"
+    	+ message
+    	+ "<br><span style='font-size: smaller'>Take screenshot and report the issue to Norview@803.</span>");
+    box.css("display", "block");
+    box.animate({"margin-top" : '-1%'}, "slow");
 }
 
 function loadUI(){

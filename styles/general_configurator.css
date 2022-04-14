@@ -178,3 +178,21 @@
 		font-size: 24px;
 	}
 }
+
+.panic-box {
+  display: none;
+  margin-top: -10%;
+  background: red;
+  color: white;
+  padding: 4px;
+  text-align: center;
+  width: 40%;
+  border: 2px solid white;
+  position: absolute;
+}
+
+@media(max-width: 1024px){
+	.panic-box {
+		font-size: 32px;
+	}
+}
