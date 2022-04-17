@@ -2309,7 +2309,191 @@
        },
        
        {
+          "name": "Plantagenet Golden Bow",
+          "set": "Plantagenet",
+          "type": "weapon",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Plantagenet Golden Bow Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "wood",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 100
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -4
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+       	  "verified": false,
+          "name": "Plantagenet Armor",
+          "set": "Plantagenet",
+          "type": "armor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Plantagenet Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -4
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -1
+              }
+          ]
+       },
+       {
+          "name": "Plantagenet Boots",
+          "set": "Plantagenet",
+          "type": "boots",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Plantagenet Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "hp",
+                  "value": 10,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -20,
+                  "rate": -3
+              }
+          ]
+       },
+       {
           "name": "Plantagenet Helmet",
+          "set": "Plantagenet",
           "type": "helmet",
           "condition": {
               "building": "wonder",
@@ -2368,13 +2552,884 @@
                   "value": 25,
                   "rate": 1
               }
+          ]
+       },
+       {
+       	  "verified": false,
+          "name": "Plantagenet Leg Armor",
+          "set": "Plantagenet",
+          "type": "legarmor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Plantagenet Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
           ],
-          "set": "Plantagenet"
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -4
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Plantagenet Ring",
+          "set": "Plantagenet",
+          "type": "ring",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Plantagenet Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "stone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -25,
+                  "rate": -4
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 7,
+                  "rate": 1.2
+              }
+          ]
+       },
+       
+       {
+          "name": "Gentleman's Rapier Sword",
+          "set": "Freedom",
+          "type": "weapon",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Gentleman's Rapier Sword Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "wood",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 100
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "ranged", "mounted", "siege"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+       	  "name": "Freedom Hero Armor",
+          "set": "Freedom",
+          "type": "armor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Freedom Hero Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 15,
+                  "rate": 3
+              }
+          ]
+       },
+       {
+          "name": "Freedom Hero Boots",
+          "set": "Freedom",
+          "type": "boots",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Freedom Hero Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Freedom Hero Helmet",
+          "set": "Freedom",
+          "type": "helmet",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Freedom Hero Helmet Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bluestone",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+       	  "name": "Freedom Hero Leg Armor",
+          "set": "Freedom",
+          "type": "legarmor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Freedom Hero Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 10,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Freedom Star",
+          "set": "Freedom",
+          "type": "ring",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Freedom Star Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "stone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 10,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       },
+       
+       {
+          "name": "Furinkazan Katana",
+          "set": "Furinkazan",
+          "type": "weapon",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Furinkazan Katana Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "wood",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 100
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 60,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 40,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 40,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Furinkazan Armor",
+          "set": "Furinkazan",
+          "type": "armor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Furinkazan Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 15,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Furinkazan Boots",
+          "set": "Furinkazan",
+          "type": "boots",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Furinkazan Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "hp",
+                  "value": 15,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Furinkazan Helmet",
+          "set": "Furinkazan",
+          "type": "helmet",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Furinkazan Helmet Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bluestone",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Furinkazan Leg Armor",
+          "set": "Furinkazan",
+          "type": "legarmor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Furinkazan Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "defense",
+                  "value": 15,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Furinkazan Bracers",
+          "set": "Furinkazan",
+          "type": "ring",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Furinkazan Bracers Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "stone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 35,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
        }
   ],
   "sets": [
-      {
+    {
         "name": "King",
+        "order": 26,
         "attributes": [
               {
                   "pieces": 4,
@@ -2404,10 +3459,11 @@
                   "type": "defense",
                   "value": 10
               }
-          ]
+        ]
     },
     {
         "name": "Dragon",
+        "order": 27,
         "attributes": [
               {
                   "pieces": 6,
@@ -2416,10 +3472,11 @@
                   "type": "attack",
                   "value": 10
               }
-          ]
+        ]
     },
     {
         "name": "Achaemenidae",
+        "order": 33,
         "attributes": [
               {
                   "pieces": 2,
@@ -2435,10 +3492,11 @@
                   "type": "attack",
                   "value": -15
               }
-          ]
-    },
+        ]
+    },    
     {
         "name": "Plantagenet",
+        "order": 51,
         "attributes": [
               {
                   "pieces": 2,
@@ -2461,7 +3519,68 @@
                   "type": "defense",
                   "value": 15
               }
-          ]
+        ]
+    },
+    {
+        "name": "Freedom",
+        "order": 52,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": ["attacking"],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 25
+              },
+              {
+                  "pieces": 6,
+                  "condition": ["attacking"],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 18
+              }
+        ]
+    },
+    {
+        "name": "Furinkazan",
+        "order": 53,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 30
+              },
+              {
+                  "pieces": 2,
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 30
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "attack",
+                  "value": 15
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": 15
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "hp",
+                  "value": -25
+              }
+        ]
     }
   ]
 }

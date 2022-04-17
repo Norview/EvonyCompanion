@@ -250,7 +250,7 @@ function configureUI(reposOnly){
         picHeight : picHeight,
         windowWidth : windowWidth,
         windowHeight : windowHeight,
-        stretched: stretched
+        stretched : stretched
     };
     
     enableEquipmentDropDownMenu("weapon", picLoc, reposOnly);
@@ -312,7 +312,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         switch(type){
         case "weapon":
             top = topLeftY + height * 0.26;
-            left = topLeftX + width * (leftBase - (isStretched ? 0.04 : 0.03));
+            left = topLeftX + width * (leftBase - 0.01); // (isStretched ? 0.04 : 0.03));
             break;
         case "armor":
             top = topLeftY + height * 0.46;
@@ -611,30 +611,13 @@ function populateEquipmentDropDownMenu(type) {
     
     // Sort 
     eqs.sort(function (e1, e2) {
-        /*
-          "condition": {
-              "building": "forge",
-              "level": 27,
-              "scroll": "Dragon Helmet Scroll",
-              "base": null
-          },
-          */
-          // First by forge level
-        var val = e1.condition.level - e2.condition.level;
-        if (val !== 0){
-            return val;
-        }
+    	// First check the set's designated order
+    	var diff = e1.set.order - e2.set.order;
+    	if (diff !== 0) {
+    		return diff;
+    	}
         
-        // Then by building
-        if (e1.condition.building !== e2.condition.building){
-            if (e1.condition.building == "forge") {
-                return -1;
-            } else if (e2.condition.building == "forge") {
-                return 1;
-            }
-        }
-        
-        // Last alphabetically
+        // Then alphabetically
         return (e1.name < e2.name ? -1 : 1);
     });
 

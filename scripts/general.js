@@ -589,6 +589,10 @@ General.validateEquipment = function(equipment) {
        },
     */
     
+    if (equipment["verified"] === false) {
+    	console.warn("Equipment '" + equipment.name + "'s data is not verified.");
+    }
+    
     var setName = equipment.set;
     assertString("equipment.set", setName, false);
     
@@ -633,7 +637,7 @@ General.validateEquipment = function(equipment) {
 		assertOneOf(
 			"equipment.attributes.type",
 			 attr.type,
-			["attack", "defense", "hp", "range"]);
+			["attack", "defense", "hp", "range", "marchsize"]);
     	
     	var value = attr.value;
     	assertNumeral("equipment.attributes.value", value);
