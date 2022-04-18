@@ -62,6 +62,11 @@
 	}
 }
 
+.btn input[type=checkbox] {
+	transform: scale(1.5);
+	
+}
+
 #add-to-comparison-form button {
   position: absolute;
   margin:0px;

@@ -260,6 +260,8 @@ function configureUI(reposOnly){
     enableEquipmentDropDownMenu("legarmor", picLoc, reposOnly);
     enableEquipmentDropDownMenu("ring", picLoc, reposOnly);
     
+    configureAnimalCheckBox(picLoc, reposOnly);
+        
     if (!reposOnly){
         configureBattleTypeSelector();
         configureCompareButton();
@@ -268,7 +270,122 @@ function configureUI(reposOnly){
 
 const starIcon = "★";
 const nonStarIcon = "☆";
-        
+ 
+function setLocation(selector, type, picLoc) {
+	if (!(!!selector || !!type || !!picLoc)) {
+		console.warn(
+			"Unable to set location for the selector. The type, or the picture, or the selector itself, is missing.");
+		return;
+	}
+	
+	var topLeftX = picLoc.topLeftX;
+	var topLeftY = 0;
+	var width = picLoc.picWidth;
+	var height = picLoc.picHeight;
+	var isStretched = !!picLoc.stretched;
+	
+	const leftBase = isStretched ? 0.23 : 0.18;
+	const rightBase = isStretched ? 0.78 : 0.84;
+	var top = 0;
+	var left = 0;
+	switch(type){
+	case "animal":
+		top = topLeftY + height * 0.13;
+		left = topLeftX + width * (leftBase - (isStretched ? 0.14 : 0.06));
+		break;
+	case "weapon":
+		top = topLeftY + height * 0.26;
+		left = topLeftX + width * (leftBase - 0.01); // (isStretched ? 0.04 : 0.03));
+		break;
+	case "armor":
+		top = topLeftY + height * 0.46;
+		left = topLeftX + width * leftBase;
+		break;
+	case "boots":
+		top = topLeftY + height * 0.66;
+		left = topLeftX + width * leftBase;
+		break;
+	case "helmet":
+		top = topLeftY + height * 0.26;
+		left = topLeftX + width * rightBase;
+		break;
+	case "legarmor":
+		top = topLeftY + height * 0.46;
+		left = topLeftX + width * rightBase;
+		break;
+	case "ring":
+		top = topLeftY + height * 0.66;
+		left = topLeftX + width * rightBase;
+		break;
+	case "compare":
+		top = topLeftY + height * 0.81;
+		left = topLeftX + width * (rightBase + (isStretched ? 0.125 : 0.035));
+		break;
+	}
+	
+	var topRatio = top * 100 / picLoc.windowHeight;
+	var leftRatio = left * 100 / picLoc.windowWidth;
+	
+	var topPt = Math.floor(topRatio) + "%";
+	var leftPt = Math.floor(leftRatio) + "%";
+	
+	// console.info("Set position for " + type + " - left: " + leftPt + "; top: " + topPt);
+	
+	selector.css("top", topPt);
+	selector.css("left", leftPt);
+}
+
+function makeDummyDragon(){
+	return { 
+		name: "generic-dragon",
+		type: "dragon"
+	};
+}
+
+function configureAnimalCheckBox(picLoc, reposOnly) {
+	function tryUpdate(checked){
+		general.setAnimal(checked ? makeDummyDragon() : null);
+		// Trigger update only if any equipment is sensitive to dragon's presence (most are not).
+		var eqs = general.getEquipments();
+		for (var eq of eqs) {
+			if (!!eq) {
+				for (var attr of eq.attributes) {
+					for (var cond of attr.condition) {
+						if (cond === "w/dragon") {
+							// console.info("Found at least one equipment with buffs triggered by w/dragon.");
+							// Trigger and return
+							updateStats();
+							return;
+						}
+					} 
+				}
+			}
+		}	
+	}
+
+	var animal$ = findSelector("animal");
+	setLocation(animal$, "animal", picLoc);
+	
+	if (!reposOnly) {
+		var cb$ = animal$.find("#animal-checkbox");
+		// Reset the state
+		cb$.prop('checked', false);
+		
+		// Clicking on the label should have the same toggling effect.
+		animal$.find("label").click(function(){
+			var isChecked = cb$.is(":checked");
+			cb$.prop('checked', !isChecked);
+			tryUpdate(checked);
+		});
+	
+		// Clicking triggers stats update.
+		cb$.change(function(){
+			var checked = $(this).is(":checked");
+			tryUpdate(checked);
+		});
+	}
+}
+       
 function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     // Routine: find the selected equipment
     function findEquipment(sel){
@@ -291,67 +408,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         }
         console.log("Changed " + type + " to " + name + (sts === "" ? "" : " (" + sts + ")") + ".");
     }
-    
-    function setLocation(selector, type, picLoc) {
-        if (!(!!selector || !!type || !!picLoc)) {
-            console.warn(
-                "Unable to set location for the selector. The type, or the picture, or the selector itself, is missing.");
-            return;
-        }
         
-        var topLeftX = picLoc.topLeftX;
-        var topLeftY = 0;
-        var width = picLoc.picWidth;
-        var height = picLoc.picHeight;
-        var isStretched = !!picLoc.stretched;
-        
-        const leftBase = isStretched ? 0.23 : 0.18;
-        const rightBase = isStretched ? 0.78 : 0.84;
-        var top = 0;
-        var left = 0;
-        switch(type){
-        case "weapon":
-            top = topLeftY + height * 0.26;
-            left = topLeftX + width * (leftBase - 0.01); // (isStretched ? 0.04 : 0.03));
-            break;
-        case "armor":
-            top = topLeftY + height * 0.46;
-            left = topLeftX + width * leftBase;
-            break;
-        case "boots":
-            top = topLeftY + height * 0.66;
-            left = topLeftX + width * leftBase;
-            break;
-        case "helmet":
-            top = topLeftY + height * 0.26;
-            left = topLeftX + width * rightBase;
-            break;
-        case "legarmor":
-            top = topLeftY + height * 0.46;
-            left = topLeftX + width * rightBase;
-            break;
-        case "ring":
-            top = topLeftY + height * 0.66;
-            left = topLeftX + width * rightBase;
-            break;
-        case "compare":
-            top = topLeftY + height * 0.81;
-            left = topLeftX + width * (rightBase + (isStretched ? 0.125 : 0.035));
-            break;
-        }
-        
-        var topRatio = top * 100 / picLoc.windowHeight;
-        var leftRatio = left * 100 / picLoc.windowWidth;
-        
-        var topPt = Math.floor(topRatio) + "%";
-        var leftPt = Math.floor(leftRatio) + "%";
-        
-        // console.info("Set position for " + type + " - left: " + leftPt + "; top: " + topPt);
-        
-        selector.css("top", topPt);
-        selector.css("left", leftPt);
-    }
-    
     function getSetColor(setName) {
     	setName = setName.trim().toLowerCase();
     	switch (setName) {
@@ -683,6 +740,10 @@ function tryEnableCompareButton(general){
 function addGeneral(general){
 	// Create and insert a replica. Through the end we should only refer to the replica.
 	var generalRep = general.clone();
+	
+	// Set a dummy dragon. In this table we always compare with a dragin included.
+	generalRep.setAnimal(makeDummyDragon());
+	
 	var succ = generalSet.add(generalRep);
 	
 	if (succ) {

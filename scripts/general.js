@@ -137,6 +137,11 @@ General.prototype.setEquipment = function(type, equipment, countOfStars) {
     
 ///////// Getters /////////
 
+// Get the spirit animal or dragon
+General.prototype.getAnimal = function() {
+	return this._animal;
+}
+
 // Get the equipments
 General.prototype.getEquipments = function() {
 	var equipments = [];
@@ -408,7 +413,10 @@ General.prototype.getBuffs = function(scenario, starring) {
 			var hasConditions = (!!conditions && conditions.length > 0);
 			if (hasConditions && isAny){
 				// Must skip any conditional buffs since we are specifying a scenario.
-				continue;
+				// One exception - the condition is being with dragon.
+				if (!(conditions.length === 1 && conditions[0] === "w/dragon")) {
+					continue;
+				}
 			}
 		
 			// In-city attribute only takes effect when defending the city.
@@ -621,7 +629,9 @@ General.validateEquipment = function(equipment) {
     		assertOneOf(
     			"equipment.attributes.condition[]",
     			cond,
-    			["in-city", "attacking", "defending", "marching", "reinforcing"]);
+    			["in-city", "attacking", "defending", "marching", "reinforcing"
+    			, "w/dragon"
+    			]);
     		hasConds = true;
     	}
 
