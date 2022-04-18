@@ -3187,7 +3187,7 @@
           "condition": {
               "building": "wonder",
               "level": 33,
-              "scroll": "Furinkazan Scroll",
+              "scroll": "Furinkazan Boots Scroll",
               "base": null
           },
           "cost": [ 
@@ -3424,6 +3424,385 @@
                   "rate": 1
               }
           ]
+       },
+       
+       {
+          "name": "Han Dynasty Halberd",
+          "set": "Han Dynasty",
+          "type": "weapon",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Han Dynasty Halberd Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "wood",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 100
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Han Dynasty Armor",
+          "set": "Han Dynasty",
+          "type": "armor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Han Dynasty Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": ["w/dragon"],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "hp",
+                  "value": 15,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Han Dynasty Boots",
+          "set": "Han Dynasty",
+          "type": "boots",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Han Dynasty Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": ["w/dragon"],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "defense",
+                  "value": 15,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Han Dynasty Helmet",
+          "set": "Han Dynasty",
+          "type": "helmet",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Han Dynasty Helmet Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bluestone",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "hp",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Han Dynasty Leg Armor",
+          "set": "Han Dynasty",
+          "type": "legarmor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Han Dynasty Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "defense",
+                  "value": 10,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": -30,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Han Dynasty Bracers",
+          "set": "Han Dynasty",
+          "type": "ring",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Han Dynasty Bracers Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "stone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": ["w/dragon"],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 10,
+                  "rate": 1
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -1
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 7,
+                  "rate": 1.2
+              }
+          ]
        }
   ],
   "sets": [
@@ -3577,6 +3956,40 @@
                   "pieces": 6,
                   "condition": [],
                   "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "hp",
+                  "value": -25
+              }
+        ]
+    },
+    {
+        "name": "Han Dynasty",
+        "order": 54,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 30
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "defense",
+                  "value": -25
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": -25
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
                   "type": "hp",
                   "value": -25
               }
