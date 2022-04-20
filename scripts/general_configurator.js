@@ -132,7 +132,8 @@ function updateStats() {
 
 // Load data from the server
 function initialize() {
-    $.getJSON("../data/equipments.json", function(data) {
+    var fileName = "equipments.json";
+    $.getJSON("../data/" + fileName, function(data) {
         // All equipments
         equipments = {};
         for (var eq of data.equipments){
@@ -193,6 +194,8 @@ function initialize() {
         });
     
         console.log("UI initiated.");
+    }).fail(function() { 
+    	panic("Data file " + fileName + " cannot be loaded."); 
     });
 }
 

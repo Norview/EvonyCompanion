@@ -1452,6 +1452,826 @@
 			],
 			"set": "Dragon"
 	   },
+	   
+	   {
+			"name": "Courageous Ares Helmet",
+			"set": "Ares",
+			"type": "helmet",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Dragon Helmet"
+			},
+			"cost": [{
+					"name": "bluestone",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "wood",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "scale",
+					"level": 7,
+					"quantity": 20
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "attack",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "defense",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 10,
+					"rate": 2
+				}
+			]
+		},
+		{
+			"name": "Fearless Ares Helmet",
+			"set": "ares",
+			"type": "helmet",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Dragon Helmet"
+			},
+			"cost": [{
+					"name": "bluestone",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "scale",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "wood",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 7,
+					"rate": 3
+				}
+			]
+		},
+		{
+			"name": "Courageous Ares Armor",
+			"set": "Ares",
+			"type": "armor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Dragon Armor"
+			},
+			"cost": [{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "leather",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 20
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 15,
+					"rate": 1.4
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 15,
+					"rate": 1.4
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 5,
+					"rate": 2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": 15,
+					"rate": 1.4
+				}
+			]
+		},
+		{
+			"name": "Fearless Ares Armor",
+			"set": "Ares",
+			"type": "armor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Dragon Armor"
+			},
+			"cost": [{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "leather",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 20
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": -20,
+					"rate": -2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 20,
+					"rate": 2
+				}
+			]
+		},
+		{
+			"name": "Courageous Ares Leg Armor",
+			"set": "Ares",
+			"type": "legarmor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Dragon Leg Armor"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "pearl",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 10,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 10,
+					"rate": 2
+				}
+			]
+		},
+		{
+			"name": "Fearless Ares Leg Armor",
+			"set": "Ares",
+			"type": "legarmor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Dragon Leg Armor"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "iron",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "feather",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "pearl",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 7,
+					"rate": 1.6
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 7,
+					"rate": 1.6
+				}
+			]
+		},
+		{
+			"name": "Courageous Ares Boots",
+			"set": "Ares",
+			"type": "boots",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Dragon Boots"
+			},
+			"cost": [{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "leather",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 10,
+					"rate": 2
+				}
+			]
+		},
+		{
+			"name": "Fearless Ares Boots",
+			"set": "Ares",
+			"type": "boots",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Ares Boots"
+			},
+			"cost": [{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "leather",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 17,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 7,
+					"rate": 1.6
+				}
+			]
+		},
+		{
+			"name": "Courageous Ares Ring",
+			"type": "ring",
+			"set": "Ares",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Dragon Ring"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "stone",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 20,
+					"rate": 2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 20,
+					"rate": 2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": -18,
+					"rate": -3
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "range",
+					"value": 5,
+					"rate": 1
+				}
+			]
+		},
+		{
+			"name": "Fearless Ares Ring",
+			"type": "ring",
+			"set": "Ares",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Dragon Ring"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "stone",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "agate",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "crystal",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 20,
+					"rate": 2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 20,
+					"rate": 2
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": -18,
+					"rate": -3
+				},
+				{
+					"condition": [],
+					"troop": [],
+					"type": "marchsize",
+					"value": 6,
+					"rate": 1.5
+				}
+			]
+		},
+		{
+			"name": "Ares Bow",
+			"set": "Ares",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Dragon Bow"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 30,
+					"rate": 3
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 10,
+					"rate": 2.4
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 10,
+					"rate": 2.4
+				}
+			]
+		},
+		{
+			"name": "Ares Spear",
+			"set": "Ares",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Ares Spear"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 30,
+					"rate": 3
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 10,
+					"rate": 2.4
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 10,
+					"rate": 2.4
+				}
+			]
+		},
+		{
+			"name": "Ares Axe",
+			"set": "Ares",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Dragon Axe"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 30,
+					"rate": 3
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 10,
+					"rate": 2.4
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 20,
+					"rate": 2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": -18,
+					"rate": -3
+				}
+			]
+		},
+		{
+			"name": "Ares Sword",
+			"set": "Ares",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Dragon Sword"
+			},
+			"cost": [{
+					"name": "scale",
+					"level": 7,
+					"quantity": 30
+				},
+				{
+					"name": "bronze",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "bone",
+					"level": 7,
+					"quantity": 20
+				},
+				{
+					"name": "meteor",
+					"level": 7,
+					"quantity": 30
+				}
+			],
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "attack",
+					"value": 30,
+					"rate": 3
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 15,
+					"rate": 3
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": -18,
+					"rate": -3
+				}
+			]
+	   },
 
        {
           "name": "Courageous Achaemenidae Helmet",
@@ -1771,7 +2591,7 @@
        {
           "name": "Fearless Achaemenidae Leg Armor",
           "set": "Achaemenidae",
-          "type": "boots",
+          "type": "legarmor",
           "condition": {
               "building": "forge",
               "level": 33,
@@ -1834,7 +2654,7 @@
        {
           "name": "Courageous Achaemenidae Boots",
           "set": "Achaemenidae",
-          "type": "legarmor",
+          "type": "boots",
           "condition": {
               "building": "forge",
               "level": 33,
@@ -3853,6 +4673,26 @@
               }
         ]
     },
+    {
+        "name": "Ares",
+        "order": 30,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": ["attacking"],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 15
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10
+              }
+        ]
+    }, 
     {
         "name": "Achaemenidae",
         "order": 33,
