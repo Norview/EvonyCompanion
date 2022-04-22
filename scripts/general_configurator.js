@@ -149,8 +149,7 @@ function initialize() {
         	try {
         		General.validateEquipment(equipment);
         	} catch (error) {
-        		var msg = "Invalid equipment '" + equipment.name + "': " + error;
-        		panic(msg);
+        		panic("Invalid equipment '" + equipment.name + "': " + error);
         		return;
         	}
         	
@@ -158,7 +157,8 @@ function initialize() {
             if (!!s) {
                 equipment.set = s;
             } else {
-                console.warn("Equipment " + equipment.name + "'s set '" + equipment.set + "' doesn't exist.");
+                panic("Equipment " + equipment.name + "'s set '" + equipment.set + "' doesn't exist.");
+                return;
             }
             
             var setBase = false;
@@ -169,7 +169,8 @@ function initialize() {
 					equipment.condition.base = b;
 					setBase = true;
 				} else {
-					console.warn("Equipment " + equipment.name + "'s base '" + bn + "' doesn't exist.");
+					panic("Equipment " + equipment.name + "'s base '" + bn + "' doesn't exist.");
+					return;
 				}
             }
             

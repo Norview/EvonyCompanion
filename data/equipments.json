@@ -1453,7 +1453,7 @@
 			"set": "Dragon"
 	   },
 	   
-	   {
+	    {
 			"name": "Courageous Ares Helmet",
 			"set": "Ares",
 			"type": "helmet",
@@ -1516,7 +1516,7 @@
 		},
 		{
 			"name": "Fearless Ares Helmet",
-			"set": "ares",
+			"set": "Ares",
 			"type": "helmet",
 			"condition": {
 				"building": "forge",
