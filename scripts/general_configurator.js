@@ -1,6 +1,8 @@
 // File: general_configurator.js
 //
 // The GUI for general configuration
+//
+// URL: ?lang={ISO 639-1 2-letter language name}
 
 // The equipment data, deserialized
 var equipments = null;
@@ -132,8 +134,11 @@ function updateStats() {
 
 // Load data from the server
 function initialize() {
-    var fileName = "equipments.json";
-    $.getJSON("../data/" + fileName, function(data) {
+	var lang = "en";
+    const fileName = "equipments.json";
+    var filePath = "";
+    $.getJSON(filePath = "../data/" + fileName)
+    .then(function(data) {
         // All equipments
         equipments = {};
         for (var eq of data.equipments){
@@ -193,11 +198,58 @@ function initialize() {
         $(window).resize(function() {
             configureUI(true);
         });
-    
+        
+        lang = getLang();
+    	if (lang === "en") {
+			return null;
+		} else {
+			return $.getJSON(filePath = "../data/resources/" + lang + ".json");
+		}
+    })
+    .then(function(data) {
+    	if (!!data) {
+    		translate(lang, data);
+    	}
+        
         console.log("UI initiated.");
-    }).fail(function() { 
-    	panic("Data file " + fileName + " cannot be loaded."); 
+    })
+    .fail(function(error) {
+    	var status = error.status;
+    	if (status == 200) {
+    		panic("Data file " + filePath + " cannot be parsed."); 
+    	} else {
+    		if (filePath.endsWith("/" + lang + ".json") && status == 404) {
+    			// The language is not supported.
+    			console.warn("Language '" + lang + "' is unrecognized or not supported.");
+    		} else {
+    			panic("Data file " + filePath + " cannot be loaded. Status = " + error.status + ".");
+    		} 
+    	}
     });
+}
+
+function getLang(){
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	var lang = urlParams.get('lang');
+	lang = lang || "en";
+	return lang;
+}
+
+function translate(lang, data){
+	var resources = {};
+	resources[lang] = data;
+	
+	i18next.init({
+	  'lng': lang,
+	  'debug': true,
+	  'resources': resources
+	});
+	
+	$(".i18n").each(function(){
+		var i18n$ = $(this);
+		i18n$.text(i18next.t(i18n$.attr("tkey")));
+	});
 }
 
 function panic(message){

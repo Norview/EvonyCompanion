@@ -5,6 +5,7 @@
 <!-- -->
 	<link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
     <script src="./lib/jquery-3.6.0.min.js"></script>
+    <script src="./lib/i18next-21.6.16.min.js"></script>
     <script src="./scripts/general.js"></script>
     <script src="./scripts/generalset.js"></script>
     <script src="./scripts/general_configurator.js"></script>
@@ -26,13 +27,13 @@
 		   <img class="general-image" src="./assets/general.png">
 		   <!-- animal/dragon -->
 		   <form class="btn" id="selector-animal" style="border-color: white; top:10%; left:32%; padding: 3px 3px 3px 3px">  
-		     <label style="width: 50%; user-select: none;">Dragon&nbsp;&nbsp;</label>
+		     <label style="width: 50%; user-select: none;" class="i18n" tkey="dragon">Dragon&nbsp;&nbsp;</label>
 			 <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
 			 </select>  
 		   </form>
 		   <!-- equipments -->
 		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
-		     <label style="display: block;">Weapon</label>
+		     <label class="i18n" tkey="weapon" style="display: block;">Weapon</label>
 		     <span class="stars-span" id="selector-weapon-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
@@ -44,7 +45,7 @@
 			 </select>  
 		   </form> 
 		   <form class="btn" id="selector-armor" style="top:36%; left:34%;">  
-		     <label style="display: block;">Armor</label>
+		     <label class="i18n" tkey="armor" style="display: block;">Armor</label>
 		     <span class="stars-span" id="selector-armor-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
@@ -56,7 +57,7 @@
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-boots" style="top:52%; left:34%;">  
-		     <label style="display: block;">Boots</label>
+		     <label class="i18n" tkey="boots" style="display: block;">Boots</label>
 		     <span class="stars-span" id="selector-boots-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
@@ -68,7 +69,7 @@
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
-		     <label style="display: block;">Helmet</label>
+		     <label class="i18n" tkey="helmet" style="display: block;">Helmet</label>
 		     <span class="stars-span" id="selector-helmet-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
@@ -80,7 +81,7 @@
 			 </select>  
 		   </form> 
 		   <form class="btn" id="selector-legarmor" style="top:36%; left:65%;">  
-		     <label style="display: block;">Leg Armor</label>
+		     <label class="i18n" tkey="leg armor" style="display: block;">Leg Armor</label>
 		     <span class="stars-span" id="selector-legarmor-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
@@ -92,7 +93,7 @@
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-ring" style="top:52%; left:66%;">  
-		     <label style="display: block;">Ring</label>
+		     <label class="i18n" tkey="ring" style="display: block;">Ring</label>
 		     <span class="stars-span" id="selector-ring-stars">
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
@@ -106,7 +107,7 @@
 		   <form id="add-to-comparison-form"> 
 			 <button type="button" disabled="true" style="top:62%; left:66%;">
 			 	<image src="../assets/add_disabled.png"/>
-			 	<span>Compare</span>
+			 	<span class="i18n" tkey="Compare">Compare</span>
 			 </button>   
 		   </form>		    
 		   </img>
@@ -115,25 +116,25 @@
 
 	<!-- Materials -->
 		
-	<div class="container stats-title">
+	<div class="container stats-title i18n" tkey="MATERIALS">
 	MATERIALS
 	</div>
     <div class="container">
     	<div id="material-table" class="material-table" style="display: block;">
 		 <table class="material-table-rows">
 		  <tr> 
-			<th style="width:8%">Purple Crystal</th>
-			<th style="width:8%">Blue Stone</th>
-			<th style="width:8%">Red Agate</th>
-			<th style="width:8%">Silver Pearl</th>
-			<th style="width:8%">Meteor-olite</th>
-			<th style="width:8%">Iron</th>
-			<th style="width:8%">Bronze</th>
-			<th style="width:8%">Wood</th>
-			<th style="width:8%">Animal Bone</th>
-			<th style="width:8%">Leather</th>
-			<th style="width:8%">Feather</th>
-			<th style="width:8%">Dragon Scale</th>
+			<th style="width:8%" class="i18n" tkey="Purple Crystal">Purple Crystal</th>
+			<th style="width:8%" class="i18n" tkey="Blue Stone">Blue Stone</th>
+			<th style="width:8%" class="i18n" tkey="Red Agate">Red Agate</th>
+			<th style="width:8%" class="i18n" tkey="Silver Pearl">Silver Pearl</th>
+			<th style="width:8%" class="i18n" tkey="Meteorolite">Meteor-olite</th>
+			<th style="width:8%" class="i18n" tkey="Iron">Iron</th>
+			<th style="width:8%" class="i18n" tkey="Bronze">Bronze</th>
+			<th style="width:8%" class="i18n" tkey="Wood">Wood</th>
+			<th style="width:8%" class="i18n" tkey="Animal Bone">Animal Bone</th>
+			<th style="width:8%" class="i18n" tkey="Leather">Leather</th>
+			<th style="width:8%" class="i18n" tkey="Feather">Feather</th>
+			<th style="width:8%" class="i18n" tkey="Dragon Scale">Dragon Scale</th>
 		  </tr>
 		  <tr id="material-row-6" style="background: #f0e816;"> 
 			<td>0</td> 
@@ -175,62 +176,62 @@
 	
 	<div id="battle-types-div">
 	  <fieldset id="battle-types">
-		  <legend style="margin: auto; font-style: italic;">What kind of battle?</legend>
+		  <legend style="margin: auto; font-style: italic;" class="i18n" tkey="What kind of battle?">What kind of battle?</legend>
 		  <table>
 			  <tr><td>
 			  <input class="battle-type" type="radio" id="opt-any"
 			   name="battle-type" value="any" checked>
-			  <label for="opt-any">Any</label>
+			  <label for="opt-any" class="i18n" tkey="Any">Any</label>
 			  </td></tr>
 			  <tr><td>
 			  <input class="battle-type" type="radio" id="opt-attacking"
 			   name="battle-type" value="attacking">
-			  <label for="opt-attacking">Attacking</label>
+			  <label for="opt-attacking" class="i18n" tkey="Attacking">Attacking</label>
 			  </td></tr>
 			  <tr><td>
 			  <input class="battle-type" type="radio" id="opt-defending"
 			   name="battle-type" value="defending">
-			  <label for="opt-defending">Defending main city</label>  
+			  <label for="opt-defending" class="i18n" tkey="Defending main city">Defending main city</label>  
 			  </td></tr>
 			  <tr><td>
 			  <input class="battle-type" type="radio" id="opt-reinforcing"
 			   name="battle-type" value="reinforcing">
-			  <label for="opt-reinforcing">Reinforcing another city</label>
+			  <label for="opt-reinforcing" class="i18n" tkey="Reinforcing another city">Reinforcing another city</label>
 			  </td></tr>
 			  <tr><td> 
 			  <input class="battle-type" type="radio" id="opt-occupying"
 			   name="battle-type" value="occupying">
-			  <label for="opt-occupying">Defending a building</label>
+			  <label for="opt-occupying" class="i18n" tkey="Defending a building">Defending a building</label>
 			  </td></tr>
 		  </table>
 	  </fieldset>
 	</div>
 
-	<div class="container stats-title">
+	<div class="container stats-title i18n" tkey="BUFF">
 	BUFF
 	</div>
 	<div class="container">
     	<div id="buff-table" class="buff-table">
 		 <table>
 		  <tr>
-			<th colspan="3" style="border: 1px solid black;">Ground</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Mounted</th>
-			<th colspan="3" style="border: 1px solid black;">Ranged</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Siege</th>
+			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="ground">Ground</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="mounted">Mounted</th>
+			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="ranged">Ranged</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="siege">Siege</th>
 		  </tr>
 		  <tr>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
-			<th class="grey">Attack</th>
-			<th class="grey">Defense</th>
-			<th class="grey">HP</th>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
-			<th class="grey">Attack</th>
-			<th class="grey">Defense</th>
-			<th class="grey">HP</th>
+			<th class="i18n" tkey="attack">Attack</th>
+			<th class="i18n" tkey="defense">Defense</th>
+			<th class="i18n" tkey="hp">HP</th>
+			<th class="grey i18n" tkey="attack">Attack</th>
+			<th class="grey i18n" tkey="defense">Defense</th>
+			<th class="grey i18n" tkey="hp">HP</th>
+			<th class="i18n" tkey="attack">Attack</th>
+			<th class="i18n" tkey="defense">Defense</th>
+			<th class="i18n" tkey="hp">HP</th>
+			<th class="grey i18n" tkey="attack">Attack</th>
+			<th class="grey i18n" tkey="defense">Defense</th>
+			<th class="grey i18n" tkey="hp">HP</th>
 		  </tr>
 		  <tr id="buff-row"> 
 			<td>0%</td>
@@ -250,31 +251,31 @@
 		</div>
 	</div>
 	
-	<div class="container stats-title">
+	<div class="container stats-title i18n" tkey="DEBUFF">
 	DEBUFF
 	</div>
 	<div class="container">
     	<div id="debuff-table" class="buff-table">
 		 <table>
 		  <tr>
-			<th colspan="3" style="border: 1px solid black;">Ground</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Mounted</th>
-			<th colspan="3" style="border: 1px solid black;">Ranged</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;">Siege</th>
+			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="ground">Ground</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="mounted">Mounted</th>
+			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="ranged">Ranged</th>
+			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="siege">Siege</th>
 		  </tr>
 		  <tr>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
-			<th class="grey">Attack</th>
-			<th class="grey">Defense</th>
-			<th class="grey">HP</th>
-			<th>Attack</th>
-			<th>Defense</th>
-			<th>HP</th>
-			<th class="grey">Attack</th>
-			<th class="grey">Defense</th>
-			<th class="grey">HP</th>
+			<th class="i18n" tkey="attack">Attack</th>
+			<th class="i18n" tkey="defense">Defense</th>
+			<th class="i18n" tkey="hp">HP</th>
+			<th class="grey i18n" tkey="attack">Attack</th>
+			<th class="grey i18n" tkey="defense">Defense</th>
+			<th class="grey i18n" tkey="hp">HP</th>
+			<th class="i18n" tkey="attack">Attack</th>
+			<th class="i18n" tkey="defense">Defense</th>
+			<th class="i18n" tkey="hp">HP</th>
+			<th class="grey i18n" tkey="attack">Attack</th>
+			<th class="grey i18n" tkey="defense">Defense</th>
+			<th class="grey i18n" tkey="hp">HP</th>
 		  </tr>
 		  <tr id="debuff-row"> 
 			<td>-0%</td>
