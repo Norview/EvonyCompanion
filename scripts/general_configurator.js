@@ -777,6 +777,10 @@ function getLang(){
 		const urlParams = new URLSearchParams(queryString);
 		lang = urlParams.get('lang');	
 	}
+	
+	if (typeof lang === 'string'){
+		lang = lang.trim().toLowerCase();
+	}
 
 	if (!!lang && isRecognizedLang(lang)) {
 		g_lang = lang;
