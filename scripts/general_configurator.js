@@ -228,30 +228,6 @@ function initialize() {
     });
 }
 
-function getLang(){
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	var lang = urlParams.get('lang');
-	lang = lang || "en";
-	return lang;
-}
-
-function translate(lang, data){
-	var resources = {};
-	resources[lang] = data;
-	
-	i18next.init({
-	  'lng': lang,
-	  'debug': true,
-	  'resources': resources
-	});
-	
-	$(".i18n").each(function(){
-		var i18n$ = $(this);
-		i18n$.text(i18next.t(i18n$.attr("tkey")));
-	});
-}
-
 function panic(message){
 	console.error("FAILED: " + message);
 	
@@ -744,20 +720,10 @@ function populateEquipmentDropDownMenu(type) {
     selector.data(c_data_equipment, typEqs);
 
     var count = 0;
-    for (var eq of eqs) {
-        var name = eq.name.trim();
-        // Use a simplified name, which removes the type if it's obvious.
-        if (eq.type !== "weapon"){        
-            var index = name.lastIndexOf(' ');
-            if (index > 1){
-                if (eq.type === "legarmor"){
-                    index = name.lastIndexOf(' ', index - 1);
-                }
-                name = name.substring(0, index);
-            }
-        }
+    for (var eq of eqs) {        
+        var langKeyValue = getDisplayName(g_lang, eq, c_name_dropdown);
         
-        var opt = $("<option>", { value: eq.name }).text(name);
+        var opt = $("<option>", { "value": eq.name, "class": "i18n", "tkey": langKeyValue.key }).text(langKeyValue.initial);
         typEqs[eq.name] = eq;
         selector.append(opt);
         count++;
@@ -765,6 +731,163 @@ function populateEquipmentDropDownMenu(type) {
     
     console.info("Populated " + count + " equipments of type " + type + ".");
     return true;
+}
+
+/////// Internationalization ///////
+
+var g_lang = "en";
+
+const c_name_full = 0;
+const c_name_dropdown = 1;
+const c_name_minimal = 2;
+
+// Get the language from path or arguments
+function getLang(){
+	function isRecognizedLang(lng) {
+		// Selected languages from ISO 639-1
+		switch(lng){
+		case "en": // English
+		case "fr": // French
+		case "de": // German
+		case "it": // Italian
+		case "es": // Spanish
+		case "ru": // Russian
+		case "zh": // Chinese
+		case "ja": // Japanese
+		case "ko": // Korean
+		case "he": // Hebrew
+		case "ar": // Arabic
+		case "vi": // Vietnamese
+		case "pt": // Portuguese
+			return true;
+		default:
+			return false;
+		}
+	}
+
+	var lang = null;
+	const path = window.location.pathname;
+	const sections = path.split("/");
+	if (sections.length >= 3) {
+		// Prefer path
+		// [ "", "{LANG}", "app-name" ]
+		lang = sections[1];
+	} else {
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		lang = urlParams.get('lang');	
+	}
+
+	if (!!lang && isRecognizedLang(lang)) {
+		g_lang = lang;
+	} else {
+		lang = g_lang;
+	}
+	
+	return lang;
+}
+
+function translate(lang, data){
+	var resources = {};
+	resources[lang] = data;
+	
+	i18next.init({
+	  'lng': lang,
+	  'debug': true,
+	  'resources': resources
+	});
+	
+	$(".i18n").each(function(){
+		var i18n$ = $(this);
+		i18n$.text(i18next.t(i18n$.attr("tkey")));
+	});
+}
+
+// Returns an object with translation key and the initial text:
+//   { "key" : key, "initial" : name }
+// If no translation is found, the initial value will be in English.
+function getDisplayName(lng, eq, type){
+
+	// Removes the type from the name, if it's obvious.
+	function getDropdownEnglishName(eq){
+		var name = eq.name.trim();
+		if (eq.type !== "weapon"){        
+			var index = name.lastIndexOf(' ');
+			if (index > 1){
+				if (eq.type === "legarmor"){
+					index = name.lastIndexOf(' ', index - 1);
+				}
+				name = name.substring(0, index);
+			}
+		}
+		
+		return name;
+	}
+
+	// [C. |F. ](<First 5 Letters>.|<First 6 Letters>) (Last Word)
+	//   - Achae. Sword
+	//   - C. Achae.
+	//   - Plant. Bow
+	function getMinimalEnglishName(name, type) {
+		var prefix = "";
+		if (name.startsWith("Courageous ")) {
+			name = name.substring("Courageous ".length);
+			prefix = "C. ";
+		} else if (name.startsWith("Fearless ")) {
+			name = name.substring("Fearless ".length);
+			prefix = "F. ";
+		}
+	
+		var index = name.indexOf(" ");
+		if (index <= 6) {
+			// King => King
+			// Dragon => Dragon
+			return prefix + name.substring(0, 6);
+		} else {
+			// Achaemenidae => Achae.
+			var weaponType = "";
+			if (type === "weapon") {
+				var lindex = name.lastIndexOf(" ");
+				weaponType = name.substring(lindex);
+			}
+			
+			name = prefix + name.substring(0, 5) + ".";
+			
+			if (type === "weapon") {
+				name += weaponType;
+			}
+			
+			return name;
+		}
+	}
+	
+	// Get the translation key
+	var nkey = eq.name;
+	if (type === c_name_dropdown) {
+		nkey += " (dropdown)";
+	} else if (type === c_name_minimal) {
+		nkey += " (table)";
+	}
+	
+	if (lng === "en") {
+		if (type === c_name_dropdown) {		
+			return { "key" : nkey, "initial" : getDropdownEnglishName(eq) };
+		} else if (type === c_name_minimal) {
+			return { "key" : nkey, "initial" : getMinimalEnglishName(eq.name, eq.type) };
+		} else {
+			return { "key" : nkey, "initial" : eq.name };
+		}
+	} else {
+		var translated = i18next.t(nkey);
+		if (!!translated) {	
+			return { "key" : nkey, "initial" : translated};
+		} else {
+			// Fall back to English
+			return getDisplayName("en", eq, type);
+		}
+	}
+	
+	throw "Shouldn't reach here.";
 }
 
 /////// Comparison Table ///////
@@ -925,46 +1048,6 @@ function ComparisonTable(){
 			debuffs : debuffs,
 			deleteRow : deleteRow
 		};
-	}
-	
-	// [C. |F. ](<First 5 Letters>.|<First 6 Letters>) (Last Word)
-	//   - Achae. Sword
-	//   - C. Achae.
-	//   - Plant. Bow
-	// WARNING: Can handle English text only. 
-	// This code needs to be refactored if we decide to add multiple language support.
-	// Most likely, we will just add a shortened name to the data.
-	function getSimplifiedName(name, type) {
-		var prefix = "";
-		if (name.startsWith("Courageous ")) {
-			name = name.substring("Courageous ".length);
-			prefix = "C. ";
-		} else if (name.startsWith("Fearless ")) {
-			name = name.substring("Fearless ".length);
-			prefix = "F. ";
-		}
-	
-		var index = name.indexOf(" ");
-		if (index <= 6) {
-			// King => King
-			// Dragon => Dragon
-			return prefix + name.substring(0, 6);
-		} else {
-			// Achaemenidae => Achae.
-			var weaponType = "";
-			if (type === "weapon") {
-				var lindex = name.lastIndexOf(" ");
-				weaponType = name.substring(lindex);
-			}
-			
-			name = prefix + name.substring(0, 5) + ".";
-			
-			if (type === "weapon") {
-				name += weaponType;
-			}
-			
-			return name;
-		}
 	}
 	
 	// Returns the info on the buff that should be put into the given row
@@ -1137,12 +1220,14 @@ function ComparisonTable(){
 			var eq = eqs[i];
 			var row = this._equipments[i];
 			if (!!row){
-				var name = ""; // Need a placeholder if no equipment is found at this body part.
+				var keyAndName = null; // Need a placeholder if no equipment is found at this body part.
 				if (!!eq){
-					name = getSimplifiedName(eq.name, eq.type);
+					keyAndName = getDisplayName(g_lang, eq, c_name_minimal);
+				} else {
+					keyAndName = { "key": "", "initial": "" };
 				}
 				
-				var th = $("<th class=\"ctentry ctentry-" + index + "\">" + name + "</th>");
+				var th = $("<th class=\"i18n ctentry ctentry-" + index + "\" tkey=\"" + keyAndName.key + "\">" + keyAndName.initial + "</th>");
 				row.append(th);
 			}
 		}
