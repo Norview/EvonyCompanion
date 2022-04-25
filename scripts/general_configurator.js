@@ -23,6 +23,9 @@ const c_starring_min = 0;
 const c_starring_equipped = 1;
 const c_starring_max = 2;
 
+// Internationalization
+var translator = new Translator();
+
 // The general being configured
 var general = new General();
 
@@ -199,16 +202,19 @@ function initialize() {
             configureUI(true);
         });
         
-        lang = getLang();
-    	if (lang === "en") {
-			return null;
-		} else {
-			return $.getJSON(filePath = "../data/resources/" + lang + ".json");
-		}
+        var trInit = translator.initialize(function(lng){
+        	return lng !== "en";
+        });
+        
+        lang = trInit.lang;
+        filePath = trInit.path;
+        
+        return trInit.dataPromise;
     })
     .then(function(data) {
     	if (!!data) {
-    		translate(lang, data);
+    		translator.translate(data);
+    		configureUI(true);
     	}
         
         console.log("UI initiated.");
@@ -235,7 +241,7 @@ function panic(message){
     box.html(
     	"<strong>WARNING</strong><br>"
     	+ message
-    	+ "<br><span style='font-size: smaller'>Take screenshot and report the issue to Norview@803.</span>");
+    	+ "<br><span style='font-size: smaller'>Take screenshot and report to player \"Norview ★\" (ID: 135198770) from Server 803.</span>");
     box.css("display", "block");
     box.animate({"margin-top" : '-1%'}, "slow");
 }
@@ -320,6 +326,7 @@ function setLocation(selector, type, picLoc) {
 	const rightBase = isStretched ? 0.78 : 0.84;
 	var top = 0;
 	var left = 0;
+	var offsets = translator.getDropdownOffsets();
 	switch(type){
 	case "animal":
 		top = topLeftY + height * 0.13;
@@ -327,27 +334,27 @@ function setLocation(selector, type, picLoc) {
 		break;
 	case "weapon":
 		top = topLeftY + height * 0.26;
-		left = topLeftX + width * (leftBase - 0.01); // (isStretched ? 0.04 : 0.03));
+		left = topLeftX + width * (leftBase - 0.01 + offsets[0]);
 		break;
 	case "armor":
 		top = topLeftY + height * 0.46;
-		left = topLeftX + width * leftBase;
+		left = topLeftX + width * leftBase + offsets[1];
 		break;
 	case "boots":
 		top = topLeftY + height * 0.66;
-		left = topLeftX + width * leftBase;
+		left = topLeftX + width * leftBase + offsets[2];
 		break;
 	case "helmet":
 		top = topLeftY + height * 0.26;
-		left = topLeftX + width * rightBase;
+		left = topLeftX + width * rightBase + offsets[3];
 		break;
 	case "legarmor":
 		top = topLeftY + height * 0.46;
-		left = topLeftX + width * rightBase;
+		left = topLeftX + width * rightBase + offsets[4];
 		break;
 	case "ring":
 		top = topLeftY + height * 0.66;
-		left = topLeftX + width * rightBase;
+		left = topLeftX + width * rightBase + offsets[5];
 		break;
 	case "compare":
 		top = topLeftY + height * 0.81;
@@ -721,7 +728,7 @@ function populateEquipmentDropDownMenu(type) {
 
     var count = 0;
     for (var eq of eqs) {        
-        var langKeyValue = getDisplayName(g_lang, eq, c_name_dropdown);
+        var langKeyValue = translator.getDisplayName(eq, c_name_dropdown);
         
         var opt = $("<option>", { "value": eq.name, "class": "i18n", "tkey": langKeyValue.key }).text(langKeyValue.initial);
         typEqs[eq.name] = eq;
@@ -731,167 +738,6 @@ function populateEquipmentDropDownMenu(type) {
     
     console.info("Populated " + count + " equipments of type " + type + ".");
     return true;
-}
-
-/////// Internationalization ///////
-
-var g_lang = "en";
-
-const c_name_full = 0;
-const c_name_dropdown = 1;
-const c_name_minimal = 2;
-
-// Get the language from path or arguments
-function getLang(){
-	function isRecognizedLang(lng) {
-		// Selected languages from ISO 639-1
-		switch(lng){
-		case "en": // English
-		case "fr": // French
-		case "de": // German
-		case "it": // Italian
-		case "es": // Spanish
-		case "ru": // Russian
-		case "zh": // Chinese
-		case "ja": // Japanese
-		case "ko": // Korean
-		case "he": // Hebrew
-		case "ar": // Arabic
-		case "vi": // Vietnamese
-		case "pt": // Portuguese
-			return true;
-		default:
-			return false;
-		}
-	}
-
-	var lang = null;
-	const path = window.location.pathname;
-	const sections = path.split("/");
-	if (sections.length >= 3) {
-		// Prefer path
-		// [ "", "{LANG}", "app-name" ]
-		lang = sections[1];
-	} else {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		lang = urlParams.get('lang');	
-	}
-	
-	if (typeof lang === 'string'){
-		lang = lang.trim().toLowerCase();
-	}
-
-	if (!!lang && isRecognizedLang(lang)) {
-		g_lang = lang;
-	} else {
-		lang = g_lang;
-	}
-	
-	return lang;
-}
-
-function translate(lang, data){
-	var resources = {};
-	resources[lang] = data;
-	
-	i18next.init({
-	  'lng': lang,
-	  'debug': true,
-	  'resources': resources
-	});
-	
-	$(".i18n").each(function(){
-		var i18n$ = $(this);
-		i18n$.text(i18next.t(i18n$.attr("tkey")));
-	});
-}
-
-// Returns an object with translation key and the initial text:
-//   { "key" : key, "initial" : name }
-// If no translation is found, the initial value will be in English.
-function getDisplayName(lng, eq, type){
-
-	// Removes the type from the name, if it's obvious.
-	function getDropdownEnglishName(eq){
-		var name = eq.name.trim();
-		if (eq.type !== "weapon"){        
-			var index = name.lastIndexOf(' ');
-			if (index > 1){
-				if (eq.type === "legarmor"){
-					index = name.lastIndexOf(' ', index - 1);
-				}
-				name = name.substring(0, index);
-			}
-		}
-		
-		return name;
-	}
-
-	// [C. |F. ](<First 5 Letters>.|<First 6 Letters>) (Last Word)
-	//   - Achae. Sword
-	//   - C. Achae.
-	//   - Plant. Bow
-	function getMinimalEnglishName(name, type) {
-		var prefix = "";
-		if (name.startsWith("Courageous ")) {
-			name = name.substring("Courageous ".length);
-			prefix = "C. ";
-		} else if (name.startsWith("Fearless ")) {
-			name = name.substring("Fearless ".length);
-			prefix = "F. ";
-		}
-	
-		var index = name.indexOf(" ");
-		if (index <= 6) {
-			// King => King
-			// Dragon => Dragon
-			return prefix + name.substring(0, 6);
-		} else {
-			// Achaemenidae => Achae.
-			var weaponType = "";
-			if (type === "weapon") {
-				var lindex = name.lastIndexOf(" ");
-				weaponType = name.substring(lindex);
-			}
-			
-			name = prefix + name.substring(0, 5) + ".";
-			
-			if (type === "weapon") {
-				name += weaponType;
-			}
-			
-			return name;
-		}
-	}
-	
-	// Get the translation key
-	var nkey = eq.name;
-	if (type === c_name_dropdown) {
-		nkey += " (dropdown)";
-	} else if (type === c_name_minimal) {
-		nkey += " (table)";
-	}
-	
-	if (lng === "en") {
-		if (type === c_name_dropdown) {		
-			return { "key" : nkey, "initial" : getDropdownEnglishName(eq) };
-		} else if (type === c_name_minimal) {
-			return { "key" : nkey, "initial" : getMinimalEnglishName(eq.name, eq.type) };
-		} else {
-			return { "key" : nkey, "initial" : eq.name };
-		}
-	} else {
-		var translated = i18next.t(nkey);
-		if (!!translated) {	
-			return { "key" : nkey, "initial" : translated};
-		} else {
-			// Fall back to English
-			return getDisplayName("en", eq, type);
-		}
-	}
-	
-	throw "Shouldn't reach here.";
 }
 
 /////// Comparison Table ///////
@@ -1224,13 +1070,7 @@ function ComparisonTable(){
 			var eq = eqs[i];
 			var row = this._equipments[i];
 			if (!!row){
-				var keyAndName = null; // Need a placeholder if no equipment is found at this body part.
-				if (!!eq){
-					keyAndName = getDisplayName(g_lang, eq, c_name_minimal);
-				} else {
-					keyAndName = { "key": "", "initial": "" };
-				}
-				
+				var keyAndName = translator.getDisplayName(eq, c_name_minimal);				
 				var th = $("<th class=\"i18n ctentry ctentry-" + index + "\" tkey=\"" + keyAndName.key + "\">" + keyAndName.initial + "</th>");
 				row.append(th);
 			}
