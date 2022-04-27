@@ -14,21 +14,30 @@ const c_name_minimal = 2;
 
 function Translator(){
 
-	function createInitData(data) {
+	function createOrGetTranslator(data){
+		if (!!g_data[g_lang]) {
+			return g_translators[g_lang];
+		}
+		
 		var resources = {};
 		resources[g_lang] = data;
 	
-		g_data = {
+		var initData = {
 		  'lng': g_lang,
 		  // 'debug': true,
 		  'resources': resources
 		};
 		
-		return g_data;
+		const i18nInst = i18next.createInstance();
+		i18nInst.init(initData);
+		
+		g_data[g_lang] = initData;
+		return g_translators[g_lang] = i18nInst;
 	}
-
+	
 	var g_lang = "en";
-	var g_data = null;
+	var g_data = {};
+	var g_translators = {};
 
 	// Get the currently set language.
 	this.getLang = function() {
@@ -37,21 +46,25 @@ function Translator(){
 	
 	// Get offsets for each dropdown menu, in the "standard" order (weapon -> armor -> ... -> ring).
 	this.getDropdownOffsets = function() {
-		if (!!g_data && !!g_data.resources && g_data.resources[g_lang]) {
-			return g_data.resources[g_lang].dropdownOffsets || [0,0,0,0,0,0];
+		var data = g_data[g_lang];
+	
+		if (!!data && !!data.resources && data.resources[g_lang]) {
+			return data.resources[g_lang].dropdownOffsets || [0,0,0,0,0,0];
 		} else {
 			return [0,0,0,0,0,0];
 		}
 	};
-
+	
 	// Initialize with the language derived from URL's path or arguments
 	//
-	// shouldLoadData: A function(string):bool to indicate if the function should start loading the data. If returned false,
-	// the returned object's dataPromise will be null.
+	// - shouldLoadData: A bool or function(string):bool to indicate if the function should start loading the data.
+	// If (evaluated to be) false, the returned object's dataPromise will be null.
 	// 
+	// - language: The language explicitly asked to initialize with. This will overrides anything from URL.
+	//
 	// Returns an object with language name (lang:String), resource file path (path:String) and optionally the
 	// promise of the resource data (dataPromise:Promise). The caller may continue the promise by calling translate(data).
-	this.initialize = function(shouldLoadData){
+	this.initialize = function(shouldLoadData, language){
 		function isRecognizedLang(lng) {
 			// Selected languages from ISO 639-1
 			switch(lng){
@@ -73,21 +86,69 @@ function Translator(){
 				return false;
 			}
 		}
-
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		var lang = urlParams.get('lang');
-	
-		if (typeof lang === 'string'){
-			lang = lang.trim().toLowerCase();
+		
+		var lang = null;
+		
+		// 1. Use the argument, if provided
+		if (!!language) {
+			lang = language;
+	      	
+	      	// Invalidate it if not recognized
+      		if (isRecognizedLang(lang) !== true) {
+      			lang = null;
+      		}	
 		}
+		
+		// 2. check #lang={LANG}
+		if (window.location.hash) {
+      		var hash = window.location.hash.substring(1); 
+      		var sections = hash.split("=");
+      		if (!!sections && sections.length == 2 && sections[0] === "lang") {
+      			lang = sections[1];
+      		}
+      		
+      		// Invalidate it if not recognized
+      		if (isRecognizedLang(lang) !== true) {
+      			lang = null;
+      		}
+      	}
+    
+    	// 3. check ?lang={LANG}  	
+      	if (!lang) {
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			lang = urlParams.get('lang');
+	
+			if (typeof lang === 'string'){
+				lang = lang.trim().toLowerCase();
+			}
+			
+			// Invalidate it if not recognized
+      		if (isRecognizedLang(lang) !== true) {
+      			lang = null;
+      		}
+      	}
 
-		if (!!lang && isRecognizedLang(lang) === true) {
+		// Set the new language only if it's been proven valid
+		if (!!lang) {
 			g_lang = lang;
 		}
 		
 		var path = "../data/resources/" + g_lang + ".json";
-		var prom = shouldLoadData(g_lang) ? $.getJSON(path) : null;
+		
+		var _shouldLoadData = false;
+		if (typeof shouldLoadData === 'boolean') {
+			_shouldLoadData = shouldLoadData;
+		} else {
+			_shouldLoadData = shouldLoadData(g_lang);
+		}
+	
+		var data = g_data[g_lang];	
+		var prom = _shouldLoadData
+			? (!!data
+				? $.Deferred().promise(data) // Already fetched the data for this language. Reuse it.
+				: $.getJSON(path))
+			: null;
 		var ret = {
 			"lang" : g_lang,
 			"path" : path,
@@ -107,15 +168,14 @@ function Translator(){
 	//
 	// data: the object to be set as resources[lang]. resources is to be used to initialize i18next instance.
 	this.translate = function(data){
-		var initData = createInitData(data);
-		i18next.init(initData);
+		var i18n = createOrGetTranslator(data);
 	
 		$(".i18n").each(function(){
 			var i18n$ = $(this);
-			i18n$.text(i18next.t(i18n$.attr("tkey")));
+			i18n$.text(i18n.t(i18n$.attr("tkey")));
 		});
 	};
-	
+
 	// Returns an object with translation key and the initial text:
 	//   { "key" : key, "initial" : name }
 	//

@@ -64,7 +64,8 @@
 
 .btn input[type=checkbox] {
 	transform: scale(1.5);
-	
+
+	padding: 1% 1% 1% 1%;	
 }
 
 #add-to-comparison-form button {
@@ -199,5 +200,67 @@
 @media(max-width: 1024px){
 	.panic-box {
 		font-size: 32px;
+	}
+}
+
+/* Language settings */
+.dropbtn {
+  background-color:rgba(0, 0, 0, 0);
+  color: white;
+  padding: 6px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: 2%;
+  left: 65%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #222222;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 2px 10px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+}
+
+.link-disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+.dropdown-content a:hover {
+  background-color: #444444
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+
+@media(max-width: 1024px){
+	.dropbtn {
+		font-size: 32px;
+	}
+	
+	.dropdown {
+  		top: 1%;
+  		left: 85%;
+	}
+	
+	.dropdown-content a {
+	  font-size: 28px;
+  	  padding: 10px 10px 10px 10px;
 	}
 }

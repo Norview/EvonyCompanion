@@ -202,36 +202,70 @@ function initialize() {
             configureUI(true);
         });
         
+        setLangLink('en');
         var trInit = translator.initialize(function(lng){
         	return lng !== "en";
         });
         
-        lang = trInit.lang;
-        filePath = trInit.path;
-        
-        return trInit.dataPromise;
-    })
-    .then(function(data) {
-    	if (!!data) {
-    		translator.translate(data);
-    		configureUI(true);
-    	}
-        
         console.log("UI initiated.");
-    })
-    .fail(function(error) {
-    	var status = error.status;
-    	if (status == 200) {
-    		panic("Data file " + filePath + " cannot be parsed."); 
-    	} else {
-    		if (filePath.endsWith("/" + lang + ".json") && status == 404) {
-    			// The language is not supported.
-    			console.warn("Language '" + lang + "' is unrecognized or not supported.");
-    		} else {
-    			panic("Data file " + filePath + " cannot be loaded. Status = " + error.status + ".");
-    		} 
-    	}
+        
+        switchLangAsync(trInit);
     });
+}
+
+function switchLangAsync(trInit) {
+    var dataPromise = trInit.dataPromise;
+    if (!!dataPromise) {
+      var lang = trInit.lang;
+      var filePath = trInit.path;
+	  return dataPromise
+		.then(function(data) {
+			if (!!data) {
+				translator.translate(data);
+				configureUI(true);
+        		setLangLink(lang);
+				console.log("Language switched.");
+			}
+		})
+		.fail(function(error) {
+			var status = error.status;
+			if (status == 200) {
+				panic("Data file " + filePath + " cannot be parsed."); 
+			} else {
+    			if (filePath.endsWith("/" + lang + ".json") && status == 404) {
+					// The language is not supported.
+					console.warn("Language '" + lang + "' is unrecognized or not supported.");
+				} else {
+					panic("Data file " + filePath + " cannot be loaded. Status = " + error.status + ".");
+				} 
+			}
+		});   
+    }
+}
+
+function setLangLink(lang){
+	var dc$ = $(".dropdown-content a");
+	const kw = "=" + lang;
+	dc$.each(function(){
+		var a$ = $(this);
+		var href = a$.attr('href');
+		if (href.endsWith(kw)) {
+			a$.addClass('link-disabled');
+			a$.css('color', 'lightblue');
+		} else {
+			a$.removeClass('link-disabled');
+			a$.css('color', '');
+		}
+	});
+}
+
+function switchLang(lang) {
+	if (translator.getLang() === lang) {
+		return;
+	}
+
+	var trInit = translator.initialize(true, lang);
+	switchLangAsync(trInit);
 }
 
 function panic(message){

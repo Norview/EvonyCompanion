@@ -1,6 +1,8 @@
 {
 "dropdownOffsets": [-0.02,0,0,0,0,0],
 	"translation": {
+		"Language": "言語", 
+	
 		"Dragon": "ドラゴン",
 		"Weapon": "武器",
 		"Armor": "鎧",

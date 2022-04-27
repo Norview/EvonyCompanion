@@ -32,6 +32,15 @@
 			 <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
 			 </select>  
 		   </form>
+		   <div class="dropdown">
+			  <button class="dropbtn i18n" style="font-weight: bold; color: lightblue; text-decoration: underline;" tkey="Language">Language</button>
+			  <div class="dropdown-content">
+				<a href="#lang=en" onclick="switchLang('en');">English</a>
+				<a href="#lang=it" onclick="switchLang('it');">Italiano</a>
+				<a href="#lang=ja" onclick="switchLang('ja');">日本語</a>
+				<!--<a href="#lang=ru">Русский</a>-->
+			  </div>
+			</div>
 		   <!-- equipments -->
 		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
 		     <label class="i18n" tkey="Weapon" style="display: block;">Weapon</label>
