@@ -64,8 +64,8 @@ function getBuffDeco(func, value){
     }
     
     return {
-    	color: color,
-    	isMax: range === buffRanges
+        color: color,
+        isMax: range === buffRanges
     }
 }
 
@@ -75,7 +75,7 @@ function updateBuffColumn(buffCols, index, value){
     col.textContent = value + "%";
     
     var deco = getBuffDeco(function(){
-    	return index >= 3 && index <=5 ||  index >= 9 && index <= 11;
+        return index >= 3 && index <=5 ||  index >= 9 && index <= 11;
     }, value);
     
     col.style.color = deco.color;
@@ -115,7 +115,7 @@ function updateMaterialRow(lvl, mats){
 }
 
 function getBattleType(){
-	return $("input[name='battle-type']:checked").val();
+    return $("input[name='battle-type']:checked").val();
 }
 
 function updateStats() {
@@ -137,7 +137,7 @@ function updateStats() {
 
 // Load data from the server
 function initialize() {
-	var lang = "en";
+    var lang = "en";
     const fileName = "equipments.json";
     var filePath = "";
     $.getJSON(filePath = "../data/" + fileName)
@@ -154,13 +154,13 @@ function initialize() {
             sets[eqSet.name] = eqSet;
         }
         for (var equipment of data.equipments){
-        	try {
-        		General.validateEquipment(equipment);
-        	} catch (error) {
-        		panic("Invalid equipment '" + equipment.name + "': " + error);
-        		return;
-        	}
-        	
+            try {
+                General.validateEquipment(equipment);
+            } catch (error) {
+                panic("Invalid equipment '" + equipment.name + "': " + error);
+                return;
+            }
+            
             var s = sets[equipment.set];
             if (!!s) {
                 equipment.set = s;
@@ -172,19 +172,19 @@ function initialize() {
             var setBase = false;
             var bn = equipment.condition.base;
             if (!!bn) {
-            	var b = equipments[bn];
-            	if (!!b) {
-					equipment.condition.base = b;
-					setBase = true;
-				} else {
-					panic("Equipment " + equipment.name + "'s base '" + bn + "' doesn't exist.");
-					return;
-				}
+                var b = equipments[bn];
+                if (!!b) {
+                    equipment.condition.base = b;
+                    setBase = true;
+                } else {
+                    panic("Equipment " + equipment.name + "'s base '" + bn + "' doesn't exist.");
+                    return;
+                }
             }
             
             if (!setBase) {
-            	// Sanitize this property
-            	equipment.condition.base = null;
+                // Sanitize this property
+                equipment.condition.base = null;
             }
         }
 
@@ -202,80 +202,82 @@ function initialize() {
             configureUI(true);
         });
         
-        setLangLink('en');
-        var trInit = translator.initialize(function(lng){
-        	return lng !== "en";
-        });
-        
         console.log("UI initiated.");
         
-        switchLangAsync(trInit);
+        setLangLink('en');
+        var trInit = translator.initialize(true); // Let initialize() figure out the selected language from URL.
+        switchLangAsync(trInit, trInit.lang === "en"); // If it's English, do not translate.
     });
 }
 
-function switchLangAsync(trInit) {
+function switchLangAsync(trInit, skipTranslation) {
     var dataPromise = trInit.dataPromise;
     if (!!dataPromise) {
       var lang = trInit.lang;
       var filePath = trInit.path;
-	  return dataPromise
-		.then(function(data) {
-			if (!!data) {
-				translator.translate(data);
-				configureUI(true);
-        		setLangLink(lang);
-				console.log("Language switched.");
-			}
-		})
-		.fail(function(error) {
-			var status = error.status;
-			if (status == 200) {
-				panic("Data file " + filePath + " cannot be parsed."); 
-			} else {
-    			if (filePath.endsWith("/" + lang + ".json") && status == 404) {
-					// The language is not supported.
-					console.warn("Language '" + lang + "' is unrecognized or not supported.");
-				} else {
-					panic("Data file " + filePath + " cannot be loaded. Status = " + error.status + ".");
-				} 
-			}
-		});   
+      return dataPromise
+        .then(function(data) {
+            if (!!data) {
+                if (skipTranslation === true) {
+                    translator.initTranslator(data);
+                } else {
+                    translator.translate(data);
+                    configureUI(true); // Readjust the layout
+                }
+                
+                setLangLink(lang);
+                console.log("Language switched.");
+            }
+        })
+        .fail(function(error) {
+            var status = error.status;
+            if (status == 200) {
+                panic("Data file " + filePath + " cannot be parsed."); 
+            } else {
+                if (filePath.endsWith("/" + lang + ".json") && status == 404) {
+                    // The language is not supported.
+                    console.warn("Language '" + lang + "' is unrecognized or not supported.");
+                } else {
+                    panic("Data file " + filePath + " cannot be loaded. Status = " + error.status + ".");
+                } 
+            }
+        });   
     }
 }
 
 function setLangLink(lang){
-	var dc$ = $(".dropdown-content a");
-	const kw = "=" + lang;
-	dc$.each(function(){
-		var a$ = $(this);
-		var href = a$.attr('href');
-		if (href.endsWith(kw)) {
-			a$.addClass('link-disabled');
-			a$.css('color', 'lightblue');
-		} else {
-			a$.removeClass('link-disabled');
-			a$.css('color', '');
-		}
-	});
+    var dc$ = $(".dropdown-content a");
+    const kw = "=" + lang;
+    dc$.each(function(){
+        var a$ = $(this);
+        var href = a$.attr('href');
+        if (href.endsWith(kw)) {
+            a$.addClass('link-disabled');
+            a$.css('color', 'lightblue');
+        } else {
+            a$.removeClass('link-disabled');
+            a$.css('color', '');
+        }
+    });
 }
 
 function switchLang(lang) {
-	if (translator.getLang() === lang) {
-		return;
-	}
+    if (translator.getLang() === lang) {
+        return;
+    }
 
-	var trInit = translator.initialize(true, lang);
-	switchLangAsync(trInit);
+    var trInit = translator.initialize(true, lang);
+    switchLangAsync(trInit);
 }
 
 function panic(message){
-	console.error("FAILED: " + message);
-	
+    console.error("FAILED: " + message);
+    
     var box = $("#panic-box");
     box.html(
-    	"<strong>WARNING</strong><br>"
-    	+ message
-    	+ "<br><span style='font-size: smaller'>Take screenshot and report to player \"Norview ★\" (ID: 135198770) from Server 803.</span>");
+        "<strong>WARNING</strong><br>"
+        + message
+        + "<br><span style='font-size: smaller'>Take screenshot and report to player \"Norview ★\" (ID: 135198770) from Server 803.</span>");
     box.css("display", "block");
     box.animate({"margin-top" : '-1%'}, "slow");
 }
@@ -300,8 +302,8 @@ function configureUI(reposOnly){
     // In .css file, we stretch this picture to 150% on smaller devices.
     var stretched = windowWidth <= 1024;
     if (stretched) {
-    	orgPicWidth *= 1.5;
-    	orgPicHeight *= 1.5;
+        orgPicWidth *= 1.5;
+        orgPicHeight *= 1.5;
     }
     var picWidth = orgPicWidth;
     var picHeight = orgPicHeight;    
@@ -344,119 +346,119 @@ const starIcon = "★";
 const nonStarIcon = "☆";
  
 function setLocation(selector, type, picLoc) {
-	if (!(!!selector || !!type || !!picLoc)) {
-		console.warn(
-			"Unable to set location for the selector. The type, or the picture, or the selector itself, is missing.");
-		return;
-	}
-	
-	var topLeftX = picLoc.topLeftX;
-	var topLeftY = 0;
-	var width = picLoc.picWidth;
-	var height = picLoc.picHeight;
-	var isStretched = !!picLoc.stretched;
-	
-	const leftBase = isStretched ? 0.23 : 0.18;
-	const rightBase = isStretched ? 0.78 : 0.84;
-	var top = 0;
-	var left = 0;
-	var offsets = translator.getDropdownOffsets();
-	switch(type){
-	case "animal":
-		top = topLeftY + height * 0.13;
-		left = topLeftX + width * (leftBase - (isStretched ? 0.14 : 0.06));
-		break;
-	case "weapon":
-		top = topLeftY + height * 0.26;
-		left = topLeftX + width * (leftBase - 0.01 + offsets[0]);
-		break;
-	case "armor":
-		top = topLeftY + height * 0.46;
-		left = topLeftX + width * leftBase + offsets[1];
-		break;
-	case "boots":
-		top = topLeftY + height * 0.66;
-		left = topLeftX + width * leftBase + offsets[2];
-		break;
-	case "helmet":
-		top = topLeftY + height * 0.26;
-		left = topLeftX + width * rightBase + offsets[3];
-		break;
-	case "legarmor":
-		top = topLeftY + height * 0.46;
-		left = topLeftX + width * rightBase + offsets[4];
-		break;
-	case "ring":
-		top = topLeftY + height * 0.66;
-		left = topLeftX + width * rightBase + offsets[5];
-		break;
-	case "compare":
-		top = topLeftY + height * 0.81;
-		left = topLeftX + width * (rightBase + (isStretched ? 0.125 : 0.035));
-		break;
-	}
-	
-	var topRatio = top * 100 / picLoc.windowHeight;
-	var leftRatio = left * 100 / picLoc.windowWidth;
-	
-	var topPt = Math.floor(topRatio) + "%";
-	var leftPt = Math.floor(leftRatio) + "%";
-	
-	// console.info("Set position for " + type + " - left: " + leftPt + "; top: " + topPt);
-	
-	selector.css("top", topPt);
-	selector.css("left", leftPt);
+    if (!(!!selector || !!type || !!picLoc)) {
+        console.warn(
+            "Unable to set location for the selector. The type, or the picture, or the selector itself, is missing.");
+        return;
+    }
+    
+    var topLeftX = picLoc.topLeftX;
+    var topLeftY = 0;
+    var width = picLoc.picWidth;
+    var height = picLoc.picHeight;
+    var isStretched = !!picLoc.stretched;
+    
+    const leftBase = isStretched ? 0.23 : 0.18;
+    const rightBase = isStretched ? 0.78 : 0.84;
+    var top = 0;
+    var left = 0;
+    var offsets = translator.getDropdownOffsets();
+    switch(type){
+    case "animal":
+        top = topLeftY + height * 0.13;
+        left = topLeftX + width * (leftBase - (isStretched ? 0.14 : 0.06));
+        break;
+    case "weapon":
+        top = topLeftY + height * 0.26;
+        left = topLeftX + width * (leftBase - 0.01 + offsets[0]);
+        break;
+    case "armor":
+        top = topLeftY + height * 0.46;
+        left = topLeftX + width * leftBase + offsets[1];
+        break;
+    case "boots":
+        top = topLeftY + height * 0.66;
+        left = topLeftX + width * leftBase + offsets[2];
+        break;
+    case "helmet":
+        top = topLeftY + height * 0.26;
+        left = topLeftX + width * rightBase + offsets[3];
+        break;
+    case "legarmor":
+        top = topLeftY + height * 0.46;
+        left = topLeftX + width * rightBase + offsets[4];
+        break;
+    case "ring":
+        top = topLeftY + height * 0.66;
+        left = topLeftX + width * rightBase + offsets[5];
+        break;
+    case "compare":
+        top = topLeftY + height * 0.81;
+        left = topLeftX + width * (rightBase + (isStretched ? 0.125 : 0.035));
+        break;
+    }
+    
+    var topRatio = top * 100 / picLoc.windowHeight;
+    var leftRatio = left * 100 / picLoc.windowWidth;
+    
+    var topPt = Math.floor(topRatio) + "%";
+    var leftPt = Math.floor(leftRatio) + "%";
+    
+    // console.info("Set position for " + type + " - left: " + leftPt + "; top: " + topPt);
+    
+    selector.css("top", topPt);
+    selector.css("left", leftPt);
 }
 
 function makeDummyDragon(){
-	return { 
-		name: "generic-dragon",
-		type: "dragon"
-	};
+    return { 
+        name: "generic-dragon",
+        type: "dragon"
+    };
 }
 
 function configureAnimalCheckBox(picLoc, reposOnly) {
-	function tryUpdate(checked){
-		general.setAnimal(checked ? makeDummyDragon() : null);
-		// Trigger update only if any equipment is sensitive to dragon's presence (most are not).
-		var eqs = general.getEquipments();
-		for (var eq of eqs) {
-			if (!!eq) {
-				for (var attr of eq.attributes) {
-					for (var cond of attr.condition) {
-						if (cond === "w/dragon") {
-							// console.info("Found at least one equipment with buffs triggered by w/dragon.");
-							// Trigger and return
-							updateStats();
-							return;
-						}
-					} 
-				}
-			}
-		}	
-	}
+    function tryUpdate(checked){
+        general.setAnimal(checked ? makeDummyDragon() : null);
+        // Trigger update only if any equipment is sensitive to dragon's presence (most are not).
+        var eqs = general.getEquipments();
+        for (var eq of eqs) {
+            if (!!eq) {
+                for (var attr of eq.attributes) {
+                    for (var cond of attr.condition) {
+                        if (cond === "w/dragon") {
+                            // console.info("Found at least one equipment with buffs triggered by w/dragon.");
+                            // Trigger and return
+                            updateStats();
+                            return;
+                        }
+                    } 
+                }
+            }
+        }    
+    }
 
-	var animal$ = findSelector("animal");
-	setLocation(animal$, "animal", picLoc);
-	
-	if (!reposOnly) {
-		var cb$ = animal$.find("#animal-checkbox");
-		// Reset the state
-		cb$.prop('checked', false);
-		
-		// Clicking on the label should have the same toggling effect.
-		animal$.find("label").click(function(){
-			var isChecked = cb$.is(":checked");
-			cb$.prop('checked', !isChecked);
-			tryUpdate(checked);
-		});
-	
-		// Clicking triggers stats update.
-		cb$.change(function(){
-			var checked = $(this).is(":checked");
-			tryUpdate(checked);
-		});
-	}
+    var animal$ = findSelector("animal");
+    setLocation(animal$, "animal", picLoc);
+    
+    if (!reposOnly) {
+        var cb$ = animal$.find("#animal-checkbox");
+        // Reset the state
+        cb$.prop('checked', false);
+        
+        // Clicking on the label should have the same toggling effect.
+        animal$.find("label").click(function(){
+            var isChecked = cb$.is(":checked");
+            cb$.prop('checked', !isChecked);
+            tryUpdate(checked);
+        });
+    
+        // Clicking triggers stats update.
+        cb$.change(function(){
+            var checked = $(this).is(":checked");
+            tryUpdate(checked);
+        });
+    }
 }
        
 function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
@@ -483,57 +485,57 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     }
         
     function getSetColor(setName) {
-    	setName = setName.trim().toLowerCase();
-    	switch (setName) {
-    	case "king": return "#fcf403";
-    	case "dragon": return "#fcba03";
-    	case "ares": return "#fc6b03";
-    	case "achaemenidae": return "#fc2403";
-    	default: // Civilization use the same color. Not ideal as they belong to different sets.
-    		return "#c603fc";
-    	}
+        setName = setName.trim().toLowerCase();
+        switch (setName) {
+        case "king": return "#fcf403";
+        case "dragon": return "#fcba03";
+        case "ares": return "#fc6b03";
+        case "achaemenidae": return "#fc2403";
+        default: // Civilization use the same color. Not ideal as they belong to different sets.
+            return "#c603fc";
+        }
     }
     
     function updateSets() {
-    	// Collect pieces by set
-    	var map = new Map();
-    	for (var eq of general.getEquipments()) {
-    		if (!!eq) {
-    			var setName = eq.set.name;
-    			if (!map.has(setName)) {
-    				map.set(setName, []);
-    			}
-    			
-    			map.get(setName).push(eq);
-    		}
-    	}
-    	
-    	var allTypes = new Set();
-    	allTypes.add("weapon");
-    	allTypes.add("armor");
-    	allTypes.add("boots");
-    	allTypes.add("helmet");
-    	allTypes.add("legarmor");
-    	allTypes.add("ring");
-    	
-    	map.forEach(function(value, key) {
-    		if (!!value && value.length >= 2) {
-    			// Minimal set requirement met
-    			var color = getSetColor(key);
-    			for (var eq of value) {
-    				var type = eq.type;
-    				var selector = findSelector(type);
-    				selector.css("border", "2px solid " + color + "");
-    				allTypes.delete(type);
-    			}
-    		}
-    	});
-    	
-    	allTypes.forEach(function(value) {
-    		// Minimal set requirement not met
-    		var selector = findSelector(value);
-    		selector.css("border", "2px solid blue");
-    	});
+        // Collect pieces by set
+        var map = new Map();
+        for (var eq of general.getEquipments()) {
+            if (!!eq) {
+                var setName = eq.set.name;
+                if (!map.has(setName)) {
+                    map.set(setName, []);
+                }
+                
+                map.get(setName).push(eq);
+            }
+        }
+        
+        var allTypes = new Set();
+        allTypes.add("weapon");
+        allTypes.add("armor");
+        allTypes.add("boots");
+        allTypes.add("helmet");
+        allTypes.add("legarmor");
+        allTypes.add("ring");
+        
+        map.forEach(function(value, key) {
+            if (!!value && value.length >= 2) {
+                // Minimal set requirement met
+                var color = getSetColor(key);
+                for (var eq of value) {
+                    var type = eq.type;
+                    var selector = findSelector(type);
+                    selector.css("border", "2px solid " + color + "");
+                    allTypes.delete(type);
+                }
+            }
+        });
+        
+        allTypes.forEach(function(value) {
+            // Minimal set requirement not met
+            var selector = findSelector(value);
+            selector.css("border", "2px solid blue");
+        });
     }
     
     // Reposition its container
@@ -542,8 +544,8 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     
     // Reposition the "Compare" button
     if (type === "ring") {
-    	var compBtn = findCompareButton();
-    	setLocation(compBtn, "compare", picLoc);
+        var compBtn = findCompareButton();
+        setLocation(compBtn, "compare", picLoc);
     }
     
     if (!!reposOnly) {
@@ -645,18 +647,18 @@ function enableCompareButton(btn){
 }
 
 function configureCompareButton(){
-	var compBtn = findCompareButton();
-	disableCompareButton(compBtn);
-	compBtn.click(function(){
-		addGeneral(general);
-		disableCompareButton(compBtn);
-	});
+    var compBtn = findCompareButton();
+    disableCompareButton(compBtn);
+    compBtn.click(function(){
+        addGeneral(general);
+        disableCompareButton(compBtn);
+    });
 }
 
 // UI component finders
 
 function findCompareButton(){
-	return $("#add-to-comparison-form button");
+    return $("#add-to-comparison-form button");
 }
 
 function findSelector(type){
@@ -741,11 +743,11 @@ function populateEquipmentDropDownMenu(type) {
     
     // Sort 
     eqs.sort(function (e1, e2) {
-    	// First check the set's designated order
-    	var diff = e1.set.order - e2.set.order;
-    	if (diff !== 0) {
-    		return diff;
-    	}
+        // First check the set's designated order
+        var diff = e1.set.order - e2.set.order;
+        if (diff !== 0) {
+            return diff;
+        }
         
         // Then alphabetically
         return (e1.name < e2.name ? -1 : 1);
@@ -783,91 +785,91 @@ var ctable = null;
 // (2) the combination is not found in the set.
 // Otherwise, disable it instead.
 function tryEnableCompareButton(general){
-	var equipped = false;
-	var eqs = general.getEquipments();
-	for (var eq of eqs) {
-		if (!!eq) {
-			equipped = true;
-			break;
-		}
-	}
+    var equipped = false;
+    var eqs = general.getEquipments();
+    for (var eq of eqs) {
+        if (!!eq) {
+            equipped = true;
+            break;
+        }
+    }
 
-	var compBtn = findCompareButton();
-	if (equipped && !generalSet.has(general)){
-		enableCompareButton(compBtn);
-	} else {
-		disableCompareButton(compBtn);
-	}
+    var compBtn = findCompareButton();
+    if (equipped && !generalSet.has(general)){
+        enableCompareButton(compBtn);
+    } else {
+        disableCompareButton(compBtn);
+    }
 }
 
 function addGeneral(general){
-	// Create and insert a replica. Through the end we should only refer to the replica.
-	var generalRep = general.clone();
-	
-	// Set a dummy dragon. In this table we always compare with a dragin included.
-	generalRep.setAnimal(makeDummyDragon());
-	
-	var succ = generalSet.add(generalRep);
-	
-	if (succ) {
-	    if (ctable == null) {
-	    	// Initialize the table
-    		ctable = new ComparisonTable();
-    	}
-    	
-    	var battleType = getBattleType();
-    	 
-		// This unfortunately doesn't cover the case when the last slot is filled.
-		var genCount = generalSet.getAll().length;
-		var appendOnly = genCount < c_maxGenerals;
-		if (appendOnly) {
-			ctable.append(generalRep, battleType);
-			console.info("Appended general to the comparison table.");
-		} else {
-			ctable.clearAll();
-			var generals = generalSet.getAll();
-			for (var gen of generals) {
-				ctable.append(gen, battleType);
-			}
-			
-			console.info("Refreshed all generals in the comparison table.");
-		}
-		
-		if (genCount === 1) {
-			// This is the first one, let's display the view parts.
-			var view = $(".comparison-component");
-			view.css("display", "");
-		}
-	}
+    // Create and insert a replica. Through the end we should only refer to the replica.
+    var generalRep = general.clone();
+    
+    // Set a dummy dragon. In this table we always compare with a dragin included.
+    generalRep.setAnimal(makeDummyDragon());
+    
+    var succ = generalSet.add(generalRep);
+    
+    if (succ) {
+        if (ctable == null) {
+            // Initialize the table
+            ctable = new ComparisonTable();
+        }
+        
+        var battleType = getBattleType();
+         
+        // This unfortunately doesn't cover the case when the last slot is filled.
+        var genCount = generalSet.getAll().length;
+        var appendOnly = genCount < c_maxGenerals;
+        if (appendOnly) {
+            ctable.append(generalRep, battleType);
+            console.info("Appended general to the comparison table.");
+        } else {
+            ctable.clearAll();
+            var generals = generalSet.getAll();
+            for (var gen of generals) {
+                ctable.append(gen, battleType);
+            }
+            
+            console.info("Refreshed all generals in the comparison table.");
+        }
+        
+        if (genCount === 1) {
+            // This is the first one, let's display the view parts.
+            var view = $(".comparison-component");
+            view.css("display", "");
+        }
+    }
 }
 
 function removeGeneral(index, general) {
-	if (!ctable) {
-		return;
-	}
-	
-	var succ = generalSet.removeExact(general);
-	if (succ) {
-		ctable.remove(index);
-	}
-	
-	var genCount = generalSet.getAll().length;
-	if (genCount < 1) {
-		// That was the last one, let's hide the view parts.
-		var view = $(".comparison-component");
-		view.css("display", "none");
-	}
-	
-	tryEnableCompareButton(window.general);
+    if (!ctable) {
+        return;
+    }
+    
+    var succ = generalSet.removeExact(general);
+    if (succ) {
+        ctable.remove(index);
+    }
+    
+    var genCount = generalSet.getAll().length;
+    if (genCount < 1) {
+        // That was the last one, let's hide the view parts.
+        var view = $(".comparison-component");
+        view.css("display", "none");
+    }
+    
+    tryEnableCompareButton(window.general);
 }
 
 function updateGenerals(){
-	if (!ctable) {
-		return;
-	}
-	
-	var battleType = getBattleType();
-	ctable.updateAll(battleType);
+    if (!ctable) {
+        return;
+    }
+    
+    var battleType = getBattleType();
+    ctable.updateAll(battleType);
 }
 
 const c_comparison_table = "#comparison-table";
@@ -884,237 +886,237 @@ const c_data_index_num = "data_index";
 
 function ComparisonTable(){
 
-	// Locate all the display rows and cache them.
-	//   - 1 delete button
-	//   - 6 equipments
-	//   - 12 buff values
-	//   - 12 debuff values
-	function initialize(){
-		var equipments = [];
-		var buffs = [];
-		var debuffs = [];
-		var deleteRow = null;
-		var rows = $(c_comparison_table + " tr");
-		if (!!rows){
-			rows.each(function(){
-				var child = $(this);
-				var id = child.attr("id");
-				if (!!id){
-					if (id.startsWith("ct-equipment-")) {
-						equipments.push(child);
-					} else if (id.startsWith(c_buff_row_id_prefix)) {
-						buffs.push(child);
-					} else if (id.startsWith(c_debuff_row_id_prefix)) {
-						debuffs.push(child);
-					} else if (id === "ct-delete-row") {
-						deleteRow = child;
-					}
-				}
-			});
-		}
-	
-		if (buffs.length != 12) {
-			console.warn("Located " + buffs.length + " buff rows in the comparison table instead 12.");
-		}
-		if (debuffs.length != 12) {
-			console.warn("Located " + debuffs.length + " debuff rows in the comparison table instead 12.");
-		}
-		if (equipments.length != 6) {
-			console.warn("Located " + debuffs.length + " equipment rows in the comparison table instead 6.");
-		}
-		if (!deleteRow) {
-			console.warn("Couldn't locate the delete row in the comparison table.");
-		}
-	
-		return {
-			equipments : equipments,
-			buffs : buffs,
-			debuffs : debuffs,
-			deleteRow : deleteRow
-		};
-	}
-	
-	// Returns the info on the buff that should be put into the given row
-	//  - buffRow has an id of ct-(de)buff-{buffType}-row
-	//  - buffs has a property of name {buffType}
-	// So this function is able to find the property corresponding to this row.
-	function getBuffInfoForRow(buffRow, buffs, isBuff){
-		var offset = isBuff ? c_buff_row_id_prefix.length : c_debuff_row_id_prefix.length;
-		var id = buffRow.attr("id");
-		// Example: ct-buff-groundAttack-row
-		// Note the part in the middle is same as the property name in buff object
-		var idPart = id.substring(offset); // remove the prefix
-		idPart = idPart.substring(0, idPart.length - 4); // remove the suffix ("-row")
-		var val = buffs[idPart];
-		if (isNaN(val)){
-			val = 0;		
-			if (!idPart){
-				idPart = "";
-			}
-		}
+    // Locate all the display rows and cache them.
+    //   - 1 delete button
+    //   - 6 equipments
+    //   - 12 buff values
+    //   - 12 debuff values
+    function initialize(){
+        var equipments = [];
+        var buffs = [];
+        var debuffs = [];
+        var deleteRow = null;
+        var rows = $(c_comparison_table + " tr");
+        if (!!rows){
+            rows.each(function(){
+                var child = $(this);
+                var id = child.attr("id");
+                if (!!id){
+                    if (id.startsWith("ct-equipment-")) {
+                        equipments.push(child);
+                    } else if (id.startsWith(c_buff_row_id_prefix)) {
+                        buffs.push(child);
+                    } else if (id.startsWith(c_debuff_row_id_prefix)) {
+                        debuffs.push(child);
+                    } else if (id === "ct-delete-row") {
+                        deleteRow = child;
+                    }
+                }
+            });
+        }
+    
+        if (buffs.length != 12) {
+            console.warn("Located " + buffs.length + " buff rows in the comparison table instead 12.");
+        }
+        if (debuffs.length != 12) {
+            console.warn("Located " + debuffs.length + " debuff rows in the comparison table instead 12.");
+        }
+        if (equipments.length != 6) {
+            console.warn("Located " + debuffs.length + " equipment rows in the comparison table instead 6.");
+        }
+        if (!deleteRow) {
+            console.warn("Couldn't locate the delete row in the comparison table.");
+        }
+    
+        return {
+            equipments : equipments,
+            buffs : buffs,
+            debuffs : debuffs,
+            deleteRow : deleteRow
+        };
+    }
+    
+    // Returns the info on the buff that should be put into the given row
+    //  - buffRow has an id of ct-(de)buff-{buffType}-row
+    //  - buffs has a property of name {buffType}
+    // So this function is able to find the property corresponding to this row.
+    function getBuffInfoForRow(buffRow, buffs, isBuff){
+        var offset = isBuff ? c_buff_row_id_prefix.length : c_debuff_row_id_prefix.length;
+        var id = buffRow.attr("id");
+        // Example: ct-buff-groundAttack-row
+        // Note the part in the middle is same as the property name in buff object
+        var idPart = id.substring(offset); // remove the prefix
+        idPart = idPart.substring(0, idPart.length - 4); // remove the suffix ("-row")
+        var val = buffs[idPart];
+        if (isNaN(val)){
+            val = 0;        
+            if (!idPart){
+                idPart = "";
+            }
+        }
 
-		return {
-			value : val,
-			type : idPart
-		};
-	}
-	
-	// Populate the column for (de)buff properties
-	function addBuffs(buffRows, isBuff, buffs, index){
-		for (var buffRow of buffRows) {
-			var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
-			
-			var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
-			var bgColor = isGrey ? "grey " : "";
-			var value = buffVal.value;
-			var valStr = value + "%";
-			// Example:
-			// <td class="ctentry ctentry-0">15%</td>
-			var td = $("<td class=\"" + bgColor + "ctentry ctentry-" + index + "\">" + valStr + "</td>");
+        return {
+            value : val,
+            type : idPart
+        };
+    }
+    
+    // Populate the column for (de)buff properties
+    function addBuffs(buffRows, isBuff, buffs, index){
+        for (var buffRow of buffRows) {
+            var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
+            
+            var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
+            var bgColor = isGrey ? "grey " : "";
+            var value = buffVal.value;
+            var valStr = value + "%";
+            // Example:
+            // <td class="ctentry ctentry-0">15%</td>
+            var td = $("<td class=\"" + bgColor + "ctentry ctentry-" + index + "\">" + valStr + "</td>");
 
-		 	var deco = getBuffDeco(function(){
-				return isGrey;
-			}, value);
-	
-			td.css("color", deco.color);
-			if (!!deco.isMax) {
-				td.css("fontWeight");
-			}
-			
-			buffRow.append(td);
-		}
-	}
-	
-	function updateBuffs(buffRows, columns, isBuff) {
-		var propName = isBuff ? "buffs" : "debuffs";
-		// Update per row
-		for (var buffRow of buffRows) {
-			var tds = buffRow.find(entry_class);
-			tds.each(function(_index){
-				var td = $(this);
-				var column = columns[_index];
-				
-				// Update the value
-				var buffs = column[propName];
-				var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
-				var value = buffVal.value;
-				td.text(value + "%");
-				
-				var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
-				var deco = getBuffDeco(function(){
-					return isGrey;
-				}, value);
-	
-				td.css("color", deco.color);
-				if (!!deco.isMax) {
-					td.css("fontWeight");
-				}
-			});
-		}
-	}
-	
-	var obj = initialize();
-	
-	this._equipments = obj.equipments;
-	this._buffs = obj.buffs;
-	this._debuffs = obj.debuffs;
-	this._deleteRow = obj.deleteRow;
-	this._index = -1;
-	
-	this.updateAll = function(scenario) {
-		var delHeaders = this._deleteRow.find(entry_class);
-		// var delHeaders = $(c_comparison_table_delete_row + " " + entry_class);
-		
-		// Each contains the index of the column and the buffs objects
-		var columns = [];
-		
-		// Locate each general on the row
-		delHeaders.each(function(){
-			var header = $(this);
-			var general = header.data(c_data_general_obj);
-			
-			columns.push({
-				// index: index,
-				buffs: general.getBuffs(scenario, c_starring_max),
-				debuffs: general.getDebuffs(scenario, c_starring_max)
-			});
-		});
-		
-		// Update
-		updateBuffs(this._buffs, columns, true);
-		updateBuffs(this._debuffs, columns, false);
-	};
-	
-	this.clearAll = function() {
-		if (!!this._deleteRow){
-		 	var entries = this._deleteRow.find(entry_class);
-			entries.remove();
-		}
-		for (var row of this._equipments) {
-			var entries = row.find(entry_class);
-			entries.remove();
-		}
-		for (var row of this._buffs) {
-			var entries = row.find(entry_class);
-			entries.remove();
-		}
-		for (var row of this._debuffs) {
-			var entries = row.find(entry_class);
-			entries.remove();
-		}
-		
-		this._index = -1;
-	};
-	
-	this.remove = function(index){
-		var cells = $(c_comparison_table + " " + entry_index_class_prefix + index);
-		cells.remove();
-		
-		// No need to update index for the following columns. Their event handlers 
-		// will still work, as they keep referring to the original index.
-	};
-	
-	this.append = function(general, scenario){
-		// Add the entry at the next index
-		this._index++;
-		var index = this._index;
-		
-		// 1. Add delete button, which is also used as the data bearer.
-		if (!!this._deleteRow) {
-			// Example:
-			// <th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
-			var btn = $("<th class=\"ctentry ctentry-" + index + "\"><image src=\"./assets/delete.png\" style=\"width:24px\"></th>");
-		 	this._deleteRow.append(btn);
-		 	
-		 	// Add handler
-		 	btn.click(function(){
-				removeGeneral(index, general);
-			});
-			
-			// Attach the metadata
-			btn.data(c_data_general_obj, general);
-			// btn.data(c_data_index_num, index);
-		}
-		
-		// 2. Add equipment names
-		var eqs = general.getEquipments();
-		for (var i = 0; i < 6; i++) {
-			// Example:
-			// <th class="ctentry ctentry-0">Achae.</th>
-			var eq = eqs[i];
-			var row = this._equipments[i];
-			if (!!row){
-				var keyAndName = translator.getDisplayName(eq, c_name_minimal);				
-				var th = $("<th class=\"i18n ctentry ctentry-" + index + "\" tkey=\"" + keyAndName.key + "\">" + keyAndName.initial + "</th>");
-				row.append(th);
-			}
-		}
-		
-		// 3. Add buffs
-		var buffs = general.getBuffs(scenario, c_starring_max);
-		addBuffs(this._buffs, true, buffs, index);
-		
-		var debuffs = general.getDebuffs(scenario, c_starring_max);
-		addBuffs(this._debuffs, false, debuffs, index);
-	};
+             var deco = getBuffDeco(function(){
+                return isGrey;
+            }, value);
+    
+            td.css("color", deco.color);
+            if (!!deco.isMax) {
+                td.css("fontWeight");
+            }
+            
+            buffRow.append(td);
+        }
+    }
+    
+    function updateBuffs(buffRows, columns, isBuff) {
+        var propName = isBuff ? "buffs" : "debuffs";
+        // Update per row
+        for (var buffRow of buffRows) {
+            var tds = buffRow.find(entry_class);
+            tds.each(function(_index){
+                var td = $(this);
+                var column = columns[_index];
+                
+                // Update the value
+                var buffs = column[propName];
+                var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
+                var value = buffVal.value;
+                td.text(value + "%");
+                
+                var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
+                var deco = getBuffDeco(function(){
+                    return isGrey;
+                }, value);
+    
+                td.css("color", deco.color);
+                if (!!deco.isMax) {
+                    td.css("fontWeight");
+                }
+            });
+        }
+    }
+    
+    var obj = initialize();
+    
+    this._equipments = obj.equipments;
+    this._buffs = obj.buffs;
+    this._debuffs = obj.debuffs;
+    this._deleteRow = obj.deleteRow;
+    this._index = -1;
+    
+    this.updateAll = function(scenario) {
+        var delHeaders = this._deleteRow.find(entry_class);
+        // var delHeaders = $(c_comparison_table_delete_row + " " + entry_class);
+        
+        // Each contains the index of the column and the buffs objects
+        var columns = [];
+        
+        // Locate each general on the row
+        delHeaders.each(function(){
+            var header = $(this);
+            var general = header.data(c_data_general_obj);
+            
+            columns.push({
+                // index: index,
+                buffs: general.getBuffs(scenario, c_starring_max),
+                debuffs: general.getDebuffs(scenario, c_starring_max)
+            });
+        });
+        
+        // Update
+        updateBuffs(this._buffs, columns, true);
+        updateBuffs(this._debuffs, columns, false);
+    };
+    
+    this.clearAll = function() {
+        if (!!this._deleteRow){
+             var entries = this._deleteRow.find(entry_class);
+            entries.remove();
+        }
+        for (var row of this._equipments) {
+            var entries = row.find(entry_class);
+            entries.remove();
+        }
+        for (var row of this._buffs) {
+            var entries = row.find(entry_class);
+            entries.remove();
+        }
+        for (var row of this._debuffs) {
+            var entries = row.find(entry_class);
+            entries.remove();
+        }
+        
+        this._index = -1;
+    };
+    
+    this.remove = function(index){
+        var cells = $(c_comparison_table + " " + entry_index_class_prefix + index);
+        cells.remove();
+        
+        // No need to update index for the following columns. Their event handlers 
+        // will still work, as they keep referring to the original index.
+    };
+    
+    this.append = function(general, scenario){
+        // Add the entry at the next index
+        this._index++;
+        var index = this._index;
+        
+        // 1. Add delete button, which is also used as the data bearer.
+        if (!!this._deleteRow) {
+            // Example:
+            // <th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
+            var btn = $("<th class=\"ctentry ctentry-" + index + "\"><image src=\"./assets/delete.png\" style=\"width:24px\"></th>");
+             this._deleteRow.append(btn);
+             
+             // Add handler
+             btn.click(function(){
+                removeGeneral(index, general);
+            });
+            
+            // Attach the metadata
+            btn.data(c_data_general_obj, general);
+            // btn.data(c_data_index_num, index);
+        }
+        
+        // 2. Add equipment names
+        var eqs = general.getEquipments();
+        for (var i = 0; i < 6; i++) {
+            // Example:
+            // <th class="ctentry ctentry-0">Achae.</th>
+            var eq = eqs[i];
+            var row = this._equipments[i];
+            if (!!row){
+                var keyAndName = translator.getDisplayName(eq, c_name_minimal);                
+                var th = $("<th class=\"i18n ctentry ctentry-" + index + "\" tkey=\"" + keyAndName.key + "\">" + keyAndName.initial + "</th>");
+                row.append(th);
+            }
+        }
+        
+        // 3. Add buffs
+        var buffs = general.getBuffs(scenario, c_starring_max);
+        addBuffs(this._buffs, true, buffs, index);
+        
+        var debuffs = general.getDebuffs(scenario, c_starring_max);
+        addBuffs(this._debuffs, false, debuffs, index);
+    };
 }

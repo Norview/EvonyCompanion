@@ -13,27 +13,6 @@ const c_name_dropdown = 1;
 const c_name_minimal = 2;
 
 function Translator(){
-
-	function createOrGetTranslator(data){
-		if (!!g_data[g_lang]) {
-			return g_translators[g_lang];
-		}
-		
-		var resources = {};
-		resources[g_lang] = data;
-	
-		var initData = {
-		  'lng': g_lang,
-		  // 'debug': true,
-		  'resources': resources
-		};
-		
-		const i18nInst = i18next.createInstance();
-		i18nInst.init(initData);
-		
-		g_data[g_lang] = initData;
-		return g_translators[g_lang] = i18nInst;
-	}
 	
 	var g_lang = "en";
 	var g_data = {};
@@ -100,7 +79,7 @@ function Translator(){
 		}
 		
 		// 2. check #lang={LANG}
-		if (window.location.hash) {
+		if (!lang && window.location.hash) {
       		var hash = window.location.hash.substring(1); 
       		var sections = hash.split("=");
       		if (!!sections && sections.length == 2 && sections[0] === "lang") {
@@ -136,19 +115,25 @@ function Translator(){
 		
 		var path = "../data/resources/" + g_lang + ".json";
 		
+		// The promise to return which, upon settlement, brings the data to initialize with.
+		var prom = null;
 		var _shouldLoadData = false;
 		if (typeof shouldLoadData === 'boolean') {
 			_shouldLoadData = shouldLoadData;
 		} else {
 			_shouldLoadData = shouldLoadData(g_lang);
 		}
-	
-		var data = g_data[g_lang];	
-		var prom = _shouldLoadData
-			? (!!data
-				? $.Deferred().promise(data) // Already fetched the data for this language. Reuse it.
-				: $.getJSON(path))
-			: null;
+		if (_shouldLoadData === true) {
+			var data = g_data[g_lang];
+			if (!!data) {
+				var def = $.Deferred();
+				def.resolve(data); // Already fetched the data for this language. Reuse it.
+				prom = def;
+			} else {
+				prom = $.getJSON(path);
+			}
+		}
+		
 		var ret = {
 			"lang" : g_lang,
 			"path" : path,
@@ -157,7 +142,29 @@ function Translator(){
 		
 		return ret; 
 	};
+
+	// Initialize the translator using the given data. A language will only be initialized once and memoized.
+	this.initTranslator = function(data){
+		if (!!g_data[g_lang]) {
+			return g_translators[g_lang];
+		}
+		
+		var resources = {};
+		resources[g_lang] = data;
 	
+		var initData = {
+		  'lng': g_lang,
+		  // 'debug': true,
+		  'resources': resources
+		};
+		
+		const i18nInst = i18next.createInstance();
+		i18nInst.init(initData);
+		
+		g_data[g_lang] = initData;
+		return g_translators[g_lang] = i18nInst;
+	};
+		
 	// Translate everything on the page.
 	//
 	// Elements which can be translated are marked with class "i18n" and possess an attribute "tkey".
@@ -168,7 +175,7 @@ function Translator(){
 	//
 	// data: the object to be set as resources[lang]. resources is to be used to initialize i18next instance.
 	this.translate = function(data){
-		var i18n = createOrGetTranslator(data);
+		var i18n = this.initTranslator(data);
 	
 		$(".i18n").each(function(){
 			var i18n$ = $(this);
@@ -184,7 +191,7 @@ function Translator(){
 	// The key should be used as the value of attribute "tkey" on the HTML element with class "i18n", 
 	// so that translate() can locate it and translate its text. Example:
 	//   <label class="i18n" tkey="Hello">Hello</label>
-	this.getDisplayName = function(eq, type){
+	this.getDisplayName = function(eq, type, lang){
 
 		// Removes the type from the name, if it's obvious.
 		function getDropdownEnglishName(eq){
@@ -251,24 +258,31 @@ function Translator(){
 			nkey += " (table)";
 		}
 	
-		if (g_lang === "en") {
-			if (type === c_name_dropdown) {		
-				return { "key" : nkey, "initial" : getDropdownEnglishName(eq) };
-			} else if (type === c_name_minimal) {
-				return { "key" : nkey, "initial" : getMinimalEnglishName(eq.name, eq.type) };
-			} else {
-				return { "key" : nkey, "initial" : eq.name };
-			}
-		} else {
-			var translated = i18next.t(nkey);
+// 		if (g_lang === "en") {
+// 			if (type === c_name_dropdown) {		
+// 				return { "key" : nkey, "initial" : getDropdownEnglishName(eq) };
+// 			} else if (type === c_name_minimal) {
+// 				return { "key" : nkey, "initial" : getMinimalEnglishName(eq.name, eq.type) };
+// 			} else {
+// 				return { "key" : nkey, "initial" : eq.name };
+// 			}
+// 		} else {
+
+		lang = lang || g_lang;
+		var translator = g_translators[lang];
+		if (!!translator) {
+			var translated = translator.t(nkey);
 			if (!!translated) {	
 				return { "key" : nkey, "initial" : translated};
-			} else {
-				// Fall back to English
-				return getDisplayName("en", eq, type);
 			}
 		}
-	
-		throw "Shouldn't reach here.";
+		
+		// Fall back to English
+		if (lang === "en") {
+			console.warn("Failed to translate " + nkey + " to English.");
+			return { "key" : nkey, "initial" : "" };
+		} else {
+			return getDisplayName(eq, type, "en");
+		}
 	};
 }
