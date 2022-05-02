@@ -1,5 +1,5 @@
 { 
-"dropdownOffsets": [0,0,0,0,0,0],
+"dropdownOffsets": [-0.01,0,0,0,0,0],
 "translation": {
   "Language": "Language",
   "Dragon": "Dragon",
@@ -100,7 +100,7 @@
   "King's Sword (table)" : "King's Sword",
   
   "Fearless Dragon Helmet" : "Fearless Dragon Helmet",
-  "Fearless Dragon Helmet (dropdown)" : "Fearless DragonFearless Dragon",
+  "Fearless Dragon Helmet (dropdown)" : "Fearless Dragon",
   "Fearless Dragon Helmet (table)" : "F. Dragon",
   "Courageous Dragon Helmet" : "Courageous Dragon Helmet",
   "Courageous Dragon Helmet (dropdown)" : "Courageous Dragon",

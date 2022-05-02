@@ -140,7 +140,16 @@ function initialize() {
     var lang = "en";
     const fileName = "equipments.json";
     var filePath = "";
-    $.getJSON(filePath = "../data/" + fileName)
+    
+    // TODO: Get en-lang file -> init Translator -> init data ->  no need to translate again!
+
+    var trInit = translator.initialize(true); // Let initialize() figure out the selected language from URL.
+    setLangLink(trInit.lang);
+    var prom = switchLangAsync(trInit, true); // skipTranslation == true. We defer translation for now since the page has yet to be populated.
+
+    prom.then(function(){
+    	return $.getJSON(filePath = "../data/" + fileName);
+    })
     .then(function(data) {
         // All equipments
         equipments = {};
@@ -204,10 +213,17 @@ function initialize() {
         
         console.log("UI initiated.");
         
-        setLangLink('en');
-        var trInit = translator.initialize(true); // Let initialize() figure out the selected language from URL.
-        switchLangAsync(trInit, trInit.lang === "en"); // If it's English, do not translate.
-    });
+        // Translate now
+        switchLangAsync(trInit, trInit.lang === "en"); // But if it's English, do not translate.
+    })
+    .fail(function(error) {
+		var status = error.status;
+		if (status == 200) {
+			panic("Data file " + filePath + " cannot be parsed."); 
+		} else {
+			panic("Data file " + filePath + " cannot be loaded. Status = " + error.status + ".");
+		}
+	}); 
 }
 
 function switchLangAsync(trInit, skipTranslation) {
@@ -222,7 +238,7 @@ function switchLangAsync(trInit, skipTranslation) {
                     translator.initTranslator(data);
                 } else {
                     translator.translate(data);
-                    configureUI(true); // Readjust the layout
+                    configureUI(true); // Re-adjust the layout
                 }
                 
                 setLangLink(lang);
@@ -242,6 +258,10 @@ function switchLangAsync(trInit, skipTranslation) {
                 } 
             }
         });   
+    } else {
+    	var def = $.Deferred();
+		def.resolve(null);
+    	return def;
     }
 }
 
