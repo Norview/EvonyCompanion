@@ -1,6 +1,8 @@
 {
 "dropdownOffsets": [0, 0, 0, 0, 0, 0],
 "translation": {
+    "Language": "Linguaggio",
+    
 	"Dragon": "Drago",
 	"Weapon": "Arma",
 	"Armor": "Armatura",
