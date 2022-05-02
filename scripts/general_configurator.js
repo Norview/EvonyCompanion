@@ -394,23 +394,23 @@ function setLocation(selector, type, picLoc) {
         break;
     case "armor":
         top = topLeftY + height * 0.46;
-        left = topLeftX + width * leftBase + offsets[1];
+        left = topLeftX + width * (leftBase + offsets[1]);
         break;
     case "boots":
         top = topLeftY + height * 0.66;
-        left = topLeftX + width * leftBase + offsets[2];
+        left = topLeftX + width * (leftBase + offsets[2]);
         break;
     case "helmet":
         top = topLeftY + height * 0.26;
-        left = topLeftX + width * rightBase + offsets[3];
+        left = topLeftX + width * (rightBase + offsets[3]);
         break;
     case "legarmor":
         top = topLeftY + height * 0.46;
-        left = topLeftX + width * rightBase + offsets[4];
+        left = topLeftX + width * (rightBase + offsets[4]);
         break;
     case "ring":
         top = topLeftY + height * 0.66;
-        left = topLeftX + width * rightBase + offsets[5];
+        left = topLeftX + width * (rightBase + offsets[5]);
         break;
     case "compare":
         top = topLeftY + height * 0.81;
