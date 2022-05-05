@@ -135,6 +135,37 @@ function updateStats() {
     updateMaterialTable(materials);
 }
 
+// Returns an object that contains:
+//  - url : the part of URL until '?' (excluded)
+//  - lang : the language
+//  - selection : the selection of equipments
+//
+// The semantics of the argument values are not understood by this object.
+function parseUrl(){
+	function extractArg(urlParams, name, args){
+		var value = urlParams.get(name);
+		if (typeof value === 'string'){
+			value = lang.trim().toLowerCase();
+			if (value !== "") {
+				args[name] = value;
+			}
+		}
+	}
+
+	var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
+	
+	var urlInfo = {
+		"url" : url
+	};
+	
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	extractArg(urlParams, "lang", args);
+	extractArg(urlParams, "selection", args);
+	
+	return urlInfo;
+}
+
 // Load data from the server
 function initialize() {
     var lang = "en";
@@ -142,6 +173,8 @@ function initialize() {
     var filePath = "";
     
     // TODO: Get en-lang file -> init Translator -> init data ->  no need to translate again!
+    
+    // window.location.protocol + "//" + window.location.host + window.location.pathname
 
     var trInit = translator.initialize(true); // Let initialize() figure out the selected language from URL.
     setLangLink(trInit.lang);

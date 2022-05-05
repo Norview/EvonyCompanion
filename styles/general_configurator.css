@@ -185,6 +185,8 @@
 	}
 }
 
+/* Panic message */
+
 .panic-box {
   display: none;
   margin-top: -10%;
@@ -204,6 +206,7 @@
 }
 
 /* Language settings */
+
 .dropbtn {
   background-color:rgba(0, 0, 0, 0);
   color: white;
@@ -247,8 +250,6 @@
   display: block;
 }
 
-
-
 @media(max-width: 1024px){
 	.dropbtn {
 		font-size: 32px;
@@ -263,4 +264,10 @@
 	  font-size: 28px;
   	  padding: 10px 10px 10px 10px;
 	}
+}
+
+/* Control board */
+
+.ctrl-btn {
+ margin: 0px 5px 0px 5px
 }

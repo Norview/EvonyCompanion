@@ -298,6 +298,7 @@ General.prototype.getBuffs = function(scenario, starring) {
 	var isDefending = c_scenario_defending === scenario;
 	var isReinforcing = c_scenario_reinforcing === scenario;
 	var isOccupying = c_scenario_occupying === scenario;
+	var isInCity = isDefending || isReinforcing;
 	
 	var useMinStars = starring === c_starring_min;
 	var useActualStars = starring === c_starring_equipped;
@@ -419,15 +420,15 @@ General.prototype.getBuffs = function(scenario, starring) {
 				}
 			}
 		
-			// In-city attribute only takes effect when defending the city.
-			var isInCity = findCond(conditions, "in-city");
-			if (isInCity && !isDefending) {
+			// In-city attribute only takes effect when defending a city, either own or another's.
+			var isInCityOnly = findCond(conditions, "in-city");
+			if (isInCityOnly && !isInCity) {
 				continue;
 			}
 		   
-			// Marching attribute doesn't take effect when defending own city or reinforcing others' city (?). 
-			var isMarching = findCond(conditions, "marching");
-			if (isMarching && (isDefending || isReinforcing)) {
+			// Marching attribute doesn't take effect when defending own city or reinforcing others' city. 
+			var isMarchingOnly = findCond(conditions, "marching");
+			if (isMarchingOnly && isInCity) {
 				continue;
 			}
 		
