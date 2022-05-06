@@ -1692,8 +1692,8 @@
 					"condition": [],
 					"troop": ["siege"],
 					"type": "attack",
-					"value": 20,
-					"rate": 2
+					"value": -20,
+					"rate": -2
 				}
 			]
 		},
