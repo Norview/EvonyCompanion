@@ -335,6 +335,36 @@ function panic(message){
     box.animate({"margin-top" : '-1%'}, "slow");
 }
 
+//toggleVisibility(this, 'battle-types-table')
+function toggleVisibility(button, targetId) {
+	var btn = $(button);
+	// Such buttons contain an image inside:
+	//   <image src="../assets/hide.png" />
+	// We use this to also represent the state.
+	var img = btn.find("img");
+	var src = img.attr("src");
+	var toShow = false;
+	if (src.endsWith("hide.png")) {
+		src = src.replace("hide.png", "show.png");
+	} else if (src.endsWith("show.png")) {
+		src = src.replace("show.png", "hide.png");
+		toShow = true;
+	} else {
+		console.warn("Button doesn't contain an image for show/hide function.");
+		return;
+	}
+	
+	var tgt = $("#" + targetId);
+	if (toShow) {
+		tgt.css("display", ""); // Reset to the default
+	} else {
+		tgt.css("display", "none");
+	}
+	
+	// Update the image only if the style change was successful.
+	img.attr("src", src);
+}
+
 function loadUI(){
     var result = true;
     result &&= populateEquipmentDropDownMenu("weapon");

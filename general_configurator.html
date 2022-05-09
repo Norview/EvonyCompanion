@@ -117,19 +117,44 @@
 		   </form>
 		   <form id="add-to-comparison-form"> 
 			 <button type="button" disabled="true" style="top:62%; left:66%;">
-			 	<image src="../assets/add_disabled.png"/>
+			 	<img src="../assets/add_disabled.png"/>
 			 	<span class="i18n" tkey="Compare">Compare</span>
 			 </button>   
 		   </form>		    
 		   </img>
 		</div>
 	</div>
+	
+	<!-- Controls -->
+
+<!--
+    <div class="container" style="height:30px; margin: 1% 0% 0% 0%">
+      <button type="button" class="ctrl-btn">Load</button>
+      <button type="button" class="ctrl-btn">Save</button>
+      <button type="button" class="ctrl-btn">Share</button>
+      <input type="text" style="width:30%; margin: 0px 5px 0px 5px"></input>
+      <button type="button" class="ctrl-btn">Copy</button>
+    </div>
+
+	<div style="height:30px; margin-top: 1%; margin-bottom: 0%">
+	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
+	</div>	
+-->
+   
+	<!-- Materials -->
 		
-	<div class="container stats-title i18n" style="margin-top: 0%" tkey="MATERIALS">
-	MATERIALS
+	<div class="container" style="margin-top: 0%; margin-bottom: 0px; padding-bottom: 0px; height: 25px; ">
+		<div class="i18n" style="vertical-align: middle;" tkey="MATERIALS">
+		MATERIALS
+		</div>
+		<button type="button" onclick="toggleVisibility(this, 'material-table');" 
+		  style="margin-left: 1%; margin-bottom: 2%; padding: 0px; border: none; background: none;">
+		  <img src="../assets/hide.png" style="width: 25px"/>
+	    </button>
 	</div>
+
     <div class="container">
-    	<div id="material-table" class="material-table" style="display: block;">
+    	<div id="material-table" class="material-table" style="display: block; margin-bottom: 2%;">
 		 <table class="material-table-rows">
 		  <tr> 
 			<th style="width:8%" class="i18n" tkey="Purple Crystal">Purple Crystal</th>
@@ -177,43 +202,52 @@
 		</div>
 	</div>
 	
-	<div style="height:30px; margin: 2% 0% 0% 0%">
+	<div style="height:30px; margin: 0% 0% 0% 0%">
 	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
 	</div>
 	
 	<!-- Buff and Debuff stats -->
 	
-	<div id="battle-types-div">
-	  <fieldset id="battle-types">
-		  <legend style="margin: auto; font-style: italic;" class="i18n" tkey="What kind of battle?">What kind of battle?</legend>
-		  <table>
-			  <tr><td>
-			  <input class="battle-type" type="radio" id="opt-any"
-			   name="battle-type" value="any" checked>
-			  <label for="opt-any" class="i18n" tkey="Any">Any</label>
-			  </td></tr>
-			  <tr><td>
-			  <input class="battle-type" type="radio" id="opt-attacking"
-			   name="battle-type" value="attacking">
-			  <label for="opt-attacking" class="i18n" tkey="Attacking">Attacking</label>
-			  </td></tr>
-			  <tr><td>
-			  <input class="battle-type" type="radio" id="opt-defending"
-			   name="battle-type" value="defending">
-			  <label for="opt-defending" class="i18n" tkey="Defending main city">Defending main city</label>  
-			  </td></tr>
-			  <tr><td>
-			  <input class="battle-type" type="radio" id="opt-reinforcing"
-			   name="battle-type" value="reinforcing">
-			  <label for="opt-reinforcing" class="i18n" tkey="Reinforcing another city">Reinforcing another city</label>
-			  </td></tr>
-			  <tr><td> 
-			  <input class="battle-type" type="radio" id="opt-occupying"
-			   name="battle-type" value="occupying">
-			  <label for="opt-occupying" class="i18n" tkey="Defending a building">Defending a building</label>
-			  </td></tr>
-		  </table>
-	  </fieldset>
+	<div>
+		<div style="width: 25%; display: inline-block;"></div>
+		<div id="battle-types-div" style="width: 50%; display: inline-block;">
+		  <fieldset id="battle-types">
+			  <legend style="margin: auto; font-style: italic;" class="i18n" tkey="What kind of battle?">What kind of battle?</legend>
+			  <table id="battle-types-table">
+				  <tr><td>
+				  <input class="battle-type" type="radio" id="opt-any"
+				   name="battle-type" value="any" checked>
+				  <label for="opt-any" class="i18n" tkey="Any">Any</label>
+				  </td></tr>
+				  <tr><td>
+				  <input class="battle-type" type="radio" id="opt-attacking"
+				   name="battle-type" value="attacking">
+				  <label for="opt-attacking" class="i18n" tkey="Attacking">Attacking</label>
+				  </td></tr>
+				  <tr><td>
+				  <input class="battle-type" type="radio" id="opt-defending"
+				   name="battle-type" value="defending">
+				  <label for="opt-defending" class="i18n" tkey="Defending main city">Defending main city</label>  
+				  </td></tr>
+				  <tr><td>
+				  <input class="battle-type" type="radio" id="opt-reinforcing"
+				   name="battle-type" value="reinforcing">
+				  <label for="opt-reinforcing" class="i18n" tkey="Reinforcing another city">Reinforcing another city</label>
+				  </td></tr>
+				  <tr><td> 
+				  <input class="battle-type" type="radio" id="opt-occupying"
+				   name="battle-type" value="occupying">
+				  <label for="opt-occupying" class="i18n" tkey="Defending a building">Defending a building</label>
+				  </td></tr>
+			  </table>
+		  </fieldset>
+		</div>
+		<div style="display: inline-block;">
+		  <button type="button" onclick="toggleVisibility(this, 'battle-types-table');"
+		    style="margin-left: 1%; margin-bottom: 0%; padding: 0px; border: none; background: none;">
+		    <image src="../assets/hide.png" style="width: 25px"/>
+	      </button>
+		</div>
 	</div>
 
 	<div class="container stats-title i18n" tkey="BUFF">
