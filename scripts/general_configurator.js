@@ -33,6 +33,9 @@ var general = new General();
 const c_maxGenerals = 4;
 var generalSet = new GeneralSet(c_maxGenerals);
 
+// Equipment inventory
+var inventory;
+
 const buffNumShades = [
     "#52be80",
     "#27ae60",
@@ -229,6 +232,9 @@ function initialize() {
                 equipment.condition.base = null;
             }
         }
+        
+        // Inventory
+        inventory = new EquipmentInventory(data.equipments, data.sets, $("#equipment-config-div"));
 
         console.log("Data loaded.");
     

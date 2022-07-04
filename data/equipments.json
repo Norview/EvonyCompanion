@@ -6105,7 +6105,7 @@
         "attributes": [
               {
                   "pieces": 2,
-                  "condition": ["attacking"],
+                  "condition": [],
                   "troop": ["ground", "mounted", "ranged", "siege"],
                   "type": "attack",
                   "value": 15
@@ -6125,14 +6125,14 @@
         "attributes": [
               {
                   "pieces": 2,
-                  "condition": ["attacking"],
+                  "condition": [],
                   "troop": ["ground", "mounted", "ranged", "siege"],
                   "type": "attack",
                   "value": 10
               },
               {
                   "pieces": 6,
-                  "condition": ["attacking"],
+                  "condition": [],
                   "troop": ["ground", "mounted", "ranged", "siege"],
                   "type": "attack",
                   "value": -15

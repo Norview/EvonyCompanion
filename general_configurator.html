@@ -9,6 +9,7 @@
     <script src="./scripts/i18n.js"></script>
     <script src="./scripts/general.js"></script>
     <script src="./scripts/generalset.js"></script>
+    <script src="./scripts/equipment_inventory.js"></script>
     <script src="./scripts/general_configurator.js"></script>
     <script>
 		$(function(){
@@ -163,11 +164,12 @@
 	</div>
 	
 	<!-- Controls -->
-
-<!--
     <div class="container" style="height:30px; margin: 1% 0% 0% 0%">
+      <button type="button" class="ctrl-btn">Configure</button>
+      <!--
       <button type="button" class="ctrl-btn">Load</button>
       <button type="button" class="ctrl-btn">Save</button>
+      -->
       <button type="button" class="ctrl-btn">Share</button>
       <input type="text" style="width:30%; margin: 0px 5px 0px 5px"></input>
       <button type="button" class="ctrl-btn">Copy</button>
@@ -175,8 +177,58 @@
 
 	<div style="height:30px; margin-top: 1%; margin-bottom: 0%">
 	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
-	</div>	
--->
+	</div>
+
+	<!-- (overlay) -->
+	<!-- Equipment Inventory -->
+    <div id="equipment-config-div" style="width: 50%; left: 25%; height: 75%; top: 5%; position: absolute; background-color: #ffffcc; border-style: solid; border-width: 3px;">
+       <div class="container" style="height:30px; margin: 1% 0% 0% 0%">
+         <button type="button" id="eqconf-close-btn" class="ctrl-btn" style="margin-left: auto; margin-right: 1%;"><image src="./assets/delete.png" style="width:24px"></button>
+       </div>
+       <div id="equipment-config-table" style="margin-top:5%; height:90%">
+		 <table style="margin:auto; width:90%">
+		 <tr>
+		 <td style="margin: auto; width: 25%;">
+           <select id="eqconf-sets" multiple size="20" style="margin: auto;"> <!-- 4 (regular) + 7 (original civ sets) + 9 (~2023/12) -->
+            <option value = "King">King</option>
+            <option value = "Dragon">Dragon</option>
+            <option value = "Ares">Ares</option>
+            <option value = "Achaemenidae">Achaemenidae</option>
+            <option value = "Plantagenet">Plantagenet</option>
+            <option value = "Freedom">Freedom</option>
+            <!--
+            <option value = "Plant">Plant</option>
+            <option value = "Freedom">Freedom</option>
+            <option value = "Furin">Furin</option>
+            <option value = "Han">Han</option>
+            -->
+           </select>
+         </td>
+		 <td style="margin: auto; width: 25%;">
+           <select id="eqconf-parts" class="i18n" multiple size="6">
+            <option class="i18n" value = "weapon">Weapon</option>
+            <option class="i18n" value = "armor">Armor</option>
+            <option class="i18n" value = "boots">Boots</option>
+            <option class="i18n" value = "helmet">Helmet</option>
+            <option class="i18n" value = "legarmor">Leg Armor</option>
+            <option class="i18n" value = "ring">Ring</option>
+           </select>
+         </td>
+		 <td style="margin: auto; width: 25%;">
+		   <div style="display: block">
+      	     <div><button type="button" id="eqconf-add-btn" class="ctrl-btn">Add</button></div>
+      	     <div style="margin-top: 4%"><button type="button" id="eqconf-remove-btn" class="ctrl-btn">Remove</button></div>
+      	   </div>
+         </td>
+		 <td style="margin: auto; width: 25%;">
+           <select id="eqconf-selected" multiple size="20">
+            <!--<option value = "King">King's Bow</option>-->
+           </select>
+         </td>
+         </tr>
+         </table>
+        </div>
+    </div>
    
 	<!-- Materials -->
 		

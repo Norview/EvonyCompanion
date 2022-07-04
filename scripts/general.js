@@ -95,9 +95,13 @@ function _toMaterialIndex(matName){
 ////// Constructors //////
 
 function General(){
-	this._animal = null;
-    this._equipments = [null, null, null, null, null, null];
-    this._stars = [0, 0, 0, 0, 0, 0];
+	this._reset = function (that) {
+		that._animal = null;
+    	that._equipments = [null, null, null, null, null, null];
+    	that._stars = [0, 0, 0, 0, 0, 0];
+	};
+	
+	this._reset(this);
 }
 
 General.prototype.clone = function(){
@@ -133,6 +137,10 @@ General.prototype.setEquipment = function(type, equipment, countOfStars) {
 	var index = _toEquipmentIndex(type); 
 	this._equipments[index] = equipment; // can be null
 	this._stars[index] = countOfStars;
+}
+
+General.prototype.reset = function() {
+	this._reset(this);
 }
     
 ///////// Getters /////////
