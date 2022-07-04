@@ -39,7 +39,7 @@ function Translator(){
 	// - shouldLoadData: A bool or function(string):bool to indicate if the function should start loading the data.
 	// If (evaluated to be) false, the returned object's dataPromise will be null.
 	// 
-	// - language: The language explicitly asked to initialize with. This will overrides anything from URL.
+	// - language: The language explicitly asked to initialize with. This will override anything from URL.
 	//
 	// Returns an object with language name (lang:String), resource file path (path:String) and optionally the
 	// promise of the resource data (dataPromise:Promise). The caller may continue the promise by calling translate(data).

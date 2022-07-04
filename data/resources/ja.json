@@ -321,6 +321,25 @@
 		"Koryo Bracers (table)": "高麗",
 		"Koryo Horn Bow": "高麗の角弓",
 		"Koryo Horn Bow (dropdown)": "高麗",
-		"Koryo Horn Bow (table)": "高麗"
+		"Koryo Horn Bow (table)": "高麗",
+		
+		"Rurik Helmet" : "リューリクのヘルメット",
+		"Rurik Helmet (dropdown)" : "リューリク",
+		"Rurik Helmet (table)" : "リューリク",
+		"Rurik Armor" : "リューリクのアーマー",
+		"Rurik Armor (dropdown)" : "リューリク",
+		"Rurik Armor (table)" : "リューリク",
+		"Rurik Leg Armor" : "リューリクのレッグアーマー",
+		"Rurik Leg Armor (dropdown)" : "リューリク",
+		"Rurik Leg Armor (table)" : "リューリク",
+		"Rurik Boots" : "リューリクのブーツ",
+		"Rurik Boots (dropdown)" : "リューリク",
+		"Rurik Boots (table)" : "リューリク",
+		"Rurik Bracers" : "リューリクの籠手",
+		"Rurik Bracers (dropdown)" : "リューリク",
+		"Rurik Bracers (table)" : "リューリク",
+		"Rurik Axe" : "リューリクの斧",
+		"Rurik Axe (dropdown)" : "リューリク",
+		"Rurik Axe (table)" : "リューリク"
 	}
 }
