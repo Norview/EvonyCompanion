@@ -621,6 +621,138 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         });
     }
     
+    // This function decorates the troop icons above the dropdown to visualize the specialized strength of the selected equipment.
+    function updateEquipmentTraits(troops, eq){
+    	if (!eq) {
+    		// Reset all icons.
+			troops.each(function() {
+				var troop$ = $(this);
+				if (troop$.hasClass("ground")) {
+					undecorateTroopIcon(troop$, "ground");
+				} else if (troop$.hasClass("mounted")) {
+					undecorateTroopIcon(troop$, "mounted");
+				} else if (troop$.hasClass("ranged")) {
+					undecorateTroopIcon(troop$, "ranged");
+				} else if (troop$.hasClass("siege")) {
+					undecorateTroopIcon(troop$, "siege");
+				}
+			});
+    		
+    		return;
+    	}
+    
+    	var cachedTraits = eq.traits;
+    	if (!cachedTraits) {
+			/*
+				"attributes": [{
+				"condition": [],
+				"troop": ["ground"],
+				"type": "defense",
+				"value": 17,
+				"rate": 1
+			},
+			*/
+			var buffs = [0,0,0,0]; // G,M,R,S
+			for (attr of eq.attributes) {    
+				// Disregard debuff
+				if (attr.rate < 0){
+					continue;
+				}
+
+				// Disregard in-city
+				var valid = true;
+				for (cond of attr.condition) {
+					if (cond === "in-city") {
+						valid = false;
+						break;
+					}
+				}
+				if (!valid){
+					continue;
+				}
+			
+				// Disregard irrelevant attributes
+				var atype = attr.type;
+				var hasRangeBonus = (atype === "range");
+				if (!(atype === "attack" || atype === "defense" || atype === "hp" || hasRangeBonus)){
+					continue;
+				}
+			
+				// Gather the buff value
+				var val = Math.floor(attr.value + attr.rate * 5);
+				for (troop of attr.troop) {
+					if (troop === "ground") {
+						buffs[0] += val;
+					} else if (troop === "mounted") {
+						buffs[1] += val;
+					} else if (troop === "ranged") {
+						buffs[2] += val;
+					} else if (troop === "siege") {
+						buffs[3] += val * (hasRangeBonus ? 3 : 1); // Siege range is highly valued.
+					}
+				}
+			}
+		
+			var agg = buffs[0] + buffs[1] + buffs[2] + buffs[3];
+			var traits = [0,0,0,0]; // G,M,R,S
+			if (agg > 0) {
+				for (var index = 0; index <= 3; index++) {
+					var percent = Math.floor(buffs[index] * 100 / agg);
+					traits[index] = percent;
+				}
+			}
+			
+			// Memoize
+			cachedTraits = eq.traits = traits;
+    	}
+    	
+    	// Decorate icons according to the traits
+    	troops.each(function() {
+    		var troop$ = $(this);
+    		if (troop$.hasClass("ground")) {
+    			decorateTroopIcon(troop$, "ground", cachedTraits[0]);
+    		} else if (troop$.hasClass("mounted")) {
+    			decorateTroopIcon(troop$, "mounted", cachedTraits[1]);
+    		} else if (troop$.hasClass("ranged")) {
+    			decorateTroopIcon(troop$, "ranged", cachedTraits[2]);
+    		} else if (troop$.hasClass("siege")) {
+    			decorateTroopIcon(troop$, "siege", cachedTraits[3]);
+    		}
+  		});
+    }
+    
+    function undecorateTroopIcon(troop$, ttype){    
+		if (troop$.attr("src").indexOf("gray.png") > 0) {
+			troop$.attr("src", "./assets/" + ttype + ".png");
+		}
+		
+		troop$.css("border", "");
+    }
+    
+    function decorateTroopIcon(troop$, ttype, trait){
+        if (trait > 0) {
+        	// Show the icon
+        	if (troop$.attr("src").indexOf("gray.png") > 0) {
+    			troop$.attr("src", "./assets/" + ttype + ".png");
+        	}
+
+			if (trait >= 50) {
+				troop$.css("border", "1px solid red"); // Very specialized
+			} else if (trait >= 25) {
+				troop$.css("border", "1px solid gold"); // Moderately specialized
+			} else {
+				troop$.css("border", "1px solid green"); // Slightly specialized
+			}	
+    	} else {
+    		// Hide the icon
+        	if (troop$.attr("src").indexOf("gray.png") < 0) {
+    			troop$.attr("src", "./assets/gray.png");
+        	}
+        	
+        	troop$.css("border", "1px solid black");
+    	}
+    }
+        
     // Reposition its container
     var scon = findSelector(type);
     setLocation(scon, type, picLoc);
@@ -659,7 +791,11 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         general.setEquipment(type, eq, count);
         
         logChange(!!eq ? eq.name : "", count);
-        
+ 
+        // decorate troop icons
+        var troops = findTroopImgs(type);
+		updateEquipmentTraits(troops, eq);
+               
         tryEnableCompareButton(general);
         
         updateStats();
@@ -754,6 +890,10 @@ function findDropdown(type){
 
 function findStar(type){
     return $("#selector-" + type + " .star");
+}
+
+function findTroopImgs(type){
+    return $("#selector-" + type + " .troop");
 }
 
 function findStatRow(type){
