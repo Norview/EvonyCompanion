@@ -340,5 +340,24 @@
   "Rurik Bracers (table)" : "Rurik",
   "Rurik Axe" : "Rurik Axe",
   "Rurik Axe (dropdown)" : "Rurik",
-  "Rurik Axe (table)" : "Rurik"
+  "Rurik Axe (table)" : "Rurik",
+
+  "Abbas Helmet" : "Abbas Helmet",
+  "Abbas Helmet (dropdown)" : "Abbas",
+  "Abbas Helmet (table)" : "Abbas",  
+  "Abbas Armor" : "Abbas Armor",
+  "Abbas Armor (dropdown)" : "Abbas",
+  "Abbas Armor (table)" : "Abbas",
+  "Abbas Leg Armor" : "Abbas Leg Armor",
+  "Abbas Leg Armor (dropdown)" : "Abbas",
+  "Abbas Leg Armor (table)" : "Abbas",
+  "Abbas Boots" : "Abbas Boots",
+  "Abbas Boots (dropdown)" : "Abbas",
+  "Abbas Boots (table)" : "Abbas",
+  "Abbas Bracers" : "Abbas Bracers",
+  "Abbas Bracers (dropdown)" : "Abbas",
+  "Abbas Bracers (table)" : "Abbas",
+  "Abbas Mace" : "Abbas Mace",
+  "Abbas Mace (dropdown)" : "Abbas",
+  "Abbas Mace (table)" : "Abbas"
 }}

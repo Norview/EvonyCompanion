@@ -53,11 +53,13 @@ function Translator(){
 			case "it": // Italian
 			case "es": // Spanish
 			case "ru": // Russian
-			case "zh": // Chinese
+			// case "zh": // Chinese (macro-language. consider to default to zhs)
+			case "zhs": // Chinese Simplified (this notation is nonstandard)
+			case "zht": // Chinese Traditional (this notation is nonstandard)
 			case "ja": // Japanese
 			case "ko": // Korean
-			case "he": // Hebrew
-			case "ar": // Arabic
+			// case "he": // Hebrew (extra layout efforts needed for displaying right-to-left lang)
+			// case "ar": // Arabic (extra layout efforts needed for displaying right-to-left lang)
 			case "vi": // Vietnamese
 			case "pt": // Portuguese
 				return true;

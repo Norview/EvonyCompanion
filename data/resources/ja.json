@@ -340,6 +340,25 @@
 		"Rurik Bracers (table)" : "リューリク",
 		"Rurik Axe" : "リューリクの斧",
 		"Rurik Axe (dropdown)" : "リューリク",
-		"Rurik Axe (table)" : "リューリク"
+		"Rurik Axe (table)" : "リューリク",
+		
+        "Abbas Helmet" : "アッバスのヘルメット",
+        "Abbas Helmet (dropdown)" : "アッバス",
+        "Abbas Helmet (table)" : "アッバス",
+        "Abbas Armor" : "アッバスのアーマー",
+        "Abbas Armor (dropdown)" : "アッバス",
+        "Abbas Armor (table)" : "アッバス",
+        "Abbas Leg Armor" : "アッバスのレッグアーマー",
+        "Abbas Leg Armor (dropdown)" : "アッバス",
+        "Abbas Leg Armor (table)" : "アッバス",
+        "Abbas Boots" : "アッバスのブーツ",
+        "Abbas Boots (dropdown)" : "アッバス",
+        "Abbas Boots (table)" : "アッバス",
+        "Abbas Bracers" : "アッバスの小手",
+        "Abbas Bracers (dropdown)" : "アッバス",
+        "Abbas Bracers (table)" : "アッバス",
+        "Abbas Mace" : "アッバスのメイス",
+        "Abbas Mace (dropdown)" : "アッバス",
+        "Abbas Mace (table)" : "アッバス"
 	}
 }

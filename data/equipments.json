@@ -5302,6 +5302,378 @@
                   "rate": 1
               }
           ]
+       },
+       
+      {
+          "name": "Abbas Mace",
+          "set": "Abbas",
+          "type": "weapon",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Abbas Mace Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "wood",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 100
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 100
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": -35,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -25,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Abbas Armor",
+          "set": "Abbas",
+          "type": "armor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Abbas Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "leather",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": -30,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 35,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Abbas Boots",
+          "set": "Abbas",
+          "type": "boots",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Abbas Boots Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bronze",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -35,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Abbas Helmet",
+          "set": "Abbas",
+          "type": "helmet",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Abbas Helmet Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "crystal",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "bluestone",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -35,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": -30,
+                  "rate": -2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Abbas Leg Armor",
+          "set": "Abbas",
+          "type": "legarmor",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Abbas Leg Armor Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "scale",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "iron",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "feather",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Abbas Bracers",
+          "set": "Abbas",
+          "type": "ring",
+          "condition": {
+              "building": "wonder",
+              "level": 33,
+              "scroll": "Abbas Bracers Scroll",
+              "base": null
+          },
+          "cost": [ 
+              {
+                "name": "pearl",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "agate",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "stone",
+                "level": 7,
+                "quantity": 50
+              },
+              {
+                "name": "meteor",
+                "level": 7,
+                "quantity": 50
+              }
+          ],
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": -30,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -30,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "range",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
        }
   ],
   "sets": [
@@ -5595,7 +5967,26 @@
                   "value": 25
               }
         ]
-    
+    },
+    {
+        "name": "Abbas",
+        "order": 57,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 15
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": -15
+              }
+        ]
     }
   ]
 }
