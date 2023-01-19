@@ -232,13 +232,24 @@ function initialize() {
                 equipment.condition.base = null;
             }
         }
-        
-        // Inventory
-        inventory = new EquipmentInventory(data.equipments, data.sets, $("#equipment-config-div"));
 
         console.log("Data loaded.");
+        
+        // Inventory configuration
+        inventory = new EquipmentInventory(
+        	data.equipments,
+        	data.sets,
+        	function(eqs){
+        		var eqMap = new Map();
+        		for (let eq of eqs) {
+        			eqMap.set(eq.name, eq);
+        		}
+        		
+				loadUI(eqMap);
+			}
+		);
     
-        var result = loadUI();
+        var result = loadUI(null);
         if (!result) {
             panic("");
             return;
@@ -371,14 +382,14 @@ function toggleVisibility(button, targetId) {
 	img.attr("src", src);
 }
 
-function loadUI(){
+function loadUI(filteredNames){
     var result = true;
-    result &&= populateEquipmentDropDownMenu("weapon");
-    result &&= populateEquipmentDropDownMenu("armor");
-    result &&= populateEquipmentDropDownMenu("boots");
-    result &&= populateEquipmentDropDownMenu("helmet");
-    result &&= populateEquipmentDropDownMenu("legarmor");
-    result &&= populateEquipmentDropDownMenu("ring");
+    result &&= populateEquipmentDropDownMenu("weapon",filteredNames);
+    result &&= populateEquipmentDropDownMenu("armor",filteredNames);
+    result &&= populateEquipmentDropDownMenu("boots",filteredNames);
+    result &&= populateEquipmentDropDownMenu("helmet",filteredNames);
+    result &&= populateEquipmentDropDownMenu("legarmor",filteredNames);
+    result &&= populateEquipmentDropDownMenu("ring",filteredNames);
     return result;
 }
 
@@ -939,7 +950,7 @@ function configureBattleTypeSelector() {
      });
 }
 
-function populateEquipmentDropDownMenu(type) {
+function populateEquipmentDropDownMenu(type, filteredNames) {
     /* Populate <select> with <option>s:
       <form class="btn" id="selector-weapon">  
          ...
@@ -963,10 +974,12 @@ function populateEquipmentDropDownMenu(type) {
     var eqs = [];
     for (let eqName in equipments) {
        if (equipments.hasOwnProperty(eqName)) {
-          var eq = equipments[eqName];
-          if (!!eq && eq.type === type){
-              eqs.push(eq);
-          }
+       	  if (!filteredNames || filteredNames.has(eqName)){     
+			  var eq = equipments[eqName];
+			  if (!!eq && eq.type === type){
+				  eqs.push(eq);
+			  }
+       	  }
        }
     }
     
@@ -981,6 +994,9 @@ function populateEquipmentDropDownMenu(type) {
         // Then alphabetically
         return (e1.name < e2.name ? -1 : 1);
     });
+    
+    // Clear the menu since we may reload
+    selector.empty();
 
     // Populate the dropdown menu
     

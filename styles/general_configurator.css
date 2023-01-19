@@ -271,3 +271,14 @@
 .ctrl-btn {
  margin: 0px 5px 0px 5px
 }
+
+#equipment-config-div {
+	width: 70%;
+	// left: 15%;
+	// height: 80%;
+	// top: 5%;
+	// position: absolute;
+	background-color: #ffffcc;
+	border-style: solid;
+	border-width: 3px;
+}

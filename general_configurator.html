@@ -165,7 +165,7 @@
 	
 	<!-- Controls -->
     <div class="container" style="height:30px; margin: 1% 0% 0% 0%">
-      <button type="button" class="ctrl-btn">Configure</button>
+      <button type="button" class="ctrl-btn" onclick="inventory.toggle();">Inventory</button>
       <!--
       <button type="button" class="ctrl-btn">Load</button>
       <button type="button" class="ctrl-btn">Save</button>
@@ -179,56 +179,52 @@
 	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
 	</div>
 
-	<!-- (overlay) -->
 	<!-- Equipment Inventory -->
-    <div id="equipment-config-div" style="width: 50%; left: 25%; height: 75%; top: 5%; position: absolute; background-color: #ffffcc; border-style: solid; border-width: 3px;">
-       <div class="container" style="height:30px; margin: 1% 0% 0% 0%">
-         <button type="button" id="eqconf-close-btn" class="ctrl-btn" style="margin-left: auto; margin-right: 1%;"><image src="./assets/delete.png" style="width:24px"></button>
+    <div id="equipment-config-div" style="display:none; width:70%; margin-left:15%">
+       <div>
+         <button type="button" id="eqconf-close-btn" class="ctrl-btn" style="float: right; margin-top: 1%; margin-right: 1%"><image src="./assets/delete.png" style="width:24px"></button>
        </div>
-       <div id="equipment-config-table" style="margin-top:5%; height:90%">
-		 <table style="margin:auto; width:90%">
+       <div id="equipment-config-table">
+		 <table style="margin:auto; width:90%; margin-top:2%; margin-bottom: 2%">
 		 <tr>
 		 <td style="margin: auto; width: 25%;">
-           <select id="eqconf-sets" multiple size="20" style="margin: auto;"> <!-- 4 (regular) + 7 (original civ sets) + 9 (~2023/12) -->
-            <option value = "King">King</option>
-            <option value = "Dragon">Dragon</option>
-            <option value = "Ares">Ares</option>
-            <option value = "Achaemenidae">Achaemenidae</option>
-            <option value = "Plantagenet">Plantagenet</option>
-            <option value = "Freedom">Freedom</option>
-            <!--
-            <option value = "Plant">Plant</option>
-            <option value = "Freedom">Freedom</option>
-            <option value = "Furin">Furin</option>
-            <option value = "Han">Han</option>
-            -->
+           <select id="eqconf-sets" multiple size="20" style="margin: auto;"> <!-- 4 (regular) + 7 (original civ sets) + 9 (~2023/12) -->     
+            <!-- Contents to be filled in during runtime. Example: -->
+            <!-- <option value = "King">King</option> -->
            </select>
          </td>
 		 <td style="margin: auto; width: 25%;">
-           <select id="eqconf-parts" class="i18n" multiple size="6">
-            <option class="i18n" value = "weapon">Weapon</option>
-            <option class="i18n" value = "armor">Armor</option>
-            <option class="i18n" value = "boots">Boots</option>
-            <option class="i18n" value = "helmet">Helmet</option>
-            <option class="i18n" value = "legarmor">Leg Armor</option>
-            <option class="i18n" value = "ring">Ring</option>
+           <select id="eqconf-parts" multiple size="6">
+            <option value = "weapon">Weapon</option>
+            <option value = "armor">Armor</option>
+            <option value = "boots">Boots</option>
+            <option value = "helmet">Helmet</option>
+            <option value = "legarmor">Leg Armor</option>
+            <option value = "ring">Ring</option>
            </select>
          </td>
 		 <td style="margin: auto; width: 25%;">
 		   <div style="display: block">
-      	     <div><button type="button" id="eqconf-add-btn" class="ctrl-btn">Add</button></div>
-      	     <div style="margin-top: 4%"><button type="button" id="eqconf-remove-btn" class="ctrl-btn">Remove</button></div>
+      	     <!-- <div style="margin-top: 0%"><button type="button" id="eqconf-add-all-btn"    class="ctrl-btn" disabled>Add All</button></div> (handler commented out too) --> 
+      	     <div style="margin-top: 4%"><button type="button" id="eqconf-add-btn"        class="ctrl-btn" disabled>Add</button></div>
+      	     <div style="margin-top: 4%"><button type="button" id="eqconf-remove-btn"     class="ctrl-btn" disabled>Remove</button></div>
+      	     <div style="margin-top: 4%"><button type="button" id="eqconf-remove-all-btn" class="ctrl-btn" disabled>Remove All</button></div>
       	   </div>
          </td>
 		 <td style="margin: auto; width: 25%;">
-           <select id="eqconf-selected" multiple size="20">
-            <!--<option value = "King">King's Bow</option>-->
+           <select id="eqconf-selected" multiple size="20">    
+            <!-- Contents to be filled in during runtime. Example: -->
+            <!-- <option value = "King's Bow">King's Bow</option> -->
            </select>
          </td>
          </tr>
          </table>
         </div>
     </div>
+
+	<div id="equipment-config-sep" style="display:none; height:30px; margin-top: 2%; margin-bottom: 0%">
+	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
+	</div>
    
 	<!-- Materials -->
 		
@@ -583,13 +579,15 @@
 		 </table>    
 		</div>
 	</div>
-	<div class="container" style="margin-top: 1%;">
-        <a href="https://github.com/Norview/EvonyCompanion">
-          <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24"> <!-- SVG data from the footer of github.com -->
+	<div class="container" style="margin-top: 1%; display: flex; justify-content: center; align-items: center;">
+	    <span style="width:48%; font-size: 14px; display:float; text-align: right;">Norview (ID: 135198770) @ S803</span>
+		<!-- SVG data from the footer of github.com -->
+        <a style="width:4%; display: flex; justify-content: center;" href="https://github.com/Norview/EvonyCompanion">
+          <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24"> 
              <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
           </svg>
-       </a>
-       <span style="margin-left: 1%; padding-top: 4px; font-size: 14px;">Norview (ID: 135198770) @ S803</span>
+        </a>
+        <span style="width:48%; font-size: 14px; display:float; text-align: left;">Build: 2023-01-18T23:30:00-08</span>
       </div>
    </body>
 </html>
