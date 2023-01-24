@@ -4,24 +4,38 @@
 //
 // URL: ?lang={ISO 639-1 2-letter language name}
 
-// The equipment data, deserialized
-var equipments = null;
-var sets = null;
+////////////////// Constants //////////////////
 
 // Used by getBuffs(), getDebuffs()
-
 const c_data_equipment = "equipment";
-
 const c_scenario_debuffing = "debuffing";
 const c_scenario_any = "any";
 const c_scenario_attacking = "attacking";
 const c_scenario_defending = "defending";
 const c_scenario_reinforcing = "reinforcing";
 const c_scenario_occupying = "occupying";
-
 const c_starring_min = 0;
 const c_starring_equipped = 1;
 const c_starring_max = 2;
+
+const buffNumShades = [
+    "#52be80",
+    "#27ae60",
+    "#229954",
+    "#1e8449",
+    "#196f3d",
+    "#145a32",
+];
+
+const buffRanges = buffNumShades.length - 1;
+const buffRangeSize = 20;
+const debuffRangeSize = 20;
+
+////////////////// Globals //////////////////
+
+// The equipment data, deserialized
+var equipments = null;
+var sets = null;
 
 // Internationalization
 var translator = new Translator();
@@ -36,18 +50,7 @@ var generalSet = new GeneralSet(c_maxGenerals);
 // Equipment inventory
 var inventory;
 
-const buffNumShades = [
-    "#52be80",
-    "#27ae60",
-    "#229954",
-    "#1e8449",
-    "#196f3d",
-    "#145a32",
-];
-
-const buffRanges = buffNumShades.length - 1;
-const buffRangeSize = 20;
-const debuffRangeSize = 20;
+////////////////// Functions //////////////////
 
 // For a given buff number, get the styling info.
 function getBuffDeco(func, value){
@@ -138,37 +141,6 @@ function updateStats() {
     updateMaterialTable(materials);
 }
 
-// Returns an object that contains:
-//  - url : the part of URL until '?' (excluded)
-//  - lang : the language
-//  - selection : the selection of equipments
-//
-// The semantics of the argument values are not understood by this object.
-function parseUrl(){
-	function extractArg(urlParams, name, args){
-		var value = urlParams.get(name);
-		if (typeof value === 'string'){
-			value = lang.trim().toLowerCase();
-			if (value !== "") {
-				args[name] = value;
-			}
-		}
-	}
-
-	var url = window.location.protocol + "//" + window.location.host + window.location.pathname;
-	
-	var urlInfo = {
-		"url" : url
-	};
-	
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	extractArg(urlParams, "lang", args);
-	extractArg(urlParams, "selection", args);
-	
-	return urlInfo;
-}
-
 // Load data from the server
 function initialize() {
     var lang = "en";
@@ -232,6 +204,9 @@ function initialize() {
                 equipment.condition.base = null;
             }
         }
+        
+        // Initialize serializer
+        GeneralSerializer.initialize(equipments, data.sets); // equipmentDict, eqSetArray
 
         console.log("Data loaded.");
         
@@ -256,6 +231,15 @@ function initialize() {
         }
     
         configureUI(false);
+        
+        // Pre-set from the URL
+        // var general = new General();
+        GeneralSerializer.deserialize(general);
+        for (let eq of general.getEquipments()) {
+			if (!!eq) {
+				selectEquipmentFromDropDownMenu(eq);
+			}
+        }
         
         $(window).resize(function() {
             configureUI(true);
@@ -891,6 +875,39 @@ function configureCompareButton(){
     });
 }
 
+// The buttons to share the current equipment selection
+
+function shareLink(that){
+	var link = GeneralSerializer.serialize(general);
+	$(that).next("input").val(link);
+}
+
+function copyLink(event){
+	var that = event.target;
+	var input = $(that).prev("input");
+	var link = input.val();
+  	
+  	if (navigator.clipboard) { // This property is not available if the current protocol is not secure
+		input.select();
+		navigator.clipboard.writeText(link);
+	} else {
+		// A trick. See https://stackoverflow.com/questions/51805395/navigator-clipboard-is-undefined
+		var textArea = document.createElement("textarea");
+		textArea.value = link;
+		textArea.style.position = "fixed";
+		document.body.appendChild(textArea);
+		textArea.focus();
+		textArea.select();
+
+		try {
+			var successful = document.execCommand('copy');
+		} finally {
+			document.body.removeChild(textArea);
+			input.select();
+		}
+	}
+}
+  
 // UI component finders
 
 function findCompareButton(){
@@ -950,6 +967,20 @@ function configureBattleTypeSelector() {
      });
 }
 
+function selectEquipmentFromDropDownMenu(equipment) {
+    // Locate the selector => options
+    var selector = findDropdown(equipment.type);
+    var options = selector.find("option");
+    
+    // Find the one corresponding to the given equipment
+    for (let opt of options) {
+    	if (opt.value == equipment.name) {
+    		opt.selected = true;
+    		break;
+    	}
+    }
+}
+    
 function populateEquipmentDropDownMenu(type, filteredNames) {
     /* Populate <select> with <option>s:
       <form class="btn" id="selector-weapon">  

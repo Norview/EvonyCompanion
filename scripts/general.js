@@ -6,27 +6,6 @@
 
 /////////// Private //////////
 
-// Used by _toEquipmentIndex()
-const c_weapon = 0;
-const c_armor = 1;
-const c_boots = 2;
-const c_helmet = 3;
-const c_legarmor = 4;
-const c_ring = 5;
-
-function _toEquipmentIndex(type){
-	switch(type)
-	{
-		case "weapon": return c_weapon;
-		case "armor": return c_armor;
-		case "boots": return c_boots;
-		case "helmet": return c_helmet;
-		case "legarmor": return c_legarmor;
-		case "ring": return c_ring;
-		default: return -1;
-	}
-}
-
 // Recognize the full name with or without space, as well as the simple name.
 // The index corresponds to the "official" order of those materials as they appear in the items.
 function _toMaterialIndex(matName){
