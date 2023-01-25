@@ -4254,7 +4254,7 @@
                   "rate": 1
               }
           ]
-       },
+      },
        
       {
           "name": "Abbas Mace",
@@ -4686,10 +4686,655 @@
                   "rate": 1
               }
           ]
-       }
+       },
+    
+       {
+          "name": "Augustus Scepter",
+          "set": "Augustus",
+          "type": "weapon",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Augustus Armor",
+          "set": "Augustus",
+          "type": "armor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -20,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Augustus Boots",
+          "set": "Augustus",
+          "type": "boots",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Augustus Crown",
+          "set": "Augustus",
+          "type": "helmet",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -25,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground","mounted"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Augustus Leg Armor",
+          "set": "Augustus",
+          "type": "legarmor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Augustus Bracers",
+          "set": "Augustus",
+          "type": "ring",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground","mounted","ranged","siege"],
+                  "type": "attack",
+                  "value": 10,
+                  "rate": 1
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       },
+          
+       {
+          "name": "Antonine Pilum",
+          "set": "Antonine",
+          "type": "weapon",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Antonine Armor",
+          "set": "Antonine",
+          "type": "armor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Antonine Boots",
+          "set": "Antonine",
+          "type": "boots",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 10,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Antonine Helmet",
+          "set": "Antonine",
+          "type": "helmet",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground","mounted"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground","mounted"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Antonine Leg Armor",
+          "set": "Antonine",
+          "type": "legarmor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground"],
+                  "type": "hp",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Antonine Shield",
+          "set": "Antonine",
+          "type": "ring",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground","mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       },
        
-       
-       
+       {
+          "name": "Heian Tachi",
+          "set": "Heian",
+          "type": "weapon",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Heian Armor",
+          "set": "Heian",
+          "type": "armor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": -20,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Heian Boots",
+          "set": "Heian",
+          "type": "boots",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Heian Helmet",
+          "set": "Heian",
+          "type": "helmet",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Heian Leg Armor",
+          "set": "Heian",
+          "type": "legarmor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Heian Bracers",
+          "set": "Heian",
+          "type": "ring",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged","siege"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "range",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       } 
   ],
   "sets": [
     {
@@ -5032,6 +5677,115 @@
                   "pieces": 6,
                   "condition": [],
                   "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 20
+              }
+        ]
+    },
+    {
+        "name": "Augustus",
+        "order": 59,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground","mounted","ranged","siege"],
+                  "type": "attack",
+                  "value": -10
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground","mounted","ranged","siege"],
+                  "type": "attack",
+                  "value": 12
+              }
+        ]
+    },
+    {
+        "name": "Antonine",
+        "order": 60,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": 12
+              },
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 12
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "attack",
+                  "value": 12
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": 12
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 12
+              }
+        ]
+    },
+    {
+        "name": "Heian",
+        "order": 61,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground","mounted","ranged","siege"],
+                  "type": "attack",
+                  "value": -10
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["siege"],
                   "type": "hp",
                   "value": 20
               }
