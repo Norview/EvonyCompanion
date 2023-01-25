@@ -159,6 +159,9 @@ function initialize() {
     	return $.getJSON(filePath = "../data/" + fileName);
     })
     .then(function(data) {
+    	// All standard costs
+    	let presetCosts = data.costs;
+        
         // All equipments
         equipments = {};
         for (var eq of data.equipments){
@@ -171,6 +174,29 @@ function initialize() {
             sets[eqSet.name] = eqSet;
         }
         for (var equipment of data.equipments){
+        	// Add costs, in the following order:
+        	//    Raw data as an array 
+        	// => from preset costs as indexed by the cost as string
+        	// => from preset costs as indexed by the piece's type (weapon, armor, etc.)
+        	let cost = equipment.cost;
+        	if (!Array.isArray(cost)) {
+        		let presetCost = presetCosts[typeof cost === 'string' ? cost : equipment.set];
+        		if (!!presetCost) {
+        			equipment.cost = presetCost[equipment.type] || null;
+        		}
+        	}
+        	
+        	// Add default conditions for civilization equipment, if not specified explicitly
+        	let condition = equipment.condition;
+        	if (typeof condition === 'string' && condition.toLowerCase() == "civilization") {
+        		equipment.condition = {
+				  "building": "wonder",
+				  "level": 33,
+				  "scroll": (equipment.name + " Scroll"),
+				  "base": null
+			    };
+        	}
+        	
             try {
                 General.validateEquipment(equipment);
             } catch (error) {

@@ -1,15 +1,8 @@
 {
-  "equipments": [
-  	   {
-          "name": "Fearless King's Helmet",
-          "type": "helmet",
-          "condition": {
-              "building": "forge",
-              "level": 26,
-              "scroll": "King's Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
+  "costs" : {
+      "King": {
+            "helmet": 
+            [ 
               {
                 "name": "bluestone",
                 "level": 6,
@@ -30,7 +23,176 @@
                 "level": 6,
                 "quantity": 15
               }
+           ],
+           "armor":
+           [ 
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              }
           ],
+          "legarmor": [ 
+              {
+                "name": "purplecrystal",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "boots": [ 
+              {
+                "name": "redagate",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "iron",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "bronze",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "ring": [ 
+              {
+                "name": "silverpearl",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "bronze",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "meteorolite",
+                "level": 6,
+                "quantity": 15
+              }
+          ],
+          "weapon": [ 
+              {
+                "name": "animalbone",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "leather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "feather",
+                "level": 6,
+                "quantity": 15
+              },
+              {
+                "name": "wood",
+                "level": 6,
+                "quantity": 15
+              }
+          ]
+       },
+       "Civilization": {
+       		"weapon":
+       		[
+       		  { "name": "scale",    "level": 7, "quantity": 100 },
+       		  { "name": "wood",     "level": 7, "quantity": 100 },
+       		  { "name": "bronze",   "level": 7, "quantity": 100 },
+       		  { "name": "leather",  "level": 7, "quantity": 100 }
+       		],
+       		"armor":
+       		[
+       		  { "name": "crystal",  "level": 7, "quantity": 50 },
+       		  { "name": "leather",  "level": 7, "quantity": 50 },
+       		  { "name": "bone",     "level": 7, "quantity": 50 },
+       		  { "name": "feather",  "level": 7, "quantity": 50 }
+            ],
+       		"boots":
+       		[
+       		  { "name": "scale",    "level": 7, "quantity": 50 },
+       		  { "name": "meteor",   "level": 7, "quantity": 50 },
+       		  { "name": "agate",    "level": 7, "quantity": 50 },
+       		  { "name": "bronze",   "level": 7, "quantity": 50 }
+            ],
+            "helmet":
+            [
+       		  { "name": "crystal",  "level": 7, "quantity": 50 },
+       		  { "name": "iron",     "level": 7, "quantity": 50 },
+       		  { "name": "bone",     "level": 7, "quantity": 50 },
+       		  { "name": "bluestone","level": 7, "quantity": 50 }
+            ],
+            "legarmor":
+            [
+       		  { "name": "scale",    "level": 7, "quantity": 50 },
+       		  { "name": "iron",     "level": 7, "quantity": 50 },
+       		  { "name": "pearl",    "level": 7, "quantity": 50 },
+       		  { "name": "feather",  "level": 7, "quantity": 50 }
+            ],
+            "ring":
+            [
+       		  { "name": "pearl",    "level": 7, "quantity": 50 },
+       		  { "name": "agate",    "level": 7, "quantity": 50 },
+       		  { "name": "bluestone","level": 7, "quantity": 50 },
+       		  { "name": "meteor",   "level": 7, "quantity": 50 }
+            ]
+       }
+  },
+  "equipments": [
+  	   {
+          "name": "Fearless King's Helmet",
+          "set": "King",
+          "type": "helmet",
+          "condition": {
+              "building": "forge",
+              "level": 26,
+              "scroll": "King's Helmet Scroll",
+              "base": null
+          },
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -53,8 +215,7 @@
                   "value": 12,
                   "rate": 1
               }
-          ],
-          "set": "King"
+          ]
        },
 	   {
           "name": "Courageous King's Helmet",
@@ -65,28 +226,7 @@
               "scroll": "King's Helmet Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "bluestone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "bronze",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -121,28 +261,7 @@
               "scroll": "King's Armor Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "wood",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "meteorolite",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "iron",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -177,28 +296,7 @@
               "scroll": "King's Armor Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "wood",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "meteorolite",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "iron",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -233,28 +331,7 @@
               "scroll": "King's Leg Armor Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "purplecrystal",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "iron",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "meteorolite",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -289,28 +366,7 @@
               "scroll": "King's Leg Armor Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "purplecrystal",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "iron",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "meteorolite",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -338,28 +394,7 @@
               "scroll": "King's Boots Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "redagate",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "iron",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "bronze",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -387,28 +422,7 @@
               "scroll": "King's Boots Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "redagate",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "iron",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "bronze",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -436,28 +450,7 @@
               "scroll": "King's Ring Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "silverpearl",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "bronze",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "meteorolite",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -478,28 +471,7 @@
               "scroll": "King's Ring Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "silverpearl",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "bronze",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "meteorolite",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -520,28 +492,7 @@
               "scroll": "King's Bow Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "wood",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -562,28 +513,7 @@
               "scroll": "King's Spear Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "wood",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -611,28 +541,7 @@
               "scroll": "King's Axe Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "wood",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -660,28 +569,7 @@
               "scroll": "King's Sword Scroll",
               "base": null
           },
-          "cost": [ 
-              {
-                "name": "animalbone",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "leather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "feather",
-                "level": 6,
-                "quantity": 15
-              },
-              {
-                "name": "wood",
-                "level": 6,
-                "quantity": 15
-              }
-          ],
+          "cost": null,
           "attributes": [
               {
                   "condition": [],
@@ -3132,34 +3020,8 @@
           "name": "Plantagenet Golden Bow",
           "set": "Plantagenet",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Plantagenet Golden Bow Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3195,34 +3057,8 @@
           "name": "Plantagenet Armor",
           "set": "Plantagenet",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Plantagenet Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3258,34 +3094,8 @@
           "name": "Plantagenet Boots",
           "set": "Plantagenet",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Plantagenet Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3314,34 +3124,8 @@
           "name": "Plantagenet Helmet",
           "set": "Plantagenet",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Plantagenet Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3377,34 +3161,8 @@
           "name": "Plantagenet Leg Armor",
           "set": "Plantagenet",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Plantagenet Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3440,34 +3198,8 @@
           "name": "Plantagenet Ring",
           "set": "Plantagenet",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Plantagenet Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3504,34 +3236,8 @@
           "name": "Gentleman's Rapier Sword",
           "set": "Freedom",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Gentleman's Rapier Sword Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3567,34 +3273,8 @@
        	  "name": "Freedom Hero Armor",
           "set": "Freedom",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Freedom Hero Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3630,34 +3310,8 @@
           "name": "Freedom Hero Boots",
           "set": "Freedom",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Freedom Hero Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3686,34 +3340,8 @@
           "name": "Freedom Hero Helmet",
           "set": "Freedom",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Freedom Hero Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3749,34 +3377,8 @@
        	  "name": "Freedom Hero Leg Armor",
           "set": "Freedom",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Freedom Hero Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3812,34 +3414,8 @@
           "name": "Freedom Star",
           "set": "Freedom",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Freedom Star Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3876,34 +3452,8 @@
           "name": "Furinkazan Katana",
           "set": "Furinkazan",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Furinkazan Katana Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -3939,34 +3489,8 @@
           "name": "Furinkazan Armor",
           "set": "Furinkazan",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Furinkazan Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4002,34 +3526,8 @@
           "name": "Furinkazan Boots",
           "set": "Furinkazan",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Furinkazan Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4058,34 +3556,8 @@
           "name": "Furinkazan Helmet",
           "set": "Furinkazan",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Furinkazan Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4121,34 +3593,8 @@
           "name": "Furinkazan Leg Armor",
           "set": "Furinkazan",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Furinkazan Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4184,34 +3630,8 @@
           "name": "Furinkazan Bracers",
           "set": "Furinkazan",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Furinkazan Bracers Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4248,34 +3668,8 @@
           "name": "Han Dynasty Halberd",
           "set": "Han Dynasty",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Han Dynasty Halberd Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4311,34 +3705,8 @@
           "name": "Han Dynasty Armor",
           "set": "Han Dynasty",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Han Dynasty Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": ["w/dragon"],
@@ -4374,34 +3742,8 @@
           "name": "Han Dynasty Boots",
           "set": "Han Dynasty",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Han Dynasty Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": ["w/dragon"],
@@ -4437,34 +3779,8 @@
           "name": "Han Dynasty Helmet",
           "set": "Han Dynasty",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Han Dynasty Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4500,34 +3816,8 @@
           "name": "Han Dynasty Leg Armor",
           "set": "Han Dynasty",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Han Dynasty Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4563,34 +3853,8 @@
           "name": "Han Dynasty Bracers",
           "set": "Han Dynasty",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Han Dynasty Bracers Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": ["w/dragon"],
@@ -4627,34 +3891,8 @@
           "name": "Koryo Horn Bow",
           "set": "Koryo",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Koryo Horn Bow Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4690,34 +3928,8 @@
           "name": "Koryo Armor",
           "set": "Koryo",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Koryo Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": ["in-city"],
@@ -4753,34 +3965,8 @@
           "name": "Koryo Boots",
           "set": "Koryo",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Koryo Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4809,34 +3995,8 @@
           "name": "Koryo Helmet",
           "set": "Koryo",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Koryo Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": ["in-city"],
@@ -4872,34 +4032,8 @@
           "name": "Koryo Leg Armor",
           "set": "Koryo",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Koryo Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4935,34 +4069,8 @@
           "name": "Koryo Bracers",
           "set": "Koryo",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Koryo Bracers Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -4999,34 +4107,8 @@
           "name": "Rurik Axe",
           "set": "Rurik",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Rurik Axe Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5048,34 +4130,8 @@
           "name": "Rurik Armor",
           "set": "Rurik",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Rurik Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5097,34 +4153,8 @@
           "name": "Rurik Boots",
           "set": "Rurik",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Rurik Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5153,34 +4183,8 @@
           "name": "Rurik Helmet",
           "set": "Rurik",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Rurik Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5202,34 +4206,8 @@
           "name": "Rurik Leg Armor",
           "set": "Rurik",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Rurik Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5258,34 +4236,8 @@
           "name": "Rurik Bracers",
           "set": "Rurik",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Rurik Bracers Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5308,34 +4260,8 @@
           "name": "Abbas Mace",
           "set": "Abbas",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Abbas Mace Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5371,34 +4297,8 @@
           "name": "Abbas Armor",
           "set": "Abbas",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Abbas Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5434,34 +4334,8 @@
           "name": "Abbas Boots",
           "set": "Abbas",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Abbas Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5490,34 +4364,8 @@
           "name": "Abbas Helmet",
           "set": "Abbas",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Abbas Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5553,34 +4401,8 @@
           "name": "Abbas Leg Armor",
           "set": "Abbas",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Abbas Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5616,34 +4438,8 @@
           "name": "Abbas Bracers",
           "set": "Abbas",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Abbas Bracers Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5680,34 +4476,8 @@
           "name": "Bourbon Partisan",
           "set": "Bourbon",
           "type": "weapon",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Bourbon Partisan Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "wood",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 100
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 100
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5743,34 +4513,8 @@
           "name": "Bourbon Armor",
           "set": "Bourbon",
           "type": "armor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Bourbon Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "leather",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5806,34 +4550,8 @@
           "name": "Bourbon Boots",
           "set": "Bourbon",
           "type": "boots",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Bourbon Boots Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bronze",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5862,34 +4580,8 @@
           "name": "Bourbon Helmet",
           "set": "Bourbon",
           "type": "helmet",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Bourbon Helmet Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "crystal",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "bluestone",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5925,34 +4617,8 @@
           "name": "Bourbon Leg Armor",
           "set": "Bourbon",
           "type": "legarmor",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Bourbon Leg Armor Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "scale",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "iron",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "feather",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],
@@ -5988,34 +4654,8 @@
           "name": "Bourbon Bracers",
           "set": "Bourbon",
           "type": "ring",
-          "condition": {
-              "building": "wonder",
-              "level": 33,
-              "scroll": "Bourbon Bracers Scroll",
-              "base": null
-          },
-          "cost": [ 
-              {
-                "name": "pearl",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "agate",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "stone",
-                "level": 7,
-                "quantity": 50
-              },
-              {
-                "name": "meteor",
-                "level": 7,
-                "quantity": 50
-              }
-          ],
+          "condition": "Civilization",
+          "cost": "Civilization",
           "attributes": [
               {
                   "condition": [],

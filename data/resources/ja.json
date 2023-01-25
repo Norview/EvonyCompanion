@@ -22,6 +22,12 @@
 		"HP": "HP",
 		"Range": "攻撃距離",
 
+		"Inventory" : "在庫",
+		"Load" : "ロード",
+		"Save" : "セーブ",
+		"Share" : "共有",
+		"Copy" : "コピー",
+
 		"MATERIALS": "素材",
 		"Purple Crystal": "紫の結晶",
 		"Blue Stone": "青の宝石",

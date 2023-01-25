@@ -20,7 +20,13 @@
   "March Size" : "March Size",
   "HP" : "HP",
   "Range" : "Range",
-  
+
+  "Inventory" : "Inventory", 
+  "Load" : "Load", 
+  "Save" : "Save",  
+  "Share" : "Share", 
+  "Copy" : "Copy", 
+    
   "MATERIALS" : "MATERIALS",
   "Purple Crystal" : "Purple Crystal",
   "Blue Stone" : "Blue Stone",

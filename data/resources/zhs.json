@@ -21,6 +21,12 @@
   "HP" : "血量",
   "Range" : "攻击距离",
   
+  "Inventory" : "库存",
+  "Load" : "读取",
+  "Save" : "保存",
+  "Share" : "共享",
+  "Copy" : "复制",
+  
   "MATERIALS" : "材料",
   "Purple Crystal" : "紫水晶",
   "Blue Stone" : "蓝宝石",
