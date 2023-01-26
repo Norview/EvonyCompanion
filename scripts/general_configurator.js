@@ -1005,6 +1005,9 @@ function selectEquipmentFromDropDownMenu(equipment) {
     		break;
     	}
     }
+    
+    // Trigger a change event
+    selector.trigger("change");
 }
     
 function populateEquipmentDropDownMenu(type, filteredNames) {
