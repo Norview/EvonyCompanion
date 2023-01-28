@@ -3,8 +3,10 @@
    <head>
    	<meta charset="UTF-8">
 <!-- -->
+	<link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.13.2.css">
 	<link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
     <script src="./lib/jquery-3.6.0.min.js"></script>
+    <script src="./lib/jquery-ui-1.13.2.min.js"></script>
     <script src="./lib/i18next-21.6.16.min.js"></script>
     <script src="./scripts/shared.js"></script>
     <script src="./scripts/i18n.js"></script>
@@ -15,6 +17,7 @@
     <script src="./scripts/general_serializer.js"></script>
     <script>
 		$(function(){
+			$(document).tooltip();
 			initialize();
 		});
     </script>
@@ -33,7 +36,6 @@
 		   <form class="btn" id="selector-animal" style="border-color: white; top:10%; left:32%; padding: 3px 3px 3px 3px">  
 		     <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon">Dragon&nbsp;&nbsp;</label>
 			 <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
-			 </select>  
 		   </form>
 		   <div class="dropdown">
 			  <button class="dropbtn i18n" style="font-weight: bold; color: lightblue; text-decoration: underline;" tkey="Language">Language</button>
@@ -57,10 +59,10 @@
 				 <label class="star" seq="4">★</label>
 		     </span>
 		     <span>
-		   		<img class="troop ground"  src="./assets/ground.png">
-		   		<img class="troop mounted" src="./assets/mounted.png">
-		   		<img class="troop ranged"  src="./assets/ranged.png">
-		   		<img class="troop siege"   src="./assets/siege.png">
+		   		<img class="troop ground"  title="" src="./assets/ground.png">
+		   		<img class="troop mounted" title="" src="./assets/mounted.png">
+		   		<img class="troop ranged"  title="" src="./assets/ranged.png">
+		   		<img class="troop siege"   title="" src="./assets/siege.png">
 		     </span>  
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>
@@ -75,10 +77,10 @@
 				 <label class="star" seq="4">★</label>
 		     </span>
 		     <span>
-		   		<img class="troop ground" src="./assets/ground.png">
-		   		<img class="troop mounted" src="./assets/mounted.png">
-		   		<img class="troop ranged" src="./assets/ranged.png">
-		   		<img class="troop siege" src="./assets/siege.png">
+		   		<img class="troop ground" title="" src="./assets/ground.png">
+		   		<img class="troop mounted" title="" src="./assets/mounted.png">
+		   		<img class="troop ranged" title="" src="./assets/ranged.png">
+		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
@@ -93,10 +95,10 @@
 				 <label class="star" seq="4">★</label>
 		     </span>
 		     <span>
-		   		<img class="troop ground" src="./assets/ground.png">
-		   		<img class="troop mounted" src="./assets/mounted.png">
-		   		<img class="troop ranged" src="./assets/ranged.png">
-		   		<img class="troop siege" src="./assets/siege.png">
+		   		<img class="troop ground" title="" src="./assets/ground.png">
+		   		<img class="troop mounted" title="" src="./assets/mounted.png">
+		   		<img class="troop ranged" title="" src="./assets/ranged.png">
+		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
@@ -111,10 +113,10 @@
 				 <label class="star" seq="4">★</label>
 		     </span>
 		     <span>
-		   		<img class="troop ground" src="./assets/ground.png">
-		   		<img class="troop mounted" src="./assets/mounted.png">
-		   		<img class="troop ranged" src="./assets/ranged.png">
-		   		<img class="troop siege" src="./assets/siege.png">
+		   		<img class="troop ground" title="" src="./assets/ground.png">
+		   		<img class="troop mounted" title="" src="./assets/mounted.png">
+		   		<img class="troop ranged" title="" src="./assets/ranged.png">
+		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
@@ -129,10 +131,10 @@
 				 <label class="star" seq="4">★</label>
 		     </span>
 		     <span>
-		   		<img class="troop ground" src="./assets/ground.png">
-		   		<img class="troop mounted" src="./assets/mounted.png">
-		   		<img class="troop ranged" src="./assets/ranged.png">
-		   		<img class="troop siege" src="./assets/siege.png">
+		   		<img class="troop ground" title="" src="./assets/ground.png">
+		   		<img class="troop mounted" title="" src="./assets/mounted.png">
+		   		<img class="troop ranged" title="" src="./assets/ranged.png">
+		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
@@ -147,10 +149,10 @@
 				 <label class="star" seq="4">★</label>
 		     </span>
 		     <span>
-		   		<img class="troop ground" src="./assets/ground.png">
-		   		<img class="troop mounted" src="./assets/mounted.png">
-		   		<img class="troop ranged" src="./assets/ranged.png">
-		   		<img class="troop siege" src="./assets/siege.png">
+		   		<img class="troop ground" title="" src="./assets/ground.png">
+		   		<img class="troop mounted" title="" src="./assets/mounted.png">
+		   		<img class="troop ranged" title="" src="./assets/ranged.png">
+		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  

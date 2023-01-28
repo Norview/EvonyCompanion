@@ -282,3 +282,17 @@
 	border-style: solid;
 	border-width: 3px;
 }
+
+/* Tooptips (jquery-ui) */
+
+.ui-tooltip {
+    padding: 2px 4px;
+    background-color: white;
+    // font-color: white;
+    border-radius: 4px;
+    font-size: bold;
+    // "Helvetica Neue", Sans-Serif;
+    // text-transform: uppercase;
+    // box-shadow: 0 0 7px black;
+}
+

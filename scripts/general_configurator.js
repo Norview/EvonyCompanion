@@ -647,7 +647,31 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
             selector.css("border", "2px solid blue");
         });
     }
-    
+
+	// Valid index >= 0
+	function _toIndex(name) {
+		switch(name){
+		case "ground":
+		case "attack": return 0; 
+		case "mounted":
+		case "defense": return 1; 
+		case "ranged":
+		case "hp": return 2; 	
+		case "siege": return 3; 
+		default: return -1;		
+		}
+	}
+	
+	// Inverse of _toIndex for buff type.
+	function _buffTypeFromIndex(index) {
+		switch(index){
+		case 0: return "attack";
+		case 1: return "defense";
+		case 2: return "hp";
+		default: return -1;		
+		}
+	}
+    	 
     // This function decorates the troop icons above the dropdown to visualize the specialized strength of the selected equipment.
     function updateEquipmentTraits(troops, eq){
     	if (!eq) {
@@ -655,7 +679,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
 			troops.each(function() {
 				var troop$ = $(this);
 				if (troop$.hasClass("ground")) {
-					undecorateTroopIcon(troop$, "ground");
+					undecorateTroopIcon(troop$, "ground"); // TODO - NEXT: reset title
 				} else if (troop$.hasClass("mounted")) {
 					undecorateTroopIcon(troop$, "mounted");
 				} else if (troop$.hasClass("ranged")) {
@@ -680,9 +704,25 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
 			},
 			*/
 			var buffs = [0,0,0,0]; // G,M,R,S
-			for (attr of eq.attributes) {    
+			var perTypes = {     // A,D,HP          // A,D,HP
+				"ground": {"buff": [0,0,0], "debuff": [0,0,0]},
+				"mounted":{"buff": [0,0,0], "debuff": [0,0,0]},
+				"ranged": {"buff": [0,0,0], "debuff": [0,0,0]},
+				"siege":  {"buff": [0,0,0], "debuff": [0,0,0]}
+			};
+			for (attr of eq.attributes) {
+				var atype = attr.type;
+				var val = Math.floor(attr.value + attr.rate * 5);
+				
 				// Disregard debuff
 				if (attr.rate < 0){
+					for (troop of attr.troop) {
+						let attrTypInd = _toIndex(atype);
+						if (attrTypInd >= 0) {
+							perTypes[troop]["debuff"][attrTypInd] += val;
+						}
+					}
+					
 					continue;
 				}
 
@@ -699,56 +739,64 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
 				}
 			
 				// Disregard irrelevant attributes
-				var atype = attr.type;
-				var hasRangeBonus = (atype === "range");
-				if (!(atype === "attack" || atype === "defense" || atype === "hp" || hasRangeBonus)){
+				var isRangeBonus = (atype === "range");
+				var _ind = _toIndex(atype);
+				if (!(_ind >= 0 || isRangeBonus)){
 					continue;
 				}
 			
-				// Gather the buff value
-				var val = Math.floor(attr.value + attr.rate * 5);
+				// Gather the buff value;
 				for (troop of attr.troop) {
-					if (troop === "ground") {
-						buffs[0] += val;
-					} else if (troop === "mounted") {
-						buffs[1] += val;
-					} else if (troop === "ranged") {
-						buffs[2] += val;
-					} else if (troop === "siege") {
-						buffs[3] += val * (hasRangeBonus ? 3 : 1); // Siege range is highly valued.
+					let tindex = _toIndex(troop);
+					if (troop === "siege") {
+						buffs[tindex] += val * (isRangeBonus ? 3 : 1); // Siege range is highly valued.
+					} else {
+						buffs[tindex] += val;
 					}
+				}
+				
+				if (!isRangeBonus) {
+					let attrTypInd = _toIndex(atype);
+					perTypes[troop]["buff"][attrTypInd] += val;
 				}
 			}
 		
 			var agg = buffs[0] + buffs[1] + buffs[2] + buffs[3];
-			var traits = [0,0,0,0]; // G,M,R,S
+			var aggs = [0,0,0,0]; // G,M,R,S
 			if (agg > 0) {
 				for (var index = 0; index <= 3; index++) {
 					var percent = Math.floor(buffs[index] * 100 / agg);
-					traits[index] = percent;
+					aggs[index] = percent;
 				}
 			}
 			
 			// Memoize
-			cachedTraits = eq.traits = traits;
+			cachedTraits = eq.traits = {
+				"aggs" : aggs,
+				"perTypes" : perTypes
+			};
     	}
     	
     	// Decorate icons according to the traits
     	troops.each(function() {
     		var troop$ = $(this);
     		if (troop$.hasClass("ground")) {
-    			decorateTroopIcon(troop$, "ground", cachedTraits[0]);
+    			decorateTroopIcon(troop$, "ground", cachedTraits); // TODO - NEXT: synthesize and set title
     		} else if (troop$.hasClass("mounted")) {
-    			decorateTroopIcon(troop$, "mounted", cachedTraits[1]);
+    			decorateTroopIcon(troop$, "mounted", cachedTraits);
     		} else if (troop$.hasClass("ranged")) {
-    			decorateTroopIcon(troop$, "ranged", cachedTraits[2]);
+    			decorateTroopIcon(troop$, "ranged", cachedTraits);
     		} else if (troop$.hasClass("siege")) {
-    			decorateTroopIcon(troop$, "siege", cachedTraits[3]);
+    			decorateTroopIcon(troop$, "siege", cachedTraits);
     		}
   		});
     }
     
     function undecorateTroopIcon(troop$, ttype){    
+		// 1. Remove the tooltip
+		troop$.tooltip("destroy"); // https://api.jqueryui.com/tooltip/#method-destroy
+		
+		// 2. Remove the border
 		if (troop$.attr("src").indexOf("gray.png") > 0) {
 			troop$.attr("src", "./assets/" + ttype + ".png");
 		}
@@ -756,7 +804,56 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
 		troop$.css("border", "");
     }
     
-    function decorateTroopIcon(troop$, ttype, trait){
+    function decorateTroopIcon(troop$, ttype, traits){
+    	// 1. Tooltip contains the buffs and defuffs for this particular troop type.
+    
+    	var trait = traits["aggs"][_toIndex(ttype)]
+    	
+    	var typeTraits = traits.perTypes[ttype];
+		var tip = $("<div style='font-size: 12px; font-family: monospace;'>");
+    	
+    	var typeBuffs = typeTraits.buff;
+    	var topRow = $("<div>");
+    	for (let tbInd in typeBuffs) {
+    		if (topRow.children().length > 0) {
+    			let splitter = $("<span>/</span>");
+    			topRow.append(splitter);
+    		}
+    		let tb = typeBuffs[tbInd];
+    		let fcolor = (tb === 0 ? "#D3D3D3" : "green");
+    		let buffName = _buffTypeFromIndex(parseInt(tbInd));
+    		let tbSpanSrc = "<span style='color: " + fcolor + "'>" + buffName[0].toUpperCase() + "+" + tb + "%</span>";
+    		let tbSpan = $(tbSpanSrc);
+    		topRow.append(tbSpan);
+    	}
+
+		var typeDebuffs = typeTraits.debuff;
+    	var btmRow = $("<div>");
+    	for (let tbInd in typeDebuffs) {
+    		if (btmRow.children().length > 0) {
+    			let splitter = $("<span>/</span>");
+    			btmRow.append(splitter);
+    		}
+    		let tb = typeDebuffs[tbInd];
+    		let fcolor = (tb === 0 ? "#D3D3D3" : "red");
+    		let sign = (tb === 0 ? "-" : "");
+    		let buffName = _buffTypeFromIndex(parseInt(tbInd));
+    		let tbSpanSrc = "<span style='color: " + fcolor + "'>" + buffName[0].toUpperCase() + sign + tb + "%</span>";
+    		let tbSpan = $(tbSpanSrc);
+    		btmRow.append(tbSpan);
+    	}
+    	
+		tip.append(topRow).append(btmRow);
+
+		troop$.tooltip({
+		  position: {
+		 	my: "center bottom-5",
+		 	at: "center top"
+		  },
+		  content: tip
+		});
+
+		// 2. Icon uses a distinct border based on the specialization for the this troop type.
         if (trait > 0) {
         	// Show the icon
         	if (troop$.attr("src").indexOf("gray.png") > 0) {
@@ -800,7 +897,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     
     // Install event handlers
     // (1) Dropdown
-    selector.change(function(){
+    selector.change(function(){ // WARNING: This may be triggered programmatically.
         // get equipment
         var eq = findEquipment($(this));
         
