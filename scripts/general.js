@@ -259,7 +259,7 @@ General.prototype.getMaterials = function(includeBase) {
 
 // Returns a buffs object that contains debuff value for each of 12 debuff categories (Enemy G/M/R/S * A/D/HP).
 General.prototype.getDebuffs = function(scenario, starring) {
-	return this.getBuffs(c_scenario_debuffing);
+	return this.getBuffs(c_scenario_debuffing, starring);
 }
 
 // Returns a buffs object that contains buff value for each of 12 buff categories (G/M/R/S * A/D/HP).

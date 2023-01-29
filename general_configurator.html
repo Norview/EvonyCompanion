@@ -15,9 +15,9 @@
     <script src="./scripts/equipment_inventory.js"></script>
     <script src="./scripts/general_configurator.js"></script>
     <script src="./scripts/general_serializer.js"></script>
+    <script src="./scripts/refine_estimator.js"></script>
     <script>
 		$(function(){
-			$(document).tooltip();
 			initialize();
 		});
     </script>
@@ -28,6 +28,7 @@
     <div class="container">
     	<div id="panic-box" class="panic-box"></div>
     </div>
+    
     <div class="container">
 		<div id="general">
 		   <!-- background image -->
@@ -425,7 +426,32 @@
 		 </table>    
 		</div>
 	</div>
-	
+
+	<div class="container stats-title i18n" tkey="REFINE">
+	REFINE
+	</div>
+	<div id="refine-div">
+	<div class="container" style="margin-top:2px">
+	  <div style="width:30%; display:flex; justify-content:center">
+	    <label style="user-select: none; margin-left:0%;" class="i18n" tkey="Ground">Ground</label>
+	    <input type="checkbox" id="refine-type-checkbox-ground"/>
+	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Mounted</label>
+	    <input type="checkbox" id="refine-type-checkbox-mounted"/>
+	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Ranged">Ranged</label>
+	    <input type="checkbox" id="refine-type-checkbox-ranged"/>
+	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Siege</label>
+	    <input type="checkbox" id="refine-type-checkbox-siege"/>
+	  </div>
+	</div>
+	<div class="container" style="margin-top:2px">
+	  <div style="width:30%; display:block; justify-content:center">	
+	    <div id="refine-slider">
+	      <div id="refine-handle" class="ui-slider-handle"></div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	  
 	<div class="comparison-component" style="display:none; height:30px; margin: 2% 0% 0% 0%">
 	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
 	</div>

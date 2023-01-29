@@ -27,6 +27,9 @@ const buffNumShades = [
     "#145a32",
 ];
 
+const starIcon = "★";
+const nonStarIcon = "☆";
+
 const buffRanges = buffNumShades.length - 1;
 const buffRangeSize = 20;
 const debuffRangeSize = 20;
@@ -49,6 +52,9 @@ var generalSet = new GeneralSet(c_maxGenerals);
 
 // Equipment inventory
 var inventory;
+
+// Refine estimator
+var refiner;
 
 ////////////////// Functions //////////////////
 
@@ -128,15 +134,25 @@ function updateStats() {
     // 1. Get battle type
     var battleType = getBattleType();
     
-    // 2. Calculate and update the buffs
+    // 2. Get refined buffs
+    var refineBuffs = refiner.getBuffs(general);
+    
+    // 3. Get inherent buffs
     var buffs = general.getBuffs(battleType, c_starring_equipped);
+    
+    // 4. Merge with refines
+    for (var prop in refineBuffs) {
+    	buffs[prop] += (refineBuffs[prop] || 0);
+    }
+    
+    // 5. Apply the buffs
     updateBuffTable(buffs, true);
     
-    // 3. Calculate and update the debuffs
+    // 6. Apply the debuffs
     var debuffs = general.getBuffs(c_scenario_debuffing, c_starring_equipped);
     updateBuffTable(debuffs, false);
     
-    // 4. Materials
+    // 7. Materials
     var materials = general.getMaterials(true);
     updateMaterialTable(materials);
 }
@@ -235,6 +251,9 @@ function initialize() {
         GeneralSerializer.initialize(equipments, data.sets); // equipmentDict, eqSetArray
 
         console.log("Data loaded.");
+        
+        // Initialize refine estimator
+        refiner = new RefineEstimator(updateStats);
         
         // Inventory configuration
         inventory = new EquipmentInventory(
@@ -391,69 +410,6 @@ function toggleVisibility(button, targetId) {
 	// Update the image only if the style change was successful.
 	img.attr("src", src);
 }
-
-function loadUI(filteredNames){
-    var result = true;
-    result &&= populateEquipmentDropDownMenu("weapon",filteredNames);
-    result &&= populateEquipmentDropDownMenu("armor",filteredNames);
-    result &&= populateEquipmentDropDownMenu("boots",filteredNames);
-    result &&= populateEquipmentDropDownMenu("helmet",filteredNames);
-    result &&= populateEquipmentDropDownMenu("legarmor",filteredNames);
-    result &&= populateEquipmentDropDownMenu("ring",filteredNames);
-    return result;
-}
-
-function configureUI(reposOnly){
-    var windowWidth = document.documentElement.clientWidth;
-    var windowHeight = document.documentElement.clientHeight;
-    var orgPicWidth = 670; // Check the picture's dimension.
-    var orgPicHeight = 664;
-    
-    // In .css file, we stretch this picture to 150% on smaller devices.
-    var stretched = windowWidth <= 1024;
-    if (stretched) {
-        orgPicWidth *= 1.5;
-        orgPicHeight *= 1.5;
-    }
-    var picWidth = orgPicWidth;
-    var picHeight = orgPicHeight;    
-    if (windowWidth < picWidth) {
-        // Picture got resized due to a smaller window.
-        picWidth = windowWidth;
-        picHeight = picWidth *  orgPicHeight / orgPicWidth;
-    }
-    
-    var topLeftX = windowWidth / 2 - picWidth / 2;
-    // console.log("Window size: " + windowWidth + " * " + windowHeight);
-    // console.log("Picture size: " + picWidth + " * " + picHeight);
-    // console.log("Picture positioned at: " + topLeftX);
-    
-    var picLoc = {
-        topLeftX : topLeftX,
-        picWidth : picWidth,
-        picHeight : picHeight,
-        windowWidth : windowWidth,
-        windowHeight : windowHeight,
-        stretched : stretched
-    };
-    
-    enableEquipmentDropDownMenu("weapon", picLoc, reposOnly);
-    enableEquipmentDropDownMenu("armor", picLoc, reposOnly);
-    enableEquipmentDropDownMenu("boots", picLoc, reposOnly);
-    enableEquipmentDropDownMenu("helmet", picLoc, reposOnly);
-    enableEquipmentDropDownMenu("legarmor", picLoc, reposOnly);
-    enableEquipmentDropDownMenu("ring", picLoc, reposOnly);
-    
-    configureAnimalCheckBox(picLoc, reposOnly);
-        
-    if (!reposOnly){
-        configureBattleTypeSelector();
-        configureCompareButton();
-    }
-}
-
-const starIcon = "★";
-const nonStarIcon = "☆";
  
 function setLocation(selector, type, picLoc) {
     if (!(!!selector || !!type || !!picLoc)) {
@@ -520,55 +476,227 @@ function setLocation(selector, type, picLoc) {
     selector.css("left", leftPt);
 }
 
-function makeDummyDragon(){
-    return { 
-        name: "generic-dragon",
-        type: "dragon"
-    };
+// Initialization
+
+function loadUI(filteredNames){
+    var result = true;
+    result &&= populateEquipmentDropDownMenu("weapon",filteredNames);
+    result &&= populateEquipmentDropDownMenu("armor",filteredNames);
+    result &&= populateEquipmentDropDownMenu("boots",filteredNames);
+    result &&= populateEquipmentDropDownMenu("helmet",filteredNames);
+    result &&= populateEquipmentDropDownMenu("legarmor",filteredNames);
+    result &&= populateEquipmentDropDownMenu("ring",filteredNames);
+    return result;
 }
 
-function configureAnimalCheckBox(picLoc, reposOnly) {
-    function tryUpdate(checked){
-        general.setAnimal(checked ? makeDummyDragon() : null);
-        // Trigger update only if any equipment is sensitive to dragon's presence (most are not).
-        var eqs = general.getEquipments();
-        for (var eq of eqs) {
-            if (!!eq) {
-                for (var attr of eq.attributes) {
-                    for (var cond of attr.condition) {
-                        if (cond === "w/dragon") {
-                            // console.info("Found at least one equipment with buffs triggered by w/dragon.");
-                            // Trigger and return
-                            updateStats();
-                            return;
-                        }
-                    } 
-                }
-            }
-        }    
-    }
+function configureUI(reposOnly){
+	function configureBattleTypeSelector() {
+		var inputs = $("#battle-types input");
+	
+		/* 
+		  <input type="radio" id="opt-any"
+			name="battle-type" value="any" checked>
+		 */
 
-    var animal$ = findSelector("animal");
-    setLocation(animal$, "animal", picLoc);
+		inputs.each(function(){
+			 var input = $(this);
+		 
+			 // 1. Check "any" as the default
+			 var value = input.val();
+			input.prop("checked", value == "any");
+		
+			// 2. Add event handler
+			input.change(function() {
+				var radBtn = $(this);
+				if (radBtn.prop("checked")) {
+					// New battle type selected, update stats
+					var btype = radBtn.val();
+					console.log("Selected new battle type: " + radBtn.val());
+					updateStats();
+					updateGenerals();
+				}
+			});
+		 });
+	}
+
+	function configureAnimalCheckBox(picLoc, reposOnly) {
+		function tryUpdate(checked){
+			general.setAnimal(checked ? makeDummyDragon() : null);
+			// Trigger update only if any equipment is sensitive to dragon's presence (most are not).
+			var eqs = general.getEquipments();
+			for (var eq of eqs) {
+				if (!!eq) {
+					for (var attr of eq.attributes) {
+						for (var cond of attr.condition) {
+							if (cond === "w/dragon") {
+								// console.info("Found at least one equipment with buffs triggered by w/dragon.");
+								// Trigger and return
+								updateStats();
+								return;
+							}
+						} 
+					}
+				}
+			}    
+		}
+
+		var animal$ = findSelector("animal");
+		setLocation(animal$, "animal", picLoc);
+	
+		if (!reposOnly) {
+			var cb$ = animal$.find("#animal-checkbox");
+			// Reset the state
+			cb$.prop('checked', false);
+		
+			// Clicking on the label should have the same toggling effect.
+			animal$.find("label").click(function(){
+				var isChecked = cb$.is(":checked");
+				cb$.prop('checked', !isChecked);
+				tryUpdate(checked);
+			});
+	
+			// Clicking triggers stats update.
+			cb$.change(function(){
+				var checked = $(this).is(":checked");
+				tryUpdate(checked);
+			});
+		}
+	}
+	
+    var windowWidth = document.documentElement.clientWidth;
+    var windowHeight = document.documentElement.clientHeight;
+    var orgPicWidth = 670; // Check the picture's dimension.
+    var orgPicHeight = 664;
     
-    if (!reposOnly) {
-        var cb$ = animal$.find("#animal-checkbox");
-        // Reset the state
-        cb$.prop('checked', false);
-        
-        // Clicking on the label should have the same toggling effect.
-        animal$.find("label").click(function(){
-            var isChecked = cb$.is(":checked");
-            cb$.prop('checked', !isChecked);
-            tryUpdate(checked);
-        });
-    
-        // Clicking triggers stats update.
-        cb$.change(function(){
-            var checked = $(this).is(":checked");
-            tryUpdate(checked);
-        });
+    // In .css file, we stretch this picture to 150% on smaller devices.
+    var stretched = windowWidth <= 1024;
+    if (stretched) {
+        orgPicWidth *= 1.5;
+        orgPicHeight *= 1.5;
     }
+    var picWidth = orgPicWidth;
+    var picHeight = orgPicHeight;    
+    if (windowWidth < picWidth) {
+        // Picture got resized due to a smaller window.
+        picWidth = windowWidth;
+        picHeight = picWidth *  orgPicHeight / orgPicWidth;
+    }
+    
+    var topLeftX = windowWidth / 2 - picWidth / 2;
+    // console.log("Window size: " + windowWidth + " * " + windowHeight);
+    // console.log("Picture size: " + picWidth + " * " + picHeight);
+    // console.log("Picture positioned at: " + topLeftX);
+    
+    var picLoc = {
+        topLeftX : topLeftX,
+        picWidth : picWidth,
+        picHeight : picHeight,
+        windowWidth : windowWidth,
+        windowHeight : windowHeight,
+        stretched : stretched
+    };
+    
+    enableEquipmentDropDownMenu("weapon", picLoc, reposOnly);
+    enableEquipmentDropDownMenu("armor", picLoc, reposOnly);
+    enableEquipmentDropDownMenu("boots", picLoc, reposOnly);
+    enableEquipmentDropDownMenu("helmet", picLoc, reposOnly);
+    enableEquipmentDropDownMenu("legarmor", picLoc, reposOnly);
+    enableEquipmentDropDownMenu("ring", picLoc, reposOnly);
+    
+    configureAnimalCheckBox(picLoc, reposOnly);
+        
+    if (!reposOnly){
+        configureBattleTypeSelector();
+        configureCompareButton();
+    }
+}
+
+function selectEquipmentFromDropDownMenu(equipment) {
+    // Locate the selector => options
+    var selector = findDropdown(equipment.type);
+    var options = selector.find("option");
+    
+    // Find the one corresponding to the given equipment
+    for (let opt of options) {
+    	if (opt.value == equipment.name) {
+    		opt.selected = true;
+    		break;
+    	}
+    }
+    
+    // Trigger a change event
+    selector.trigger("change");
+}
+    
+function populateEquipmentDropDownMenu(type, filteredNames) {
+    /* Populate <select> with <option>s:
+      <form class="btn" id="selector-weapon">  
+         ...
+         <select style="display: block;">  
+           <option value = "FullName">Courageous Ares Bow</option>  
+           <option value = "FullName">Courageous Achae. Bow</option>  
+           <option value = "FullName">Civilization Bow</option> 
+           ...
+         </select>  
+       </form> 
+     */
+     
+    // Locate the selector
+    var selector = findDropdown(type);
+    if (!selector){
+        console.error("Selector for " + type + " doesn't exist.");
+        return false;
+    }
+    
+    // Filter out all equipments by the type
+    var eqs = [];
+    for (let eqName in equipments) {
+       if (equipments.hasOwnProperty(eqName)) {
+       	  if (!filteredNames || filteredNames.has(eqName)){     
+			  var eq = equipments[eqName];
+			  if (!!eq && eq.type === type){
+				  eqs.push(eq);
+			  }
+       	  }
+       }
+    }
+    
+    // Sort 
+    eqs.sort(function (e1, e2) {
+        // First check the set's designated order
+        var diff = e1.set.order - e2.set.order;
+        if (diff !== 0) {
+            return diff;
+        }
+        
+        // Then alphabetically
+        return (e1.name < e2.name ? -1 : 1);
+    });
+    
+    // Clear the menu since we may reload
+    selector.empty();
+
+    // Populate the dropdown menu
+    
+    // Always has an empty option
+    var opt = $("<option>", { value: "" }).text("");
+    selector.append(opt);
+    // All equipments of this type will be stored in a map, attached to the selector.
+    var typEqs = {};
+    selector.data(c_data_equipment, typEqs);
+
+    var count = 0;
+    for (var eq of eqs) {        
+        var langKeyValue = translator.getDisplayName(eq, c_name_dropdown);
+        
+        var opt = $("<option>", { "value": eq.name, "class": "i18n", "tkey": langKeyValue.key }).text(langKeyValue.initial);
+        typEqs[eq.name] = eq;
+        selector.append(opt);
+        count++;
+    }
+    
+    console.info("Populated " + count + " equipments of type " + type + ".");
+    return true;
 }
        
 function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
@@ -1061,123 +1189,6 @@ function findMaterialRow(level){
     return $("#material-row-" + level + " td");
 }
 
-function configureBattleTypeSelector() {
-    var inputs = $("#battle-types input");
-    
-    /* 
-      <input type="radio" id="opt-any"
-        name="battle-type" value="any" checked>
-     */
-
-    inputs.each(function(){
-         var input = $(this);
-         
-         // 1. Check "any" as the default
-         var value = input.val();
-        input.prop("checked", value == "any");
-        
-        // 2. Add event handler
-        input.change(function() {
-            var radBtn = $(this);
-            if (radBtn.prop("checked")) {
-                // New battle type selected, update stats
-                var btype = radBtn.val();
-                console.log("Selected new battle type: " + radBtn.val());
-                updateStats();
-                updateGenerals();
-            }
-        });
-     });
-}
-
-function selectEquipmentFromDropDownMenu(equipment) {
-    // Locate the selector => options
-    var selector = findDropdown(equipment.type);
-    var options = selector.find("option");
-    
-    // Find the one corresponding to the given equipment
-    for (let opt of options) {
-    	if (opt.value == equipment.name) {
-    		opt.selected = true;
-    		break;
-    	}
-    }
-    
-    // Trigger a change event
-    selector.trigger("change");
-}
-    
-function populateEquipmentDropDownMenu(type, filteredNames) {
-    /* Populate <select> with <option>s:
-      <form class="btn" id="selector-weapon">  
-         ...
-         <select style="display: block;">  
-           <option value = "FullName">Courageous Ares Bow</option>  
-           <option value = "FullName">Courageous Achae. Bow</option>  
-           <option value = "FullName">Civilization Bow</option> 
-           ...
-         </select>  
-       </form> 
-     */
-     
-    // Locate the selector
-    var selector = findDropdown(type);
-    if (!selector){
-        console.error("Selector for " + type + " doesn't exist.");
-        return false;
-    }
-    
-    // Filter out all equipments by the type
-    var eqs = [];
-    for (let eqName in equipments) {
-       if (equipments.hasOwnProperty(eqName)) {
-       	  if (!filteredNames || filteredNames.has(eqName)){     
-			  var eq = equipments[eqName];
-			  if (!!eq && eq.type === type){
-				  eqs.push(eq);
-			  }
-       	  }
-       }
-    }
-    
-    // Sort 
-    eqs.sort(function (e1, e2) {
-        // First check the set's designated order
-        var diff = e1.set.order - e2.set.order;
-        if (diff !== 0) {
-            return diff;
-        }
-        
-        // Then alphabetically
-        return (e1.name < e2.name ? -1 : 1);
-    });
-    
-    // Clear the menu since we may reload
-    selector.empty();
-
-    // Populate the dropdown menu
-    
-    // Always has an empty option
-    var opt = $("<option>", { value: "" }).text("");
-    selector.append(opt);
-    // All equipments of this type will be stored in a map, attached to the selector.
-    var typEqs = {};
-    selector.data(c_data_equipment, typEqs);
-
-    var count = 0;
-    for (var eq of eqs) {        
-        var langKeyValue = translator.getDisplayName(eq, c_name_dropdown);
-        
-        var opt = $("<option>", { "value": eq.name, "class": "i18n", "tkey": langKeyValue.key }).text(langKeyValue.initial);
-        typEqs[eq.name] = eq;
-        selector.append(opt);
-        count++;
-    }
-    
-    console.info("Populated " + count + " equipments of type " + type + ".");
-    return true;
-}
-
 /////// Comparison Table ///////
 
 var ctable = null;
@@ -1205,6 +1216,13 @@ function tryEnableCompareButton(general){
 }
 
 function addGeneral(general){
+	function makeDummyDragon(){
+		return { 
+			name: "generic-dragon",
+			type: "dragon"
+		};
+	}
+
     // Create and insert a replica. Through the end we should only refer to the replica.
     var generalRep = general.clone();
     

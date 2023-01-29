@@ -291,8 +291,22 @@
     // font-color: white;
     border-radius: 4px;
     font-size: bold;
-    // "Helvetica Neue", Sans-Serif;
-    // text-transform: uppercase;
-    // box-shadow: 0 0 7px black;
 }
 
+/* Slider (jquery-ui) */
+
+#refine-handle {
+  height: 18px;
+  width: 40px;
+  font-size: 14px;
+  text-align: center;
+  float: left;
+  clear: left;
+  background: #7F7F7F; 
+  color: white;
+  font-weight: bold;
+}
+
+#refine-slider .ui-slider-range { background: #BFBFBF; }
+
+#refine-slider .ui-slider-handle { border-color: #000000; }
