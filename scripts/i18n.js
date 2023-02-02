@@ -287,4 +287,22 @@ function Translator(){
 			return getDisplayName(eq, type, "en");
 		}
 	};
+	
+	this.translateByKey = function(tkey, original, lang){
+		lang = lang || g_lang;
+		var translator = g_translators[lang];
+		if (!!translator) {
+			var translated = translator.t(tkey);
+			if (!!translated) {	
+				return translated;
+			}
+		}
+		
+		// Fall back to English
+		if (lang !== "en") {
+			return this.translateByKey(tkey, original, lang);
+		}
+		
+		return original;
+	}
 }

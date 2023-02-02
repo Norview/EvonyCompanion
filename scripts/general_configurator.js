@@ -19,12 +19,21 @@ const c_starring_equipped = 1;
 const c_starring_max = 2;
 
 const buffNumShades = [
-    "#52be80",
-    "#27ae60",
-    "#229954",
-    "#1e8449",
-    "#196f3d",
-    "#145a32",
+    "#019a60",
+    "#008a57",
+    "#007b4d",
+    "#006b44",
+    "#005c3b",
+    "#004d32"
+];
+
+const debuffNumShades = [
+    "#f62e30",
+    "#dd292a",
+    "#c42417",
+    "#ac2022",
+    "#931b1e",
+    "#7b171a"
 ];
 
 const starIcon = "★";
@@ -32,7 +41,8 @@ const nonStarIcon = "☆";
 
 const buffRanges = buffNumShades.length - 1;
 const buffRangeSize = 20;
-const debuffRangeSize = 20;
+const debuffRanges = debuffNumShades.length - 1;
+const debuffRangeSize = 15;
 
 ////////////////// Globals //////////////////
 
@@ -60,19 +70,26 @@ var refiner;
 
 // For a given buff number, get the styling info.
 function getBuffDeco(func, value){
+	var shades = buffNumShades;
+	var rangeSize = buffRangeSize;
+	var ranges = buffRanges;
     if (value < 0) {
-        value = -value; // A debuff value
+    	// A debuff value
+        value = -value; 
+        shades = debuffNumShades;
+		rangeSize = debuffRangeSize;
+		ranges = debuffRanges;
     }
     
     var range = 0;
     var color = !!func() ? "#d0d0d0" : "#f0f0f0";
     if (value > 0) {
-        var range = Math.floor(value / buffRangeSize);
-        if (range > buffRanges) {
-            range = buffRanges;
+        var range = Math.floor(value / rangeSize);
+        if (range > ranges) {
+            range = ranges;
         }
         
-        color = buffNumShades[range];
+        color = shades[range];
     }
     
     return {
@@ -82,7 +99,7 @@ function getBuffDeco(func, value){
 }
 
 // Set buff number to a buff column. Apply color and font weight accordingly.
-function updateBuffColumn(buffCols, index, value){
+function updateBuffColumn(buffCols, index, value, breakdown){
     var col = buffCols[index];
     col.textContent = value + "%";
     
@@ -94,23 +111,55 @@ function updateBuffColumn(buffCols, index, value){
     if (!!deco.isMax) {
         col.style.fontWeight = "bold";
     }
+    
+    // Add a tooltip to show the buff contribution by equipments
+	var tip = $("<div style='font-size: 12px;'>");
+	
+	for (var srcName in breakdown) {
+		var tipRow = $("<div>");
+		var buff = breakdown[srcName];
+		
+		let color = (buff >= 0 ? "green" : "red");
+		let sign = (buff >= 0 ? "+" : "");
+		
+		let name = translator.translateByKey(srcName);
+		let spNameSrc = $("<span class='i18n' tkey='" + srcName + "'>" + name + " : &nbsp;</span>");
+		let spName = $(spNameSrc);
+		tipRow.append(spName);
+		
+		let spValueSrc = "<span style='color: " + color + "'>" + sign + buff + "%</span>";
+		let spValue = $(spValueSrc);
+		tipRow.append(spValue);
+		
+		tip.append(tipRow);
+	}
+
+	if (tip.children().length > 0) {
+		$(col).tooltip({
+		  position: {
+			my: "center top+5",
+			at: "center bottom"
+		  },
+		  content: tip
+		});
+	}
 }
 
-function updateBuffTable(buffs, isBuffOrDebuff) {
+function updateBuffTable(buffs, diag, isBuffOrDebuff) {
     var buffCols = $("#" + (isBuffOrDebuff ? "buff" : "debuff") + "-row td")
     
-    updateBuffColumn(buffCols, 0, buffs.groundAttack);
-    updateBuffColumn(buffCols, 1, buffs.groundDefense);
-    updateBuffColumn(buffCols, 2, buffs.groundHp);
-    updateBuffColumn(buffCols, 3, buffs.mountedAttack);
-    updateBuffColumn(buffCols, 4, buffs.mountedDefense);
-    updateBuffColumn(buffCols, 5, buffs.mountedHp);
-    updateBuffColumn(buffCols, 6, buffs.rangedAttack);
-    updateBuffColumn(buffCols, 7, buffs.rangedDefense);
-    updateBuffColumn(buffCols, 8, buffs.rangedHp);
-    updateBuffColumn(buffCols, 9, buffs.siegeAttack);
-    updateBuffColumn(buffCols,10, buffs.siegeDefense);
-    updateBuffColumn(buffCols,11, buffs.siegeHp);
+    updateBuffColumn(buffCols, 0, buffs.groundAttack,  diag.groundAttack);
+    updateBuffColumn(buffCols, 1, buffs.groundDefense, diag.groundDefense);
+    updateBuffColumn(buffCols, 2, buffs.groundHp,      diag.groundHp);
+    updateBuffColumn(buffCols, 3, buffs.mountedAttack, diag.mountedAttack);
+    updateBuffColumn(buffCols, 4, buffs.mountedDefense,diag.mountedDefense);
+    updateBuffColumn(buffCols, 5, buffs.mountedHp,     diag.mountedHp);
+    updateBuffColumn(buffCols, 6, buffs.rangedAttack,  diag.rangedAttack);
+    updateBuffColumn(buffCols, 7, buffs.rangedDefense, diag.rangedDefense);
+    updateBuffColumn(buffCols, 8, buffs.rangedHp,      diag.rangedHp);
+    updateBuffColumn(buffCols, 9, buffs.siegeAttack,   diag.siegeAttack);
+    updateBuffColumn(buffCols,10, buffs.siegeDefense,  diag.siegeDefense);
+    updateBuffColumn(buffCols,11, buffs.siegeHp,       diag.siegeHp);
 }
 
 function updateMaterialTable(materials) {
@@ -138,7 +187,9 @@ function updateStats() {
     var refineBuffs = refiner.getBuffs(general);
     
     // 3. Get inherent buffs
-    var buffs = general.getBuffs(battleType, c_starring_equipped);
+    var buffsFromEqs = general.getBuffs(battleType, c_starring_equipped, true);
+    var buffs = buffsFromEqs.buffs;
+    var diag = buffsFromEqs.diagnostics;
     
     // 4. Merge with refines
     for (var prop in refineBuffs) {
@@ -146,11 +197,13 @@ function updateStats() {
     }
     
     // 5. Apply the buffs
-    updateBuffTable(buffs, true);
+    updateBuffTable(buffs, diag, true);
     
     // 6. Apply the debuffs
-    var debuffs = general.getBuffs(c_scenario_debuffing, c_starring_equipped);
-    updateBuffTable(debuffs, false);
+    var debuffsFromEqs = general.getDebuffs(c_starring_equipped, true);
+    var debuffs = debuffsFromEqs.buffs;
+    var diag = debuffsFromEqs.diagnostics;
+    updateBuffTable(debuffs, diag, false);
     
     // 7. Materials
     var materials = general.getMaterials(true);
@@ -381,8 +434,26 @@ function panic(message){
     box.animate({"margin-top" : '-1%'}, "slow");
 }
 
+function _toggleBattleTypesTable($jso, isOn) {
+	$legend = $jso.prev();
+	if ($legend && !!isOn) {
+		let txt = translator.translateByKey("What kind of battle?"); 
+		$legend.text(txt);
+	} else {
+		let inputs = $jso.find("input");
+		inputs.each(function(){
+			var $input = $(this);
+			if ($input.prop("checked")) {
+				$legend.text($input.next().text());
+			}
+		});
+	}
+}
+				
 //toggleVisibility(this, 'battle-types-table')
-function toggleVisibility(button, targetId) {
+function toggleVisibility(button, targetId, onToggle) {
+	onToggle = onToggle || function(){};
+	
 	var btn = $(button);
 	// Such buttons contain an image inside:
 	//   <image src="../assets/hide.png" />
@@ -403,8 +474,10 @@ function toggleVisibility(button, targetId) {
 	var tgt = $("#" + targetId);
 	if (toShow) {
 		tgt.css("display", ""); // Reset to the default
+		onToggle(tgt, true);
 	} else {
 		tgt.css("display", "none");
+		onToggle(tgt, false);
 	}
 	
 	// Update the image only if the style change was successful.
@@ -909,7 +982,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     	troops.each(function() {
     		var troop$ = $(this);
     		if (troop$.hasClass("ground")) {
-    			decorateTroopIcon(troop$, "ground", cachedTraits); // TODO - NEXT: synthesize and set title
+    			decorateTroopIcon(troop$, "ground", cachedTraits);
     		} else if (troop$.hasClass("mounted")) {
     			decorateTroopIcon(troop$, "mounted", cachedTraits);
     		} else if (troop$.hasClass("ranged")) {
@@ -1457,8 +1530,8 @@ function ComparisonTable(){
             
             columns.push({
                 // index: index,
-                buffs: general.getBuffs(scenario, c_starring_max),
-                debuffs: general.getDebuffs(scenario, c_starring_max)
+                buffs: general.getBuffs(scenario, c_starring_max).buffs,
+                debuffs: general.getDebuffs(c_starring_max).buffs
             });
         });
         
@@ -1533,10 +1606,10 @@ function ComparisonTable(){
         }
         
         // 3. Add buffs
-        var buffs = general.getBuffs(scenario, c_starring_max);
+        var buffs = general.getBuffs(scenario, c_starring_max).buffs;
         addBuffs(this._buffs, true, buffs, index);
         
-        var debuffs = general.getDebuffs(scenario, c_starring_max);
+        var debuffs = general.getDebuffs(c_starring_max).buffs;
         addBuffs(this._debuffs, false, debuffs, index);
     };
 }

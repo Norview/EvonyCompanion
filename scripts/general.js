@@ -257,13 +257,25 @@ General.prototype.getMaterials = function(includeBase) {
 	return materials;
 }
 
-// Returns a buffs object that contains debuff value for each of 12 debuff categories (Enemy G/M/R/S * A/D/HP).
-General.prototype.getDebuffs = function(scenario, starring) {
-	return this.getBuffs(c_scenario_debuffing, starring);
+// Returns a buffs object that contains 
+// (1) debuff value for each of categories 12 debuff categories (G/M/R/S * -A/-D/-HP).
+// (2) (optional) debuff values contributed by equipments/sets to each of the 12 debuff categories.
+//
+// See getBuffs() for the contract. Do note though that it's still "buffs" property that contains
+// the debuff values. There won't be a "debuffs" property.
+General.prototype.getDebuffs = function(starring, diag) {
+	return this.getBuffs(c_scenario_debuffing, starring, diag);
 }
 
-// Returns a buffs object that contains buff value for each of 12 buff categories (G/M/R/S * A/D/HP).
-General.prototype.getBuffs = function(scenario, starring) {
+// Returns a buffs object that contains 
+// (1) buff value for each of categories 12 buff categories (G/M/R/S * A/D/HP).
+// (2) (optional) buff values contributed by equipments/sets to each of the 12 buff categories.
+// 
+// {
+//   "buffs" = { "groundAttack": NUM, ... },
+//   "diagnostics" = { "groundAttack": { "WEAPON-NAME" : NUM, "SET-NAME" : NUM, ... }, ... }
+// }
+General.prototype.getBuffs = function(scenario, starring, diag) {
 	// Routine: find an element by absolute equality from the array.
 	// Returns true if found, false if not.
 	function findCond(conds, toFind){
@@ -277,6 +289,8 @@ General.prototype.getBuffs = function(scenario, starring) {
 	//   "reinforcing"   - when reinforcing another city
 	//   "occupying"     - when defending an occupied building, including throne city and temples
 	//   "debuffing"     - a special value to indicate that we are calculating debuffs instead of buffs.
+	
+	var shouldDiag = diag === true;
 	
 	var isDebuff = c_scenario_debuffing === scenario;
 	
@@ -292,19 +306,34 @@ General.prototype.getBuffs = function(scenario, starring) {
 	var useMaxStars = starring === c_starring_max;
 	
 	var buffs = {
-		groundAttack: 0,
+		groundAttack:  0,
 		groundDefense: 0,
-		groundHp: 0,
+		groundHp:      0,
 		mountedAttack: 0,
-		mountedDefense: 0,
-		mountedHp: 0,
-		rangedAttack: 0,
+		mountedDefense:0,
+		mountedHp:     0,
+		rangedAttack:  0,
 		rangedDefense: 0,
-		rangedHp: 0,
-		siegeAttack: 0,
-		siegeDefense: 0,
-		siegeHp: 0
+		rangedHp:      0,
+		siegeAttack:   0,
+		siegeDefense:  0,
+		siegeHp:       0
 	};
+	
+	var diag = shouldDiag ? {
+		groundAttack:  {},
+		groundDefense: {},
+		groundHp:      {},
+		mountedAttack: {},
+		mountedDefense:{},
+		mountedHp:     {},
+		rangedAttack:  {},
+		rangedDefense: {},
+		rangedHp:      {},
+		siegeAttack:   {},
+		siegeDefense:  {},
+		siegeHp:       {}
+	} : null;
 	
 	var setPieces = {};
 	var buffSources = [];
@@ -326,6 +355,7 @@ General.prototype.getBuffs = function(scenario, starring) {
 		
 		for (attr of equipment.attributes) {    
 			buffSources.push({
+				name: equipment.name,
 				srcType : equipment.type,
 				attribute : attr
 			});
@@ -355,6 +385,7 @@ General.prototype.getBuffs = function(scenario, starring) {
 			  if (pcCount >= attr.pieces) {
 				  // Met required count
 				  buffSources.push({
+				      name: theSet.name,
 					  srcType :  "set",
 					  attribute : attr
 				  });
@@ -365,6 +396,7 @@ General.prototype.getBuffs = function(scenario, starring) {
 	
 	// Calculate buffs 
 	for (buffSrc of buffSources) {
+		var srcName = buffSrc.name;
 		var type = buffSrc.srcType;
 		var isSetBuff = type === "set";
 		var attr = buffSrc.attribute;
@@ -468,10 +500,23 @@ General.prototype.getBuffs = function(scenario, starring) {
 		// 5. apply the buff
 		for (attrName of attrNames) {
 			buffs[attrName] += value;
+			
+			if (shouldDiag) {
+				// 5.1. diagnostics
+				var entries = diag[attrName];
+				var srcVal = entries[srcName];
+				if (isNaN(srcVal)) {
+					srcVal = entries[srcName] = 0;
+				}
+				entries[srcName] = (srcVal + value);
+			}
 		}
 	}
 	
-	return buffs;
+	return {
+		"buffs": buffs,
+		"diagnostics": diag
+	};
 }
 
 ///////// Static Helpers /////////
