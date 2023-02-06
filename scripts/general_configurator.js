@@ -808,6 +808,29 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     }
     
     function updateSets() {
+    	// Update the selector's border and set info (set name, count) 
+    	function updateSelector(type, setName, color, pieces) {
+			var selector = findSelector(type);
+			selector.css("border", "2px solid " + color + "");
+			var setInfoElem = selector.find(".set-pieces");
+			setInfoElem.text("(" + pieces + ")");
+			
+			if (!!setName) {
+				// Add a tooltip to show the set info
+				var tip = $("<div style='font-size: 12px;'>");
+				tip.text(translator.translateByKey(setName));
+				setInfoElem.tooltip({
+				  position: {
+					my: "center bottom-5",
+					at: "center top"
+				  },
+				  content: tip
+				});
+			} else {
+				setInfoElem.tooltip("destroy");
+			}
+    	}
+    
         // Collect pieces by set
         var map = new Map();
         for (var eq of general.getEquipments()) {
@@ -830,22 +853,29 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         allTypes.add("ring");
         
         map.forEach(function(value, key) {
-            if (!!value && value.length >= 2) {
-                // Minimal set requirement met
-                var color = getSetColor(key);
-                for (var eq of value) {
-                    var type = eq.type;
-                    var selector = findSelector(type);
-                    selector.css("border", "2px solid " + color + "");
-                    allTypes.delete(type);
-                }
+            if (!!value) {
+            	var len = value.length;
+            	if (len >= 2) {
+					// Minimal set requirement met
+					var color = getSetColor(key);
+					for (var eq of value) {
+						var type = eq.type;
+						updateSelector(type, eq.set.name, color, value.length);
+						allTypes.delete(type);
+					}
+            	} else if (len == 1) {
+            		let eq = value[0];
+					var type = eq.type;
+            		// Minimal set requirement not met
+					updateSelector(type, eq.set.name, "blue", 1);
+					allTypes.delete(type);
+            	}
             }
         });
         
         allTypes.forEach(function(value) {
-            // Minimal set requirement not met
-            var selector = findSelector(value);
-            selector.css("border", "2px solid blue");
+            // No equipment at this spot
+			updateSelector(value, null, "blue", 0);
         });
     }
 

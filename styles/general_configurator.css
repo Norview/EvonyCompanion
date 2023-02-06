@@ -28,6 +28,10 @@
   color: #FFD700;
 }
 
+#general .set-pieces {
+  font-size: 12px;
+}
+
 #general .btn {
   position: absolute;
   top: 50%;
