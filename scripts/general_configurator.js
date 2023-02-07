@@ -1289,7 +1289,7 @@ function findStatRow(type){
 }
 
 function findMaterialRow(level){
-    return $("#material-row-" + level + " td");
+    return $("#material-row-" + level + " div.count");
 }
 
 /////// Comparison Table ///////

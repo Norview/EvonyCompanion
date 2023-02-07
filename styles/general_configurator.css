@@ -102,16 +102,6 @@
 	}
 }
 
-.material-table tr th {
-	padding:1px 3px 1px 3px;
-	text-align:center;
-}
-
-.material-table tr td {
-	padding:1px 3px 1px 3px;
-	text-align:center;
-}
-
 .buff-table {
 	display: block;
 	margin: auto;
@@ -165,18 +155,6 @@
 		margin:1% 0% 0% 0%;
 		font: sans-serif;
 		font-size: 28px;
-	}
-}
-
-.material-table-rows {
-	border: 1px solid black;
-	font-size: smaller;
-}
-
-@media(max-width: 1024px){
-	.material-table-rows {
-		border: 1px solid black;
-		font-size: 24px;
 	}
 }
 
@@ -268,6 +246,56 @@
 	  font-size: 28px;
   	  padding: 10px 10px 10px 10px;
 	}
+}
+
+/* Materials table */
+
+.material-table tr {
+	margin: 0px;
+	padding: 0px;
+}
+
+.material-table tr th {
+	// padding:1px 3px 1px 3px;
+	// text-align:center;
+}
+
+.material-table tr td {
+	// padding:1px 3px 1px 3px;
+	// text-align:center;
+}
+
+.material-table-rows {
+	// border: 1px solid black;
+	border: 0px;
+	font-size: smaller;
+}
+
+@media(max-width: 1024px){
+	.material-table-rows {
+		// border: 1px solid black;
+		font-size: 24px;
+	}
+}
+
+img.material {
+	width: 60px;
+}
+
+div.layer {
+	position: absolute;
+	margin-top: -23px;
+	height: 20px;
+	width: 60px;
+	background-color: rgba(0,0,0,0.25);
+}
+
+div.count {
+	width: 95%;
+	text-align: right;
+	color: white;
+	line-height: 22px;
+	font-weight: lighter;
 }
 
 /* Control board */
