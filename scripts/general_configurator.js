@@ -115,9 +115,10 @@ function updateBuffColumn(buffCols, index, value, breakdown){
     // Add a tooltip to show the buff contribution by equipments
 	var tip = $("<div style='font-size: 12px;'>");
 	
-	for (var srcName in breakdown) {
+	for (var buffEntry of breakdown) {
 		var tipRow = $("<div>");
-		var buff = breakdown[srcName];
+		var srcName = buffEntry.name;
+		var buff = buffEntry.value;
 		
 		let color = (buff >= 0 ? "green" : "red");
 		let sign = (buff >= 0 ? "+" : "");

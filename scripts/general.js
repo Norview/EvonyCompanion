@@ -273,7 +273,7 @@ General.prototype.getDebuffs = function(starring, diag) {
 // 
 // {
 //   "buffs" = { "groundAttack": NUM, ... },
-//   "diagnostics" = { "groundAttack": { "WEAPON-NAME" : NUM, "SET-NAME" : NUM, ... }, ... }
+//   "diagnostics" = { "groundAttack": [{ "name" : "WEAPON-NAME", "value" : NUM }], ... }
 // }
 General.prototype.getBuffs = function(scenario, starring, diag) {
 	// Routine: find an element by absolute equality from the array.
@@ -347,6 +347,7 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 		
 		// Gather the piece count of each set
 		var setName = equipment.set.name;
+		var setOrder = equipment.set.order;
 		var val = setPieces[setName];
 		if (isNaN(val)){
 			val = 0;
@@ -357,6 +358,7 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 			buffSources.push({
 				name: equipment.name,
 				srcType : equipment.type,
+				setOrder : setOrder,
 				attribute : attr
 			});
 		}
@@ -386,7 +388,8 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 				  // Met required count
 				  buffSources.push({
 				      name: theSet.name,
-					  srcType :  "set",
+					  srcType : "set",
+					  setOrder : theSet.order,
 					  attribute : attr
 				  });
 			  }
@@ -397,6 +400,7 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 	// Calculate buffs 
 	for (buffSrc of buffSources) {
 		var srcName = buffSrc.name;
+		var setOrder = buffSrc.setOrder;
 		var type = buffSrc.srcType;
 		var isSetBuff = type === "set";
 		var attr = buffSrc.attribute;
@@ -505,11 +509,48 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 				// 5.1. diagnostics
 				var entries = diag[attrName];
 				var srcVal = entries[srcName];
-				if (isNaN(srcVal)) {
-					srcVal = entries[srcName] = 0;
+				if (!srcVal) {
+					srcVal = entries[srcName] = {
+						"name": srcName,
+						"value": 0,
+						"_type": type,
+						"_setOrder": setOrder
+					};
 				}
-				entries[srcName] = (srcVal + value);
+				
+				// The same piece may contribute to the same kind of buff from multiple attributes,
+				// so we need to add them up. For example, a weapon may have "Add 20% troop attack" 
+				// and "Add 15% mounted troop attack". So the total mounted troop attack buff is 35%.
+				srcVal.value += value;
 			}
+		}
+	}
+	
+	if (shouldDiag) {
+		for (var buffType in diag) {
+			let attrs = diag[buffType];
+			let kvps = [];
+			for (var aindex in attrs){
+				kvps.push(attrs[aindex]);
+			}
+			
+			// In the order: body part position (weapon -> ... -> ring), 
+			// then set buff in the standard (debut time) order.
+			kvps.sort(function(k1, k2) { 
+				let t1 = _toEquipmentIndex(k1._type);
+				let t2 = _toEquipmentIndex(k2._type);
+				if (t1 < 0) {
+					t1 = k1._setOrder;
+				}
+				if (t2 < 0) {
+					t2 = k1._setOrder;
+				}
+					
+				return t1 - t2;
+			});
+			
+			// Replace obj with array
+			diag[buffType] = kvps;
 		}
 	}
 	

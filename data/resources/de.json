@@ -43,8 +43,9 @@
   "Reinforcing another city" : "Verstärkung einer anderen Stadt",
   "Defending a building" : "Verteidigung eines Gebäudes",
   
-  "BUFF" : "Buff",
-  "DEBUFF" : "Debuff",
+  "BUFF" : "BUFF",
+  "DEBUFF" : "DEBUFF",
+  "REFINE" : "VERFEINERN",
   
   "Compare" : "Vergleichen",
   "COMPARISON OF COMBINATIONS" : "Vergleich der Kombinationen",
