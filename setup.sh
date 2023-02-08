@@ -13,8 +13,8 @@ JQUERYUI_SCRIPT=jquery-ui-$JQUERYUI_VERSION.min.js
 JQUERYUI_THEME_URI="https://code.jquery.com/ui/$JQUERYUI_VERSION/themes/base/jquery-ui.css"
 JQUERYUI_THEME=jquery-ui-$JQUERYUI_VERSION.css
 if [ ! -f "./lib/$JQUERYUI_SCRIPT" -o ! -f "./styles/$JQUERYUI_THEME" ]; then
-  wget $JQUERYUI_SCRIPT_URI -P ./lib/JQUERYUI_SCRIPT
-  wget $JQUERYUI_THEME_URI -P ./styles/JQUERYUI_THEME
+  wget $JQUERYUI_SCRIPT_URI --output-document="./lib/$JQUERYUI_SCRIPT"
+  wget $JQUERYUI_THEME_URI --output-document="./styles/$JQUERYUI_THEME"
 fi
 
 I18N_VER=21.6.16

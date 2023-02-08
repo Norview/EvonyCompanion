@@ -809,28 +809,30 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     }
     
     function updateSets() {
-    	// Update the selector's border and set info (set name, count) 
-    	function updateSelector(type, setName, color, pieces) {
-			var selector = findSelector(type);
-			selector.css("border", "2px solid " + color + "");
-			var setInfoElem = selector.find(".set-pieces");
-			setInfoElem.text("(" + pieces + ")");
-			
-			if (!!setName) {
-				// Add a tooltip to show the set info
-				var tip = $("<div style='font-size: 12px;'>");
-				tip.text(translator.translateByKey(setName));
-				setInfoElem.tooltip({
-				  position: {
-					my: "center bottom-5",
-					at: "center top"
-				  },
-				  content: tip
-				});
-			} else {
-				setInfoElem.tooltip("destroy");
-			}
-    	}
+        // Update the selector's border and set info (set name, count) 
+        function updateSelector(type, setName, color, pieces) {
+            var selector = findSelector(type);
+            selector.css("border", "2px solid " + color + "");
+            var setInfoElem = selector.find(".set-pieces");
+            setInfoElem.text("(" + pieces + ")");
+            
+            if (!!setName) {
+                // Add a tooltip to show the set info
+                var tip = $("<div style='font-size: 12px;'>");
+                tip.text(translator.translateByKey(setName));
+                setInfoElem.tooltip({
+                  position: {
+                    my: "center bottom-5",
+                    at: "center top"
+                  },
+                  content: tip
+                });
+            } else {
+            	if (setInfoElem.slider("instance") != undefined){
+                	setInfoElem.tooltip("destroy");
+            	}
+            }
+        }
     
         // Collect pieces by set
         var map = new Map();
