@@ -38,7 +38,7 @@
 		     <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon">Dragon&nbsp;&nbsp;</label>
 			 <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
 		   </form>
-		   <div class="dropdown">
+		   <div class="dropdown" style="width: 15%;">
 			  <button class="dropbtn i18n" style="font-weight: bold; color: lightblue; text-decoration: underline;" tkey="Language">Language</button>
 			  <div class="dropdown-content">
 				<a href="#lang=en" onclick="switchLang('en');">English</a>
@@ -48,11 +48,12 @@
 				<a href="#lang=zhs" onclick="switchLang('zhs');">简体中文</a>
 				<!--<a href="#lang=ru" onclick="switchLang('ru');">Русский</a>-->
 			  </div>
-			</div>
+		   </div>
 		   <!-- equipments -->
-		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">  
+		   <form class="btn" id="selector-weapon" style="top:20%; left:34%;">
+             <table><tr><th><div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div></th><th> <!-- Add This -->
 		     <span class="stars-span" id="selector-weapon-stars">
-		     	 <label class="i18n" tkey="Weapon" style="display:inline;">Weapon</label>
+		     	 <!-- <label class="i18n" tkey="Weapon" style="display:inline;">Weapon</label> -->          <!-- Remove This -->
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -65,13 +66,15 @@
 		   		<img class="troop mounted" title="" src="./assets/mounted.png">
 		   		<img class="troop ranged"  title="" src="./assets/ranged.png">
 		   		<img class="troop siege"   title="" src="./assets/siege.png">
-		     </span>  
+		     </span>
+		     </th></table>																				    <!-- Add This -->
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>
 		   </form>
 		   <form class="btn" id="selector-armor" style="top:36%; left:34%;">
+             <table><tr><th><div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div></th><th> <!-- Add This -->
 		     <span class="stars-span" id="selector-armor-stars">
-		     	 <label class="i18n" tkey="Armor" style="display:inline;">Armor</label>
+		     	 <!--<label class="i18n" tkey="Armor" style="display:inline;">Armor</label> -->          <!-- Remove This -->
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -85,12 +88,14 @@
 		   		<img class="troop ranged" title="" src="./assets/ranged.png">
 		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
+		     </th></table>
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-boots" style="top:52%; left:34%;">  
+             <table><tr><th><div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div></th><th> <!-- Add This -->
 		     <span class="stars-span" id="selector-boots-stars">
-		     	 <label class="i18n" tkey="Boots" style="display: inline;">Boots</label>
+		     	 <!--<label class="i18n" tkey="Boots" style="display: inline;">Boots</label> -->          <!-- Remove This -->
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -104,12 +109,14 @@
 		   		<img class="troop ranged" title="" src="./assets/ranged.png">
 		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
+		     </th></table>
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-helmet" style="top:20%; left:66%;">  
+             <table><tr><th><div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div></th><th> <!-- Add This -->
 		     <span class="stars-span" id="selector-helmet-stars">
-		     	 <label class="i18n" tkey="Helmet" style="display: inline;">Helmet</label>
+		     	 <!--<label class="i18n" tkey="Helmet" style="display: inline;">Helmet</label> -->          <!-- Remove This -->
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -123,12 +130,14 @@
 		   		<img class="troop ranged" title="" src="./assets/ranged.png">
 		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
+		     </th></table>
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form> 
 		   <form class="btn" id="selector-legarmor" style="top:36%; left:65%;">  
+             <table><tr><th><div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div></th><th> <!-- Add This -->
 		     <span class="stars-span" id="selector-legarmor-stars">
-		     	 <label class="i18n" tkey="Leg Armor" style="display: inline;">Leg Armor</label>
+		     	 <!--<label class="i18n" tkey="Leg Armor" style="display: inline;">Leg Armor</label> -->          <!-- Remove This -->
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -142,12 +151,14 @@
 		   		<img class="troop ranged" title="" src="./assets/ranged.png">
 		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
+		     </th></table>
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>  
 		   <form class="btn" id="selector-ring" style="top:52%; left:66%;">  
+             <table><tr><th><div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div></th><th> <!-- Add This -->
 		     <span class="stars-span" id="selector-ring-stars">
-		     	 <label class="i18n" tkey="Ring" style="display: inline;">Ring</label>
+		     	 <!--<label class="i18n" tkey="Ring" style="display: inline;">Ring</label> -->          <!-- Remove This -->
 				 <label class="star" seq="0">★</label>
 				 <label class="star" seq="1">★</label>
 				 <label class="star" seq="2">★</label>
@@ -161,6 +172,7 @@
 		   		<img class="troop ranged" title="" src="./assets/ranged.png">
 		   		<img class="troop siege" title="" src="./assets/siege.png">
 		     </span> 
+		     </th></table>
 			 <select disabled="true"><!-- to be populated by code -->
 			 </select>  
 		   </form>

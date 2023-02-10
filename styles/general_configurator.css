@@ -56,6 +56,7 @@
 
 .btn select {
 	display: block;
+	width: 100%;
 }
 
 @media(max-width: 1024px){
@@ -63,6 +64,7 @@
         height:50px;
         line-height:50px;
         font-size: 28px;
+		width: auto;
 	}
 }
 
@@ -296,6 +298,18 @@ div.count {
 	color: white;
 	line-height: 22px;
 	font-weight: lighter;
+}
+
+@media(max-width: 1024px){
+	div.layer {
+		margin-top: -24px;
+		height: 17px;
+	}
+
+	div.count {
+		line-height: 12px;
+		font-size: 12px;
+	}
 }
 
 /* Control board */

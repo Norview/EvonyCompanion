@@ -496,10 +496,11 @@ function setLocation(selector, type, picLoc) {
     var topLeftY = 0;
     var width = picLoc.picWidth;
     var height = picLoc.picHeight;
-    var isStretched = !!picLoc.stretched;
     
-    const leftBase = isStretched ? 0.23 : 0.18;
-    const rightBase = isStretched ? 0.78 : 0.84;
+    var isStretched = !!picLoc.stretched;
+    const leftBase = isStretched ? 0.25 : 0.18;
+    const rightBase = isStretched ? 0.8 : 0.84;
+    
     var top = 0;
     var left = 0;
     var offsets = translator.getDropdownOffsets();
@@ -509,31 +510,32 @@ function setLocation(selector, type, picLoc) {
         left = topLeftX + width * (leftBase - (isStretched ? 0.14 : 0.06));
         break;
     case "weapon":
-        top = topLeftY + height * 0.26;
-        left = topLeftX + width * (leftBase - 0.01 + offsets[0]);
+        top = topLeftY + height * (isStretched ? 0.3 : 0.26);
+        // left = topLeftX + width * (leftBase - 0.01 + offsets[0]);
+        left = topLeftX + width * (leftBase + offsets[0]);
         break;
     case "armor":
-        top = topLeftY + height * 0.46;
+        top = topLeftY + height * (isStretched ? 0.55 : 0.46);
         left = topLeftX + width * (leftBase + offsets[1]);
         break;
     case "boots":
-        top = topLeftY + height * 0.66;
+        top = topLeftY + height * (isStretched ? 0.8 : 0.66);
         left = topLeftX + width * (leftBase + offsets[2]);
         break;
     case "helmet":
-        top = topLeftY + height * 0.26;
+        top = topLeftY + height * (isStretched ? 0.3 : 0.26);
         left = topLeftX + width * (rightBase + offsets[3]);
         break;
     case "legarmor":
-        top = topLeftY + height * 0.46;
+        top = topLeftY + height * (isStretched ? 0.55 : 0.46);
         left = topLeftX + width * (rightBase + offsets[4]);
         break;
     case "ring":
-        top = topLeftY + height * 0.66;
+        top = topLeftY + height * (isStretched ? 0.8 : 0.66);
         left = topLeftX + width * (rightBase + offsets[5]);
         break;
     case "compare":
-        top = topLeftY + height * 0.81;
+        top = topLeftY + height * (isStretched ? 0.97 : 0.81);
         left = topLeftX + width * (rightBase + (isStretched ? 0.125 : 0.035));
         break;
     }
@@ -1110,6 +1112,24 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         	troop$.css("border", "1px solid black");
     	}
     }
+    
+    function loadImage($pic, eq) {
+    	// Get image key of the equipment.
+    	var name = "eq_unselected.png";
+    	if (!!eq) {
+    		if (eq.set.order > 40) {
+    			// Civ equipment
+    			// Han_Dynasty_legarmor_64x64.png
+    			name = eq.set.name.replace(" ", "_") + "_" + eq.type + "_64x64.png";
+    		} else {
+    			name = "eq-pic-unavailable.png";
+    		}
+    	}
+    	
+    	// Set the new path
+    	var path = "../assets/equipments/" + name;
+    	$pic.attr("src", path);
+    }
         
     // Reposition its container
     var scon = findSelector(type);
@@ -1149,6 +1169,10 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         general.setEquipment(type, eq, count);
         
         logChange(!!eq ? eq.name : "", count);
+        
+        // load pic
+        var $pic = findEquipmentImage(type);
+        loadImage($pic, eq);
  
         // decorate troop icons
         var troops = findTroopImgs(type);
@@ -1277,6 +1301,10 @@ function findSelector(type){
 
 function findDropdown(type){
     return $("#selector-" + type + " select");
+}
+
+function findEquipmentImage(type){
+    return $("#selector-" + type + " .equipment-pic img");
 }
 
 function findStar(type){
