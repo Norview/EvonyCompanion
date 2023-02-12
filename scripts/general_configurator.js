@@ -213,6 +213,32 @@ function updateStats() {
 
 // Load data from the server
 function initialize() {
+	function selectEquipmentFromDropDownMenu(eqType, eqName) {
+		// Locate the selector => options
+		var selector = findDropdown(eqType);
+		var options = selector.find("option");
+	
+		if (!!eqName) {
+			// Find the one corresponding to the given equipment
+			for (let opt of options) {
+				if (opt.value == eqName) {
+					opt.selected = true;
+					break;
+				}
+			}
+		} else {
+			// Reset the selection
+			for (let opt of options) {
+				if (opt.selected) {
+					opt.selected = false;
+				}
+			}
+		}
+	
+		// Trigger a change event
+		selector.trigger("change");
+	}
+
     var lang = "en";
     const fileName = "equipments.json";
     var filePath = "";
@@ -320,6 +346,15 @@ function initialize() {
         		}
         		
 				loadUI(eqMap);
+				
+				// Re-select each previously selected equipment. However, if it's
+				// no longer in the configured inventory, must deselect it.
+				for (let eq of general.getEquipments()) {
+					if (!!eq) {
+						let eqName = eqMap.has(eq.name) ? eq.name : null;						
+						selectEquipmentFromDropDownMenu(eq.type, eqName);
+					}
+				}
 			}
 		);
     
@@ -336,7 +371,7 @@ function initialize() {
         GeneralSerializer.deserialize(general);
         for (let eq of general.getEquipments()) {
 			if (!!eq) {
-				selectEquipmentFromDropDownMenu(eq);
+				selectEquipmentFromDropDownMenu(eq.type, eq.name);
 			}
         }
         
@@ -685,23 +720,6 @@ function configureUI(reposOnly){
         configureBattleTypeSelector();
         configureCompareButton();
     }
-}
-
-function selectEquipmentFromDropDownMenu(equipment) {
-    // Locate the selector => options
-    var selector = findDropdown(equipment.type);
-    var options = selector.find("option");
-    
-    // Find the one corresponding to the given equipment
-    for (let opt of options) {
-    	if (opt.value == equipment.name) {
-    		opt.selected = true;
-    		break;
-    	}
-    }
-    
-    // Trigger a change event
-    selector.trigger("change");
 }
     
 function populateEquipmentDropDownMenu(type, filteredNames) {

@@ -129,7 +129,7 @@ General.prototype.getAnimal = function() {
 	return this._animal;
 }
 
-// Get the equipments
+// Get all the equipments
 General.prototype.getEquipments = function() {
 	var equipments = [];
     for (var index = 0; index < 6; index++) {
@@ -138,6 +138,13 @@ General.prototype.getEquipments = function() {
     }
     
 	return equipments;
+}
+
+// Get the stars for a certain type
+General.prototype.getStars = function(type) {
+	var index = _toEquipmentIndex(type);
+	var s = this._stars[index];
+	return isNaN(s) ? 0 : s;
 }
 
 // Get a string key that represents the current equipment combination.

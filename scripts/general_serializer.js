@@ -20,6 +20,10 @@ function GeneralSerializer(equipments, sets){
 	//   26/33/51/55//30;King's Bow/f////c
 	// represents
     //   King's Bow, Fearless Achae Armor, Plant boots, Koryo helmet, (no leg armor), Courageous Ares Ring
+    //
+    // Test:
+    // http://127.0.0.1/general_configurator.html?selection=MjYvMzAvNTIvNTYvNTYvMzM7S2luZydzIEF4ZS9jLy8vL2Y%3D
+    // King's Axe, Courageous Ares Armor, Freedom Boots, Rurik Helmet, Rurik Leg Armor, Fearless Achaemenidae Ring
 	
 	function _serialize(general){
 		var eqs = general.getEquipments();
