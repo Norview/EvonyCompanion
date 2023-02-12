@@ -1139,6 +1139,10 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     			// Civ equipment
     			// Han_Dynasty_legarmor_64x64.png
     			name = eq.set.name.replace(" ", "_") + "_" + eq.type + "_64x64.png";
+    		} else if (eq.set.name == "Ares" || eq.set.name == "Dragon") {
+    			// Regular equipment
+    			// courageous_dragon_boots.png_64x64.png
+    			name = eq.name.replaceAll(" ", "_").toLowerCase() + "_64x64.png";
     		} else {
     			name = "eq-pic-unavailable.png";
     		}
