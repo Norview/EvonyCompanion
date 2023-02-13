@@ -35,6 +35,18 @@ function _toEquipmentIndex(type){
 	}
 }
 
+// Usage: _foreachEqType(function(eqType) { ... });
+var _foreachEqType = 
+(function() {
+	const _equipmentTypes = ["weapon","armor","boots","helmet","legarmor","ring"];
+	
+	return function(func){
+		for (let _typ of _equipmentTypes) {
+			func(_typ);
+		}
+	};
+})();
+
 // Usage: simply instantiate with "new UrlInfo()"
 var UrlInfo = (function (){
 // shared "private"

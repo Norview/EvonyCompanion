@@ -4580,6 +4580,7 @@
     {
         "name": "King",
         "order": 26,
+        "disabled" : true,
         "attributes": [
               {
                   "pieces": 4,

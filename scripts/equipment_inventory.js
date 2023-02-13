@@ -127,8 +127,8 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
 		}
 		selectedEquipments.sort(function(eq1, eq2) {
 			// Compare set's order first
-			var o1 = sets.get(eq1.set.name);
-			var o2 = sets.get(eq2.set.name);
+			var o1 = sets.get(eq1.set.name).order;
+			var o2 = sets.get(eq2.set.name).order;
 			var diff = o1 - o2;
 			if (!isNaN(diff) && diff !== 0) {
 				return diff;
@@ -144,20 +144,27 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
 		refreshSelected(selectedEquipments);
 	}
 	
-	function addAllEquipments() {
+	function addAllEquipments(firstLoad) {
 		// Remove current selections
 		that._selectedSets.length = 0;
 		that._selectedParts.length = 0;
 		
 		// Populate the selection with all equipments
 		for (let s of sets.keys()) {
-			that._selectedSets.push(s);
+			if (!firstLoad || sets.get(s).disabled !== true) {
+				that._selectedSets.push(s);
+			}
 		}
 		for (let p of _$parts.children()) {
 			that._selectedParts.push(p.value);
 		}
 
 		addEquipments();
+		
+		if (firstLoad) {
+			that._selectedSets.length = 0;
+			that._selectedParts.length = 0;		
+		}
 	}
 	
 	var that = this;
@@ -176,14 +183,14 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
        },
 	*/
 	
-	// Store sets' order in another map
+	// Store sets in another map
 	// {
     //    "name": "Furinkazan",
     //    "order": 53,
     //    ...
 	var sets = new Map();
     for (var eqSet of eqSetArray){
-    	sets.set(eqSet.name, eqSet.order);
+    	sets.set(eqSet.name, eqSet);
     }
 	
 	// The jQuery objects
@@ -216,7 +223,7 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
 	this._setMap = new Map(); 
 	for (var eq of eqArray) {
 		var name = eq.set.name;
-		var order = sets.get(name);
+		var order = sets.get(name).order;
 		if (!this._setMap.has(name) && !isNaN(order)){ // Add this equipment only if the set is also found.
 			this._setMap.set(name, {});
 		}
@@ -249,7 +256,7 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
 	/* // This button is confusing. Let's not add it for now.
 	var _$addAllBtn = this._container.find("#eqconf-add-all-btn");
 	_$addAllBtn.prop("disabled", false);
-	_$addAllBtn.click(addAllEquipments);
+	_$addAllBtn.click(addAllEquipments.bind(null, false));
 	*/
 	
 	var _$removeAllBtn = this._container.find("#eqconf-remove-all-btn");
@@ -277,7 +284,7 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
 	});
 	
 	// Initialize
-	addAllEquipments();
+	addAllEquipments(true);
 }
 
 ////// Public API //////
