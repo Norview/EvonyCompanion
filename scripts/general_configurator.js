@@ -44,6 +44,8 @@ const buffRangeSize = 20;
 const debuffRanges = debuffNumShades.length - 1;
 const debuffRangeSize = 15;
 
+const grayPng = "gray_v2.png";
+
 ////////////////// Globals //////////////////
 
 // The equipment data, deserialized
@@ -113,7 +115,7 @@ function updateBuffColumn(buffCols, index, value, breakdown){
     }
     
     // Add a tooltip to show the buff contribution by equipments
-    var tip = $("<div style='font-size: 12px;'>");
+    var tip = $("<div class='tooltip-div'>");
     
     for (var buffEntry of breakdown) {
         var tipRow = $("<div>");
@@ -559,7 +561,7 @@ function setLocation(selector, type, picLoc) {
     var height = picLoc.picHeight;
     
     var isStretched = !!picLoc.stretched;
-    const leftBase = isStretched ? 0.25 : 0.18;
+    const leftBase = isStretched ? 0.21 : 0.18;
     const rightBase = isStretched ? 0.8 : 0.84;
     
     var top = 0;
@@ -568,7 +570,7 @@ function setLocation(selector, type, picLoc) {
     switch(type){
     case "animal":
         top = topLeftY + height * 0.13;
-        left = topLeftX + width * (leftBase - (isStretched ? 0.14 : 0.06));
+        left = topLeftX + width * (leftBase - (isStretched ? 0.11 : 0.06));
         break;
     case "weapon":
         top = topLeftY + height * (isStretched ? 0.3 : 0.26);
@@ -858,7 +860,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
             
             if (!!setName) {
                 // Add a tooltip to show the set info
-                var tip = $("<div style='font-size: 12px;'>");
+                var tip = $("<div class='tooltip-div'>");
                 tip.text(translator.translateByKey(setName));
                 setInfoElem.tooltip({
                   position: {
@@ -1068,7 +1070,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         troop$.tooltip("destroy"); // https://api.jqueryui.com/tooltip/#method-destroy
         
         // 2. Remove the border
-        if (troop$.attr("src").indexOf("gray.png") > 0) {
+        if (troop$.attr("src").indexOf(grayPng) > 0) {
             troop$.attr("src", "./assets/" + ttype + ".png");
         }
         
@@ -1081,7 +1083,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         var trait = traits["aggs"][_toIndex(ttype)]
         
         var typeTraits = traits.perTypes[ttype];
-        var tip = $("<div style='font-size: 12px; font-family: monospace;'>");
+        var tip = $("<div class='tooltip-div' style='font-family: monospace;'>");
         
         var typeBuffs = typeTraits.buff;
         var topRow = $("<div>");
@@ -1127,7 +1129,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         // 2. Icon uses a distinct border based on the specialization for the this troop type.
         if (trait > 0) {
             // Show the icon
-            if (troop$.attr("src").indexOf("gray.png") > 0) {
+            if (troop$.attr("src").indexOf(grayPng) > 0) {
                 troop$.attr("src", "./assets/" + ttype + ".png");
             }
 
@@ -1140,8 +1142,8 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
             }    
         } else {
             // Hide the icon
-            if (troop$.attr("src").indexOf("gray.png") < 0) {
-                troop$.attr("src", "./assets/gray.png");
+            if (troop$.attr("src").indexOf(grayPng) < 0) {
+                troop$.attr("src", "./assets/" + grayPng);
             }
             
             troop$.css("border", "1px solid black");

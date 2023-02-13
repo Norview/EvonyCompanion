@@ -52,6 +52,18 @@
 	#general .btn {
 		font-size: 28px;
 	}
+	
+	#general .eq-selector-form {
+		width: 40%;
+	}
+	
+	#general .star {
+		font-size: 28px;
+	}
+	
+	#general .set-pieces {
+		font-size: 24px;
+	}
 }
 
 .btn select {
@@ -61,10 +73,10 @@
 
 @media(max-width: 1024px){
 	.btn select {
-        height:50px;
+        height: 50px;
         line-height:50px;
         font-size: 28px;
-		width: auto;
+		width: 100%;
 	}
 }
 
@@ -248,6 +260,18 @@
 	  font-size: 28px;
   	  padding: 10px 10px 10px 10px;
 	}
+	
+	.troop {
+		width: 48px;
+	}
+	
+	.btn table {
+		width: 100%;
+	}
+	
+	.btn .equipment-pic img {
+		width: 112px;
+	}
 }
 
 /* Materials table */
@@ -329,6 +353,12 @@ div.count {
 	border-width: 3px;
 }
 
+@media(max-width: 1024px){
+	#equipment-config-controls .ctrl-btn {
+		font-size: 18px;
+	}
+}
+
 /* Tooptips (jquery-ui) */
 
 .ui-tooltip {
@@ -337,6 +367,16 @@ div.count {
     // font-color: white;
     border-radius: 4px;
     font-size: bold;
+}
+
+.tooltip-div {
+	font-size: 12px;
+}
+	
+@media(max-width: 1024px){
+	.tooltip-div {
+		font-size: 28px;
+	}
 }
 
 /* Slider (jquery-ui) */
