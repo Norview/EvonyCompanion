@@ -87,3 +87,24 @@ GeneralSet.prototype.removeExact = function(general) {
 	
 	return false;
 };
+
+// Set new capacity.
+// Returns the number of generals removed from the beginning due to reduced capacity.
+GeneralSet.prototype.setCapacity = function(cap) {
+	this._capacity = cap;
+	
+	var removed = 0;
+	
+	// Truncate from the beginning
+	while (this._generals.length > this._capacity) {
+		this.remove(0);
+		removed++;
+	}
+	
+	return removed;
+};
+
+// Get the capacity.
+GeneralSet.prototype.getCapacity = function(cap) {
+	return this._capacity;
+};

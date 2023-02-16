@@ -525,8 +525,22 @@
 	<div class="comparison-component" style="display:none; height:30px; margin: 2% 0% 0% 0%">
 	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
 	</div>
-	<div class="container stats-title comparison-component i18n" tkey="COMPARISON OF COMBINATIONS" style="display:none; margin-top: 0%; margin-bottom: 1%">
-	COMPARISON OF COMBINATIONS
+	<div class="container stats-title comparison-component" style="display:none; margin-top: 0%; margin-bottom: 1%">
+		<span class="i18n" tkey="COMPARISON OF COMBINATIONS" style="padding-top:5px;">COMPARISON OF COMBINATIONS</span>
+		<select id="comparison-capacity-select" style="margin-left:2%;" onchange="changeGeneralCapacity(this);">
+		  <option value="4" selected>4</option>
+		  <option value="5">5</option>
+		  <option value="6">6</option>
+		  <option value="7">7</option>
+		  <option value="8">8</option>
+		  <option value="9">9</option>
+		  <option value="10">10</option>
+		  <option value="11">11</option>
+		  <option value="12">12</option>
+		  <option value="13">13</option>
+		  <option value="14">14</option>
+		  <option value="15">15</option>
+		</select>  
 	</div>
 	<div class="container comparison-component" style="display:none;">
     	<div id="comparison-table" class="buff-table">

@@ -59,8 +59,7 @@ var translator = new Translator();
 var general = new General();
 
 // The general in comparison
-const c_maxGenerals = 4;
-var generalSet = new GeneralSet(c_maxGenerals);
+var generalSet = new GeneralSet(4); // The first value under #comparison-capacity-select
 
 // Equipment inventory
 var inventory;
@@ -1430,7 +1429,7 @@ function addGeneral(general){
          
         // This unfortunately doesn't cover the case when the last slot is filled.
         var genCount = generalSet.getAll().length;
-        var appendOnly = genCount < c_maxGenerals;
+        var appendOnly = genCount < generalSet.getCapacity();
         if (appendOnly) {
             ctable.append(generalRep, battleType);
             console.info("Appended general to the comparison table.");
@@ -1481,6 +1480,22 @@ function updateGenerals(){
     ctable.updateAll(battleType);
 }
 
+function changeGeneralCapacity(selectElement){
+    var v = $(selectElement);
+    var opt = v.find("option").filter(function() { return $(this).prop("selected") });
+    var max = parseInt(opt.attr("value"));
+    var removed = generalSet.setCapacity(max);
+    if (removed > 0) {
+        // Must clear the table and repopulate.
+        var battleType = getBattleType();
+        ctable.clearAll();
+        var generals = generalSet.getAll();
+        for (var gen of generals) {
+            ctable.append(gen, battleType);
+        }
+    }
+}
+
 const c_comparison_table = "#comparison-table";
 const c_comparison_table_delete_row = "#ct-delete-row";
 
@@ -1501,6 +1516,12 @@ function ComparisonTable(){
     //   - 12 buff values
     //   - 12 debuff values
     function initialize(){
+        // Reset to the default capacity
+        var ctableCapSel = $("#comparison-capacity-select option");
+        ctableCapSel.each(function(index){
+            $(this).prop("selected", index == 0 ? "true" : "");
+        });
+        
         var equipments = [];
         var buffs = [];
         var debuffs = [];
