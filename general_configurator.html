@@ -29,7 +29,7 @@
     	<div id="panic-box" class="panic-box"></div>
     </div>
     
-    <div class="container">
+    <div class="container" id="main-img-container">
 		<div id="general">
 		   <!-- background image -->
 		   <img class="general-image" src="./assets/general.png">
@@ -412,7 +412,7 @@
 	<div class="container stats-title i18n" tkey="BUFF">
 	BUFF
 	</div>
-	<div class="container">
+	<div class="container" style="justify-content: start;">
     	<div id="buff-table" class="buff-table">
 		 <table>
 		  <tr>
@@ -456,7 +456,7 @@
 	<div class="container stats-title i18n" tkey="DEBUFF">
 	DEBUFF
 	</div>
-	<div class="container">
+	<div class="container" style="justify-content: start;">
     	<div id="debuff-table" class="buff-table">
 		 <table>
 		  <tr>
@@ -502,7 +502,7 @@
 	</div>
 	<div id="refine-div">
 	<div class="container" style="margin-top:2px">
-	  <div style="width:30%; display:flex; justify-content:center">
+	  <div id="refine-options" style="width:30%; display:flex; justify-content:center">
 	    <label style="user-select: none; margin-left:0%;" class="i18n" tkey="Ground">Ground</label>
 	    <input type="checkbox" id="refine-type-checkbox-ground"/>
 	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Mounted</label>
@@ -514,7 +514,7 @@
 	  </div>
 	</div>
 	<div class="container" style="margin-top:2px">
-	  <div style="width:30%; display:block; justify-content:center">	
+	  <div class="refiner-div">	
 	    <div id="refine-slider">
 	      <div id="refine-handle" class="ui-slider-handle"></div>
 	    </div>
@@ -679,7 +679,7 @@
 		 </table>    
 		</div>
 	</div>
-	<div class="container" style="margin-top: 1%; display: flex; justify-content: center; align-items: center;">
+	<div class="container footer">
 	    <span style="width:48%; font-size: 14px; display:float; text-align: right;">Norview (ID: 135198770) @ S803</span>
 		<!-- SVG data from the footer of github.com -->
         <a style="width:4%; display: flex; justify-content: center;" href="https://github.com/Norview/EvonyCompanion">

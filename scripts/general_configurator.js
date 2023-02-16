@@ -403,9 +403,17 @@ function initialize() {
             });
         }
         
-        $(window).resize(function() {
+        var callback = function() {
             configureUI(true);
-        });
+        };
+        
+        $(window).resize(callback);
+        
+        // window.addEventListener("deviceorientation", callback);
+        
+        // if (screen.orientation) {
+        //   screen.orientation.addEventListener("change", callback);
+        // }
         
         console.log("UI initiated.");
         
@@ -704,11 +712,16 @@ function configureUI(reposOnly){
     var orgPicWidth = 670; // Check the picture's dimension.
     var orgPicHeight = 664;
     
-    // In .css file, we stretch this picture to 150% on smaller devices.
+    // We stretch this picture on smaller devices.
     var stretched = windowWidth <= 1024;
+    var bg_img$ = $("#general .general-image");
     if (stretched) {
-        orgPicWidth *= 1.5;
-        orgPicHeight *= 1.5;
+        var ratio = windowWidth * 0.99 / orgPicWidth;
+        orgPicWidth *= ratio;
+        orgPicHeight *= ratio;
+        bg_img$.css("width", ratio * 100 + "%");
+    } else {
+        bg_img$.css("width", "100%");
     }
     var picWidth = orgPicWidth;
     var picHeight = orgPicHeight;    
