@@ -442,7 +442,25 @@
         "Heian Leg Armor (table)" : "平安京",
         "Heian Bracers" : "平安京の小手",
         "Heian Bracers (dropdown)" : "平安京",
-        "Heian Bracers (table)" : "平安京"
-
+        "Heian Bracers (table)" : "平安京",
+        
+        "Thebes Sword" : "テーベのケペシュ",
+        "Thebes Sword (dropdown)" : "テーベ",
+        "Thebes Sword (table)" : "テーベ", 
+        "Thebes Armor" : "テーベの鎧",
+        "Thebes Armor (dropdown)" : "テーベ",
+        "Thebes Armor (table)" : "テーベ",
+        "Thebes Boots" : "テーベのブーツ",
+        "Thebes Boots (dropdown)" : "テーベ",
+        "Thebes Boots (table)" : "テーベ",
+        "Thebes Helmet" : "テーベのヘルメット",
+        "Thebes Helmet (dropdown)" : "テーベ",
+        "Thebes Helmet (table)" : "テーベ", 
+        "Thebes Leg Armor" : "テーベのレッグアーマー",
+        "Thebes Leg Armor (dropdown)" : "テーベ",
+        "Thebes Leg Armor (table)" : "テーベ",
+        "Thebes Bracers" : "テーベの小手",
+        "Thebes Bracers (dropdown)" : "テーベ",
+        "Thebes Bracers (table)" : "テーベ"
 	}
 }

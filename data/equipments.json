@@ -4574,7 +4574,223 @@
                   "rate": 1
               }
           ]
-       } 
+       },
+       
+       {
+          "name": "Thebes Sword",
+          "set": "Thebes",
+          "type": "weapon",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": -25,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Thebes Armor",
+          "set": "Thebes",
+          "type": "armor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Thebes Boots",
+          "set": "Thebes",
+          "type": "boots",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 10,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Thebes Helmet",
+          "set": "Thebes",
+          "type": "helmet",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["attacking"],
+                  "troop": ["mounted", "ground"],
+                  "type": "defense",
+                  "value": 15,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Thebes Leg Armor",
+          "set": "Thebes",
+          "type": "legarmor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Thebes Bracers",
+          "set": "Thebes",
+          "type": "ring",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground"],
+                  "type": "defense",
+                  "value": 10,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -10,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       }
   ],
   "sets": [
     {
@@ -4677,6 +4893,13 @@
                   "value": 15
               },
               {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "rallycapacity",
+                  "value": 15
+              },
+              {
                   "pieces": 6,
                   "condition": [],
                   "troop": ["mounted", "ranged"],
@@ -4702,6 +4925,13 @@
                   "troop": ["ranged", "siege"],
                   "type": "attack",
                   "value": 25
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "rallycapacity",
+                  "value": 15
               },
               {
                   "pieces": 6,
@@ -4881,6 +5111,13 @@
                   "value": 15
               },
               {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "rallycapacity",
+                  "value": 15
+              },
+              {
                   "pieces": 6,
                   "condition": [],
                   "troop": ["ground", "mounted", "ranged", "siege"],
@@ -4899,6 +5136,13 @@
                   "troop": ["ground", "mounted", "ranged", "siege"],
                   "type": "attack",
                   "value": 12
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "rallycapacity",
+                  "value": 15
               },
               {
                   "pieces": 6,
@@ -5010,6 +5254,13 @@
                   "value": -10
               },
               {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "rallycapacity",
+                  "value": 15
+              },
+              {
                   "pieces": 6,
                   "condition": [],
                   "troop": ["siege"],
@@ -5031,6 +5282,48 @@
                   "value": 20
               }
         ]
-    }
+    },
+    {
+        "name": "Thebes",
+        "order": 62,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground","mounted","ranged","siege"],
+                  "type": "defense",
+                  "value": 15
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "rallycapacity",
+                  "value": 15
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 20
+              }
+        ]
+    }   
+
   ]
 }
