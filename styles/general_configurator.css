@@ -18,12 +18,12 @@
 	
 @media(max-width: 1024px){
 	#general .general-image {
-		//width: 150%;
+		// width: 150%;
 		// margin-left: -24%;
 	}
 	
 	#general .stars-span {
-		margin-bottom: 19px;
+		// margin-bottom: 19px;
 	}
 }
 
@@ -143,11 +143,11 @@
 @media(max-width: 1024px){
 	
 	.buff-table tr th {
-		font-size: 28px;
+		font-size: 20px;
 	}
 
 	.buff-table tr td {
-		font-size: 28px;
+		font-size: 20px;
 	}
 }
 
@@ -251,6 +251,43 @@
   display: block;
 }
 
+.equipment-selector-cont {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	// justify-content: space-evenly;
+	// align-items: center;
+}
+
+.equipment-info-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  // align-content: space-around;
+  column-gap: 5px;
+}
+
+.equipment-props-and-traits {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.troop-icons-cont {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  column-gap: 1px;
+}
+
+.troop {
+  border: 1px solid white
+}
+
 @media(max-width: 1024px){
 	.dropbtn {
 		font-size: 32px;
@@ -258,7 +295,7 @@
 	
 	.dropdown {
   		top: 1%;
-  		left: 85%;
+  		left: 80%;
 	}
 	
 	.dropdown-content a {
@@ -276,6 +313,7 @@
 	
 	.btn .equipment-pic img {
 		width: 112px;
+		margin-top: 5px;
 	}
 }
 
@@ -389,7 +427,7 @@ div.count {
 #refine-options {
 	width:30%;
 	display:flex;
-	justify-content:center
+	justify-content:center;
 }
 
 @media(max-width: 1024px){
@@ -397,6 +435,7 @@ div.count {
 		-ms-transform: scale(1.5);
 		-webkit-transform: scale(1.5);
 		transform: scale(1.5);
+		// font-size:20px;
 		margin-bottom: 25px;
 	}
 }

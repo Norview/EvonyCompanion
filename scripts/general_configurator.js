@@ -1086,7 +1086,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
             troop$.attr("src", "./assets/" + ttype + ".png");
         }
         
-        troop$.css("border", "");
+        troop$.css("border", "1px solid white");
     }
     
     function decorateTroopIcon(troop$, ttype, traits){
