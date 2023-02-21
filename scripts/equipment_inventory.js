@@ -195,21 +195,20 @@ function EquipmentInventory(eqArray, eqSetArray, onClose){
 	
 	// The jQuery objects
 
-	this._separator = $("#equipment-config-sep");
     this._container = $("#equipment-config-div"); // The outmost div, which should contain the following elements:
-	//
-	// ID					 Type					Purpose								Data
-	//
-	// eqconf-add-btn    	 Button					Add equipments						Availability depending on selection
-	// eqconf-remove-btn     Button					Remove equipments					Availability depending on selection
-	// eqconf-add-all-btn    Button					Add all equipments					-
-	// eqconf-remove-all-btn Button					Remove all equipments				-
-	// eqconf-close-btn      Button					Close the config interface			-
-	// eqconf-sets           Multiple-select		Show the list of sets				Read from the initialization. Stay unchanged throughout the app's lifecycle
-	// eqconf-parts          Multiple-select		Show the list of parts				The six parts of a set. Fixed.
-	// eqconf-selected       Multiple-select		Show the list of equipments owned	The owned equipments. Can be added from sets/parts or removed using the buttons.
-	//
-	
+    //
+    // ID                    Type                   Purpose                              Data
+    //
+    // eqconf-add-btn        Button                 Add equipments                       Availability depending on selection
+    // eqconf-remove-btn     Button                 Remove equipments                    Availability depending on selection
+    // eqconf-add-all-btn    Button                 Add all equipments                   
+    // eqconf-remove-all-btn Button                 Remove all equipments                
+    // eqconf-close-btn      Button                 Close the config interface           
+    // eqconf-sets           Multiple-select        Show the list of sets                Read from the initialization. Stay unchanged throughout the app's lifecycle
+    // eqconf-parts          Multiple-select        Show the list of parts               The six parts of a set. Fixed.
+    // eqconf-selected       Multiple-select        Show the list of equipments owned    The owned equipments. Can be added from sets/parts or removed using the buttons.
+    //
+    
 	this._selectedSets = [];
 	this._selectedParts = [];
 	this._selectedEqs = []; // Owned equipments
@@ -296,11 +295,10 @@ EquipmentInventory.prototype.toggle = function(explicitEnableOrDisable){
 	} else if (explicitEnableOrDisable === false) {
 		toEnable = false;
 	} else {
-		toEnable = this._separator.css("display") === "none";
+		toEnable = this._container.css("display") === "none";
 	}
 	
 	var val = (toEnable ? "" : "none");
 	
-	this._separator.css("display", val);
     this._container.css("display", val); 
 }

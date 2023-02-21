@@ -1,34 +1,37 @@
 <!DOCTYPE html>
 <html>
    <head>
-   	<meta charset="UTF-8">
-<!-- -->
-	<link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.13.2.css">
-	<link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
-    <script src="./lib/jquery-3.6.0.min.js"></script>
-    <script src="./lib/jquery-ui-1.13.2.min.js"></script>
-    <script src="./lib/i18next-21.6.16.min.js"></script>
-    <script src="./scripts/shared.js"></script>
-    <script src="./scripts/i18n.js"></script>
-    <script src="./scripts/general.js"></script>
-    <script src="./scripts/generalset.js"></script>
-    <script src="./scripts/equipment_inventory.js"></script>
-    <script src="./scripts/general_configurator.js"></script>
-    <script src="./scripts/general_serializer.js"></script>
-    <script src="./scripts/refine_estimator.js"></script>
-    <script>
+     <meta charset="UTF-8">
+     <!-- Dependencies -->
+     <link rel="stylesheet" type="text/css" href="styles/jquery-ui-1.13.2.css">
+     <link rel="stylesheet" type="text/css" href="styles/general_configurator.css">
+     <script src="./lib/jquery-3.6.0.min.js"></script>
+     <script src="./lib/jquery-ui-1.13.2.min.js"></script>
+     <script src="./lib/i18next-21.6.16.min.js"></script>
+     <script src="./scripts/shared.js"></script>
+     <script src="./scripts/i18n.js"></script>
+     <script src="./scripts/general.js"></script>
+     <script src="./scripts/generalset.js"></script>
+     <script src="./scripts/equipment_inventory.js"></script>
+     <script src="./scripts/general_configurator.js"></script>
+     <script src="./scripts/general_serializer.js"></script>
+     <script src="./scripts/refine_estimator.js"></script>
+     <script>
 		$(function(){
 			initialize();
 		});
-    </script>
-<!-- -->
+     </script>
    </head>
 
    <body>
-    <div class="container">
-    	<div id="panic-box" class="panic-box"></div>
-    </div>
+    <!-- Components on this page are laid out top down. Those numbered with #? are not shown by default. -->
     
+	<!-- 0? Error message -->
+    <div class="container">
+        <div id="panic-box" class="panic-box"></div>
+    </div>
+
+	<!-- 1. Equipment selection -->    
     <div class="container" id="main-img-container">
 		<div id="general">
 		   <!-- background image -->
@@ -209,8 +212,8 @@
 		   </img>
 		</div>
 	</div>
-	
-	<!-- Controls -->
+
+	<!-- 2. Interface settings and controls -->
     <div class="container" id="equipment-config-controls" style="height:30px; margin: 1% 0% 0% 0%">
       <button type="button" class="ctrl-btn i18n" tkey="Inventory" onclick="inventory.toggle();">Inventory</button>
       <!--
@@ -222,14 +225,12 @@
       <button type="button" class="ctrl-btn i18n" tkey="Copy" onclick="copyLink(event);">Copy</button>
     </div>
 
-	<div style="height:30px; margin-top: 1%; margin-bottom: 0%">
-	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
-	</div>
-
-	<!-- Equipment Inventory -->
-    <div id="equipment-config-div" style="display:none; width:70%; margin-left:15%">
+	<!-- 3? Equipment inventory -->
+    <div id="equipment-config-div" style="display:none; width:70%; margin-left:15%; margin-top:1%;">
        <div>
-         <button type="button" id="eqconf-close-btn" class="ctrl-btn" style="float: right; margin-top: 1%; margin-right: 1%"><image src="./assets/delete.png" style="width:24px"></button>
+         <button type="button" id="eqconf-close-btn" class="ctrl-btn" style="float: right; margin-top: 1%; margin-right: 1%">
+             <image src="./assets/delete.png" style="width:24px">
+         </button>
        </div>
        <div id="equipment-config-table">
 		 <table style="margin:auto; width:90%; margin-top:2%; margin-bottom: 2%">
@@ -269,13 +270,8 @@
         </div>
     </div>
 
-	<div id="equipment-config-sep" style="display:none; height:30px; margin-top: 2%; margin-bottom: 0%">
-	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
-	</div>
-   
-	<!-- Materials -->
-		
-	<div class="container" style="margin-top: 0px; margin-bottom: 0px;">
+	<!-- 4. Materials -->
+	<div class="container" style="margin-top: 1%;">
 		<div class="stats-title i18n" style="margin-top: 0px" tkey="MATERIALS">
 		MATERIALS
 		</div>
@@ -283,7 +279,6 @@
 		  <img src="../assets/hide.png" style="width: 25px"/>
 	    </div>
 	</div>
-
     <div class="container">
     	<div id="material-table" class="material-table" style="display: block; margin-bottom: 2%;">
 		 <table class="material-table-rows" >
@@ -390,13 +385,8 @@
 		 </table> 
 		</div>
 	</div>
-	
-	<div style="height:30px; margin: 0% 0% 0% 0%">
-	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
-	</div>
-	
-	<!-- Buff and Debuff stats -->
-	
+
+	<!-- 5. Battle types -->
 	<div>
 		<div style="width: 25%; display: inline-block;"></div>
 		<div id="battle-types-div" style="width: 50%; display: inline-block;">
@@ -439,6 +429,7 @@
 		</div>
 	</div>
 
+	<!-- 6. Buffs -->
 	<div class="container stats-title i18n" tkey="BUFF">
 	BUFF
 	</div>
@@ -483,6 +474,7 @@
 		</div>
 	</div>
 	
+	<!-- 7. Debuffs -->
 	<div class="container stats-title i18n" tkey="DEBUFF">
 	DEBUFF
 	</div>
@@ -527,6 +519,7 @@
 		</div>
 	</div>
 
+	<!-- 8. Refines -->
 	<div class="container stats-title i18n" tkey="REFINE">
 	REFINE
 	</div>
@@ -551,11 +544,9 @@
 	  </div>
 	</div>
 	</div>
-	  
-	<div class="comparison-component" style="display:none; height:30px; margin: 2% 0% 0% 0%">
-	  <hr style="width:70%; margin: auto; border-top: 3px solid #bbb;">
-	</div>
-	<div class="container stats-title comparison-component" style="display:none; margin-top: 0%; margin-bottom: 1%">
+
+	<!-- 9? Comparisons -->
+	<div class="container stats-title comparison-component" style="display:none; margin-top: 1%; margin-bottom: 1%">
 		<span class="i18n" tkey="COMPARISON OF COMBINATIONS" style="padding-top:5px;">COMPARISON OF COMBINATIONS</span>
 		<select id="comparison-capacity-select" style="margin-left:2%;" onchange="changeGeneralCapacity(this);">
 		  <option value="4" selected>4</option>
@@ -723,6 +714,8 @@
 		 </table>    
 		</div>
 	</div>
+	
+	<!-- 99. Credits -->
 	<div class="container footer">
 	    <span style="width:48%; font-size: 14px; display:float; text-align: right;">Norview (ID: 135198770) @ S803</span>
 		<!-- SVG data from the footer of github.com -->
