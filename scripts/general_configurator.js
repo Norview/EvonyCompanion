@@ -120,12 +120,13 @@ function updateBuffColumn(buffCols, index, value, breakdown){
         var tipRow = $("<div>");
         var srcName = buffEntry.name;
         var buff = buffEntry.value;
+        var extraStyle = (buffEntry.type === "set" ? " style='font-weight: bold;'" : ""); // set buff is shown in bold
         
         let color = (buff >= 0 ? "green" : "red");
         let sign = (buff >= 0 ? "+" : "");
         
         let name = translator.translateByKey(srcName);
-        let spNameSrc = $("<span class='i18n' tkey='" + srcName + "'>" + name + " : &nbsp;</span>");
+        let spNameSrc = $("<span class='i18n'" + extraStyle + " tkey='" + srcName + "'>" + name + " : &nbsp;</span>");
         let spName = $(spNameSrc);
         tipRow.append(spName);
         
@@ -1033,21 +1034,6 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     function updateEquipmentTraits(troops, eq, eqType){
         if (!eq) {
             // Reset all icons.
-            /*
-            troops.each(function() {
-                var troop$ = $(this);
-                if (troop$.hasClass("ground")) {
-                    undecorateTroopIcon(troop$, "ground", eqType);
-                } else if (troop$.hasClass("mounted")) {
-                    undecorateTroopIcon(troop$, "mounted", eqType);
-                } else if (troop$.hasClass("ranged")) {
-                    undecorateTroopIcon(troop$, "ranged", eqType);
-                } else if (troop$.hasClass("siege")) {
-                    undecorateTroopIcon(troop$, "siege", eqType);
-                }
-            });
-            */
-            
             _foreachTroopIcon(troops, function(troop$, trType){
                 undecorateTroopIcon(troop$, trType, eqType);
             });
@@ -1141,21 +1127,6 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         }
         
         // Decorate icons according to the traits
-        /*
-        troops.each(function() {
-            var troop$ = $(this);
-            if (troop$.hasClass("ground")) {
-                decorateTroopIcon(troop$, "ground", cachedTraits);
-            } else if (troop$.hasClass("mounted")) {
-                decorateTroopIcon(troop$, "mounted", cachedTraits);
-            } else if (troop$.hasClass("ranged")) {
-                decorateTroopIcon(troop$, "ranged", cachedTraits);
-            } else if (troop$.hasClass("siege")) {
-                decorateTroopIcon(troop$, "siege", cachedTraits);
-            }
-          });
-        */
-        
         _foreachTroopIcon(troops, function(troop$, trType){
             decorateTroopIcon(troop$, trType, cachedTraits);
         });

@@ -520,7 +520,7 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 					srcVal = entries[srcName] = {
 						"name": srcName,
 						"value": 0,
-						"_type": type,
+						"type": type,
 						"_setOrder": setOrder
 					};
 				}
@@ -544,16 +544,18 @@ General.prototype.getBuffs = function(scenario, starring, diag) {
 			// In the order: body part position (weapon -> ... -> ring), 
 			// then set buff in the standard (debut time) order.
 			kvps.sort(function(k1, k2) { 
-				let t1 = _toEquipmentIndex(k1._type);
-				let t2 = _toEquipmentIndex(k2._type);
+				let t1 = _toEquipmentIndex(k1.type);
+				let t2 = _toEquipmentIndex(k2.type);
 				if (t1 < 0) {
+					if (t2 > 0) return t1; // piece always precedes set bonus
 					t1 = k1._setOrder;
 				}
 				if (t2 < 0) {
+					if (t1 > 0) return t2; // piece always precedes set bonus
 					t2 = k1._setOrder;
 				}
 					
-				return t1 - t2;
+				return t1 - t2; // pieces sorted by postion; sets sorted chronologically
 			});
 			
 			// Replace obj with array
