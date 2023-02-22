@@ -212,34 +212,34 @@ function updateStats() {
     updateMaterialTable(materials);
 }
 
-// Load data from the server
-function initialize() {
-    function selectEquipmentFromDropDownMenu(eqType, eqName) {
-        // Locate the selector => options
-        var selector = findDropdown(eqType);
-        var options = selector.find("option");
-    
-        if (!!eqName) {
-            // Find the one corresponding to the given equipment
-            for (let opt of options) {
-                if (opt.value == eqName) {
-                    opt.selected = true;
-                    break;
-                }
-            }
-        } else {
-            // Reset the selection
-            for (let opt of options) {
-                if (opt.selected) {
-                    opt.selected = false;
-                }
+function selectEquipmentFromDropDownMenu(eqType, eqName) {
+    // Locate the selector => options
+    var selector = findDropdown(eqType);
+    var options = selector.find("option");
+
+    if (!!eqName) {
+        // Find the one corresponding to the given equipment
+        for (let opt of options) {
+            if (opt.value == eqName) {
+                opt.selected = true;
+                break;
             }
         }
-    
-        // Trigger a change event
-        selector.trigger("change");
+    } else {
+        // Reset the selection
+        for (let opt of options) {
+            if (opt.selected) {
+                opt.selected = false;
+            }
+        }
     }
 
+    // Trigger a change event
+    selector.trigger("change");
+}
+    
+// Load data from the server
+function initialize() {
     var lang = "en";
     const fileName = "equipments.json";
     var filePath = "";
@@ -642,11 +642,11 @@ function configureUI(reposOnly){
          */
 
         inputs.each(function(){
-             var input = $(this);
+            var input = $(this);
          
-             // 1. Check "any" as the default
-             var value = input.val();
-            input.prop("checked", value == "any");
+            // 1. Check "attacking" as the default
+            var value = input.val();
+            input.prop("checked", value == "attacking");
         
             // 2. Add event handler
             input.change(function() {
@@ -956,22 +956,100 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         default: return -1;        
         }
     }
+    
+    // Call the given function for each troop icon.
+    // func(troopIcon$, troopTypeStr)
+    function _foreachTroopIcon($troops, func) {
+        $troops.each(function() {
+            var troop$ = $(this);
+            if (troop$.hasClass("ground")) {
+                func(troop$, "ground");
+            } else if (troop$.hasClass("mounted")) {
+                func(troop$, "mounted");
+            } else if (troop$.hasClass("ranged")) {
+                func(troop$, "ranged");
+            } else if (troop$.hasClass("siege")) {
+                func(troop$, "siege");
+            }
+        });
+    }
+    
+    // A function to find the equipment of the given type (eqType) that can achieve the maximum
+    // buffs for a certain troop type (troopType), with the currently specified battle type.
+    function getFunctionForMaxBuffs(eqType, troopType) {
+        var gen = new General();
+        // These numbers are pretty subjective. May change in the future.
+        const ratios = troopType === "ground" 
+            ? [2,2,2]       // Ground: equally treat A/D/H
+            : (troopType === "mounted" 
+                ? [3,1,2]   // Mounted: favor A over D
+                : [4,1,1]); // Ranged/Siege: heavily favor A
+        
+        return function() {
+            var selector = findDropdown(eqType);
+            
+            var scenario = getBattleType();
+            
+            // var eqs = [];
+            
+            var typEqs = selector.data(c_data_equipment);
+            var value = 0;
+            var selectedEq = null;
+            for (var eqName in typEqs) {
+                var eq = typEqs[eqName];
+                
+                gen.reset();
+                gen.setEquipment(eqType, eq, 0);
+                var buffs = gen.getBuffs(scenario, c_starring_max, false).buffs; // no diagnostics
+                var newValue = ratios[0] * buffs[troopType + "Attack"] 
+                             + ratios[1] * buffs[troopType + "Defense"] 
+                             + ratios[2] * buffs[troopType + "Hp"];
+                // Plus a refine up to 80%
+                newValue += RefineEstimator.getRefinePercentage(eq, 80);
+                
+                if (newValue > value) {
+                    // if (value != 0) {
+                    //    eqs.push({ "name": eq.name, "buff": value });
+                    // }
+                    
+                    value = newValue;
+                    selectedEq = eq;
+                }
+            }
+            
+            /*
+            console.info("To get max buff at " + eqType + ", selected " + selectedEq.name + " with " + value + "%");
+            console.info("Other candidates:");
+            for (let eq of eqs) {
+                console.info("  - " + eq.name + ": " + eq.buff + "%");
+            }
+            */
+            
+            return selectedEq;
+        };
+    }
          
     // This function decorates the troop icons above the dropdown to visualize the specialized strength of the selected equipment.
-    function updateEquipmentTraits(troops, eq){
+    function updateEquipmentTraits(troops, eq, eqType){
         if (!eq) {
             // Reset all icons.
+            /*
             troops.each(function() {
                 var troop$ = $(this);
                 if (troop$.hasClass("ground")) {
-                    undecorateTroopIcon(troop$, "ground"); // TODO - NEXT: reset title
+                    undecorateTroopIcon(troop$, "ground", eqType);
                 } else if (troop$.hasClass("mounted")) {
-                    undecorateTroopIcon(troop$, "mounted");
+                    undecorateTroopIcon(troop$, "mounted", eqType);
                 } else if (troop$.hasClass("ranged")) {
-                    undecorateTroopIcon(troop$, "ranged");
+                    undecorateTroopIcon(troop$, "ranged", eqType);
                 } else if (troop$.hasClass("siege")) {
-                    undecorateTroopIcon(troop$, "siege");
+                    undecorateTroopIcon(troop$, "siege", eqType);
                 }
+            });
+            */
+            
+            _foreachTroopIcon(troops, function(troop$, trType){
+                undecorateTroopIcon(troop$, trType, eqType);
             });
             
             return;
@@ -1063,6 +1141,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         }
         
         // Decorate icons according to the traits
+        /*
         troops.each(function() {
             var troop$ = $(this);
             if (troop$.hasClass("ground")) {
@@ -1075,22 +1154,41 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
                 decorateTroopIcon(troop$, "siege", cachedTraits);
             }
           });
+        */
+        
+        _foreachTroopIcon(troops, function(troop$, trType){
+            decorateTroopIcon(troop$, trType, cachedTraits);
+        });
     }
     
-    function undecorateTroopIcon(troop$, ttype){    
+    function undecorateTroopIcon(troop$, trType, eqType){    
         // 1. Remove the tooltip
-        troop$.tooltip("destroy"); // https://api.jqueryui.com/tooltip/#method-destroy
+        if (troop$.slider("instance") != undefined){
+            troop$.tooltip("destroy"); // https://api.jqueryui.com/tooltip/#method-destroy
+        }
         
         // 2. Remove the border
         if (troop$.attr("src").indexOf(grayPng) > 0) {
-            troop$.attr("src", "./assets/" + ttype + ".png");
+            troop$.attr("src", "./assets/" + trType + ".png");
         }
         
         troop$.css("border", "1px solid white");
+        
+        // 3. Install the function to get the equipment with the highest buff
+        var getPieceWithMaxBuffs = getFunctionForMaxBuffs(eqType, trType);
+        troop$.click(function() {
+            var eq = getPieceWithMaxBuffs();
+            if (!!eq) {
+                selectEquipmentFromDropDownMenu(eq.type, eq.name);
+            }
+        });
     }
     
     function decorateTroopIcon(troop$, ttype, traits){
-        // 1. Tooltip contains the buffs and defuffs for this particular troop type.
+        // 1. Uninstall the function to get the equipment with the highest buff.
+        troop$.off('click');
+        
+        // 2. Tooltip contains the buffs and defuffs for this particular troop type.
     
         var trait = traits["aggs"][_toIndex(ttype)]
         
@@ -1138,7 +1236,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
           content: tip
         });
 
-        // 2. Icon uses a distinct border based on the specialization for the this troop type.
+        // 3. Icon uses a distinct border based on the specialization for the this troop type.
         if (trait > 0) {
             // Show the icon
             if (troop$.attr("src").indexOf(grayPng) > 0) {
@@ -1198,14 +1296,21 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     if (!!reposOnly) {
         return;
     }
-    
+        
     // Enable the selector
     var selector = findDropdown(type);
     selector.attr("disabled", false);
     
     // Install event handlers
-    // (1) Dropdown
-    selector.change(function(){ // WARNING: This may be triggered programmatically.
+    // (1) Initialize the handler for troop icons:
+    //     Get the equipment from the list with the highest buffs of certain troop type.
+    var $troops = findTroopImgs(type);
+    _foreachTroopIcon($troops, function(troop$, trType) {
+        undecorateTroopIcon(troop$, trType, type)
+    });
+    
+    // (2) Dropdown
+    selector.change(function(){ // WARNING: This function is triggered programmatically. e.g. selectEquipmentFromDropDownMenu(...)
         // get equipment
         var eq = findEquipment($(this));
         
@@ -1229,8 +1334,8 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         loadImage($pic, eq);
  
         // decorate troop icons
-        var troops = findTroopImgs(type);
-        updateEquipmentTraits(troops, eq);
+        // var $troops = findTroopImgs(type);
+        updateEquipmentTraits($troops, eq, type);
                
         tryEnableCompareButton(general);
         
@@ -1239,7 +1344,7 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
         updateSets();
     });
     
-    // (2) Stars
+    // (3) Stars
     var stars = findStar(type);
     stars.click(function(){    
         var count = 0;
