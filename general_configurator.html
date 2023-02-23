@@ -41,6 +41,7 @@
 		     <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon">Dragon&nbsp;&nbsp;</label>
 			 <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
 		   </form>
+		   <!-- languages -->
 		   <div class="dropdown" style="width: 15%;">
 			  <button class="dropbtn i18n" style="font-weight: bold; color: lightblue; text-decoration: underline;" tkey="Language">Language</button>
 			  <div class="dropdown-content">
@@ -220,7 +221,7 @@
       <button type="button" class="ctrl-btn">Load</button>
       <button type="button" class="ctrl-btn">Save</button>
       -->
-      <button type="button" class="ctrl-btn i18n" tkey="Share" onclick="shareLink(this);">Share</button>
+      <button type="button" class="ctrl-btn i18n" tkey="Share" id="shareLinkBtn" onclick="shareLink();">Share</button>
       <input type="text" style="width:30%; margin: 0px 5px 0px 5px" readonly></input>
       <button type="button" class="ctrl-btn i18n" tkey="Copy" onclick="copyLink(event);">Copy</button>
     </div>

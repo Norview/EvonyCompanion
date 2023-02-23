@@ -23,17 +23,6 @@ function Translator(){
 		return g_lang;
 	};
 	
-	// Get offsets for each dropdown menu, in the "standard" order (weapon -> armor -> ... -> ring).
-	this.getDropdownOffsets = function() {
-		var data = g_data[g_lang];
-	
-		if (!!data && !!data.resources && data.resources[g_lang]) {
-			return data.resources[g_lang].dropdownOffsets || [0,0,0,0,0,0];
-		} else {
-			return [0,0,0,0,0,0];
-		}
-	};
-	
 	// Initialize with the language derived from URL's path or arguments
 	//
 	// - shouldLoadData: A bool or function(string):bool to indicate if the function should start loading the data.
@@ -288,6 +277,7 @@ function Translator(){
 		}
 	};
 	
+	// Translate a key to the specified language.
 	this.translateByKey = function(tkey, original, lang){
 		lang = lang || g_lang;
 		var translator = g_translators[lang];

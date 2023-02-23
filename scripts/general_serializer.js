@@ -170,11 +170,14 @@ GeneralSerializer.initialize = function(equipmentDict, eqSetArray) {
 	}
 
 	// Generates a URL based on the current address and selected pieces
-	GeneralSerializer.serialize = function(general){
+	GeneralSerializer.serialize = function(general, lang){
 		_init();
 		var sel = _gs.encode(general);
 		var urlInfo = new UrlInfo();
 		urlInfo.selection = sel;
+		if (!!lang) {
+			urlInfo.lang = lang;
+		}
 		return urlInfo.toUrl();
 	}
 	

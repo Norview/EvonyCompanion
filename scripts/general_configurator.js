@@ -446,6 +446,7 @@ function switchLangAsync(trInit, skipTranslation) {
                 }
                 
                 setLangLink(lang);
+                
                 console.log("Language switched.");
             }
         })
@@ -492,6 +493,9 @@ function switchLang(lang) {
 
     var trInit = translator.initialize(true, lang);
     switchLangAsync(trInit);
+    
+    // Special - need to regenerate the link
+    shareLink();
 }
 
 function panic(message){
@@ -574,7 +578,7 @@ function setLocation(selector, type, picLoc) {
     
     var top = 0;
     var left = 0;
-    var offsets = translator.getDropdownOffsets();
+    
     switch(type){
     case "animal":
         top = topLeftY + height * 0.13;
@@ -582,28 +586,27 @@ function setLocation(selector, type, picLoc) {
         break;
     case "weapon":
         top = topLeftY + height * (isStretched ? 0.3 : 0.26);
-        // left = topLeftX + width * (leftBase - 0.01 + offsets[0]);
-        left = topLeftX + width * (leftBase + offsets[0]);
+        left = topLeftX + width * leftBase;
         break;
     case "armor":
         top = topLeftY + height * (isStretched ? 0.55 : 0.46);
-        left = topLeftX + width * (leftBase + offsets[1]);
+        left = topLeftX + width * leftBase;
         break;
     case "boots":
         top = topLeftY + height * (isStretched ? 0.8 : 0.66);
-        left = topLeftX + width * (leftBase + offsets[2]);
+        left = topLeftX + width * leftBase;
         break;
     case "helmet":
         top = topLeftY + height * (isStretched ? 0.3 : 0.26);
-        left = topLeftX + width * (rightBase + offsets[3]);
+        left = topLeftX + width * rightBase;
         break;
     case "legarmor":
         top = topLeftY + height * (isStretched ? 0.55 : 0.46);
-        left = topLeftX + width * (rightBase + offsets[4]);
+        left = topLeftX + width * rightBase;
         break;
     case "ring":
         top = topLeftY + height * (isStretched ? 0.8 : 0.66);
-        left = topLeftX + width * (rightBase + offsets[5]);
+        left = topLeftX + width * rightBase;
         break;
     case "compare":
         top = topLeftY + height * (isStretched ? 0.97 : 0.81);
@@ -1388,9 +1391,9 @@ function configureCompareButton(){
 
 // The buttons to share the current equipment selection
 
-function shareLink(that){
-    var link = GeneralSerializer.serialize(general);
-    $(that).next("input").val(link);
+function shareLink(){
+    var link = GeneralSerializer.serialize(general, translator.getLang());
+    $("#equipment-config-controls #shareLinkBtn").next("input").val(link);
 }
 
 function copyLink(event){
