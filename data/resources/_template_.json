@@ -62,6 +62,7 @@
   "Att.": "",
   "Def.": "",
   
+  "King" : "",
   "Fearless King's Helmet" : "",
   "Fearless King's Helmet (dropdown)" : "",
   "Fearless King's Helmet (table)" : "",
@@ -105,6 +106,7 @@
   "King's Sword (dropdown)" : "",
   "King's Sword (table)" : "",
   
+  "Dragon" : "",
   "Fearless Dragon Helmet" : "",
   "Fearless Dragon Helmet (dropdown)" : "",
   "Fearless Dragon Helmet (table)" : "",
@@ -148,6 +150,7 @@
   "Dragon Sword (dropdown)" : "",
   "Dragon Sword (table)" : "",
   
+  "Ares" : "",
   "Fearless Ares Helmet" : "",
   "Fearless Ares Helmet (dropdown)" : "",
   "Fearless Ares Helmet (table)" : "",
@@ -191,6 +194,7 @@
   "Ares Sword (dropdown)" : "",
   "Ares Sword (table)" : "",
 
+  "Achaemenidae" : "",
   "Fearless Achaemenidae Helmet" : "",
   "Fearless Achaemenidae Helmet (dropdown)" : "",
   "Fearless Achaemenidae Helmet (table)" : "",
@@ -234,6 +238,7 @@
   "Achaemenidae Sword (dropdown)" : "",
   "Achaemenidae Sword (table)" : "",
      
+  "Plantagenet" : "",
   "Plantagenet Helmet" : "",
   "Plantagenet Helmet (dropdown)" : "",
   "Plantagenet Helmet (table)" : "",
@@ -253,6 +258,7 @@
   "Plantagenet Golden Bow (dropdown)" : "",
   "Plantagenet Golden Bow (table)" : "",
   
+  "Freedom" : "",
   "Freedom Hero Helmet" : "",
   "Freedom Hero Helmet (dropdown)" : "",
   "Freedom Hero Helmet (table)" : "",
@@ -272,6 +278,7 @@
   "Gentleman's Rapier Sword (dropdown)" : "",
   "Gentleman's Rapier Sword (table)" : "",
   
+  "Furinkazan" : "",
   "Furinkazan Helmet" : "",
   "Furinkazan Helmet (dropdown)" : "",
   "Furinkazan Helmet (table)" : "",
@@ -291,6 +298,7 @@
   "Furinkazan Katana (dropdown)" : "",
   "Furinkazan Katana (table)" : "",
   
+  "Han Dynasty" : "",
   "Han Dynasty Helmet" : "",
   "Han Dynasty Helmet (dropdown)" : "",
   "Han Dynasty Helmet (table)" : "",
@@ -310,6 +318,7 @@
   "Han Dynasty Halberd (dropdown)" : "",
   "Han Dynasty Halberd (table)" : "",
   
+  "Koryo" : "",
   "Koryo Helmet" : "",
   "Koryo Helmet (dropdown)" : "",
   "Koryo Helmet (table)" : "",
@@ -329,6 +338,7 @@
   "Koryo Horn Bow (dropdown)" : "",
   "Koryo Horn Bow (table)" : "",
   
+  "Rurik" : "",
   "Rurik Helmet" : "",
   "Rurik Helmet (dropdown)" : "",
   "Rurik Helmet (table)" : "",
@@ -348,6 +358,7 @@
   "Rurik Axe (dropdown)" : "",
   "Rurik Axe (table)" : "",
   
+  "Abbas" : "",
   "Abbas Helmet" : "",
   "Abbas Helmet (dropdown)" : "",
   "Abbas Helmet (table)" : "",
@@ -367,6 +378,7 @@
   "Abbas Mace (dropdown)" : "",
   "Abbas Mace (table)" : "",
   
+  "Bourbon" : "",
   "Bourbon Partisan" : "",
   "Bourbon Partisan (dropdown)" : "",
   "Bourbon Partisan (table)" : "", 
@@ -386,6 +398,7 @@
   "Bourbon Bracers (dropdown)" : "",
   "Bourbon Bracers (table)" : "",
   
+  "Augustus" : "",
   "Augustus Scepter" : "",
   "Augustus Scepter (dropdown)" : "",
   "Augustus Scepter (table)" : "", 
@@ -405,6 +418,7 @@
   "Augustus Bracers (dropdown)" : "",
   "Augustus Bracers (table)" : "",
   
+  "Antonine" : "",
   "Antonine Pilum" : "",
   "Antonine Pilum (dropdown)" : "",
   "Antonine Pilum (table)" : "", 
@@ -424,6 +438,7 @@
   "Antonine Shield (dropdown)" : "",
   "Antonine Shield (table)" : "",
   
+  "Heian" : "",
   "Heian Tachi" : "",
   "Heian Tachi (dropdown)" : "",
   "Heian Tachi (table)" : "", 
@@ -441,5 +456,25 @@
   "Heian Leg Armor (table)" : "",
   "Heian Bracers" : "",
   "Heian Bracers (dropdown)" : "",
-  "Heian Bracers (table)" : ""
+  "Heian Bracers (table)" : "",
+  
+  "Thebes" : "",
+  "Thebes Sword" : "",
+  "Thebes Sword (dropdown)" : "",
+  "Thebes Sword (table)" : "", 
+  "Thebes Armor" : "",
+  "Thebes Armor (dropdown)" : "",
+  "Thebes Armor (table)" : "",
+  "Thebes Boots" : "",
+  "Thebes Boots (dropdown)" : "",
+  "Thebes Boots (table)" : "",
+  "Thebes Helmet" : "",
+  "Thebes Helmet (dropdown)" : "",
+  "Thebes Helmet (table)" : "", 
+  "Thebes Leg Armor" : "",
+  "Thebes Leg Armor (dropdown)" : "",
+  "Thebes Leg Armor (table)" : "",
+  "Thebes Bracers" : "",
+  "Thebes Bracers (dropdown)" : "",
+  "Thebes Bracers (table)" : ""
 }}
