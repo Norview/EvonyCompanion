@@ -442,10 +442,12 @@ function switchLangAsync(trInit, skipTranslation) {
                     translator.initTranslator(data);
                 } else {
                     translator.translate(data);
-                    configureUI(true); // Re-adjust the layout
+                    // configureUI(true); // Re-adjust the layout
                 }
                 
                 setLangLink(lang);
+                
+                updateSets();
                 
                 console.log("Language switched.");
             }
@@ -494,8 +496,8 @@ function switchLang(lang) {
     var trInit = translator.initialize(true, lang);
     switchLangAsync(trInit);
     
-    // Special - need to regenerate the link
-    shareLink();
+    // Need to regenerate the link
+    shareLink(true);
 }
 
 function panic(message){
@@ -830,6 +832,91 @@ function populateEquipmentDropDownMenu(type, filteredNames) {
     console.info("Populated " + count + " equipments of type " + type + ".");
     return true;
 }
+
+function updateSets() {
+    function getSetColor(setName) {
+        setName = setName.trim().toLowerCase();
+        switch (setName) {
+        case "king": return "#fcf403";
+        case "dragon": return "#fcba03";
+        case "ares": return "#fc6b03";
+        case "achaemenidae": return "#fc2403";
+        default: // Civilization use the same color. Not ideal as they belong to different sets.
+            return "#c603fc";
+        }
+    }
+    
+    // Update the selector's border and set info (set name, count) 
+    function updateSelector(type, setName, color, pieces) {
+        var selector = findSelector(type);
+        
+        selector.css("border", "2px solid " + color + "");
+        
+        var setInfoElem = selector.find(".set-pieces");
+        setInfoElem.text("(" + pieces + ")");
+        
+        if (setInfoElem.slider("instance") != undefined){
+            setInfoElem.tooltip("destroy");
+        }
+            
+        if (!!setName && pieces > 0) {
+            // Add a tooltip to show the set info
+            var tip = $("<div class='tooltip-div i18n' tkey='" + setName + "'>");
+            tip.text(translator.translateByKey(setName));
+            setInfoElem.tooltip({
+              position: {
+                my: "center bottom-5",
+                at: "center top"
+              },
+              content: tip
+            });
+        }
+    }
+
+    // Collect pieces by set
+    var map = new Map();
+    for (var eq of general.getEquipments()) {
+        if (!!eq) {
+            var setName = eq.set.name;
+            if (!map.has(setName)) {
+                map.set(setName, []);
+            }
+            
+            map.get(setName).push(eq);
+        }
+    }
+    
+    var allTypes = new Set();
+    _foreachEqType(function(eqType) {
+        allTypes.add(eqType);
+    });
+    
+    map.forEach(function(value, key) {
+        if (!!value) {
+            var len = value.length;
+            if (len >= 2) {
+                // Minimal set requirement met
+                var color = getSetColor(key);
+                for (var eq of value) {
+                    var type = eq.type;
+                    updateSelector(type, eq.set.name, color, value.length);
+                    allTypes.delete(type);
+                }
+            } else if (len == 1) {
+                let eq = value[0];
+                var type = eq.type;
+                // Minimal set requirement not met
+                updateSelector(type, eq.set.name, "blue", 1);
+                allTypes.delete(type);
+            }
+        }
+    });
+    
+    allTypes.forEach(function(value) {
+        // No equipment at this spot
+        updateSelector(value, null, "blue", 0);
+    });
+}
        
 function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
     // Routine: find the selected equipment
@@ -852,89 +939,6 @@ function enableEquipmentDropDownMenu(type, picLoc, reposOnly) {
             count--;
         }
         console.log("Changed " + type + " to " + name + (sts === "" ? "" : " (" + sts + ")") + ".");
-    }
-        
-    function getSetColor(setName) {
-        setName = setName.trim().toLowerCase();
-        switch (setName) {
-        case "king": return "#fcf403";
-        case "dragon": return "#fcba03";
-        case "ares": return "#fc6b03";
-        case "achaemenidae": return "#fc2403";
-        default: // Civilization use the same color. Not ideal as they belong to different sets.
-            return "#c603fc";
-        }
-    }
-    
-    function updateSets() {
-        // Update the selector's border and set info (set name, count) 
-        function updateSelector(type, setName, color, pieces) {
-            var selector = findSelector(type);
-            selector.css("border", "2px solid " + color + "");
-            var setInfoElem = selector.find(".set-pieces");
-            setInfoElem.text("(" + pieces + ")");
-            
-            if (!!setName) {
-                // Add a tooltip to show the set info
-                var tip = $("<div class='tooltip-div'>");
-                tip.text(translator.translateByKey(setName));
-                setInfoElem.tooltip({
-                  position: {
-                    my: "center bottom-5",
-                    at: "center top"
-                  },
-                  content: tip
-                });
-            } else {
-                if (setInfoElem.slider("instance") != undefined){
-                    setInfoElem.tooltip("destroy");
-                }
-            }
-        }
-    
-        // Collect pieces by set
-        var map = new Map();
-        for (var eq of general.getEquipments()) {
-            if (!!eq) {
-                var setName = eq.set.name;
-                if (!map.has(setName)) {
-                    map.set(setName, []);
-                }
-                
-                map.get(setName).push(eq);
-            }
-        }
-        
-        var allTypes = new Set();
-        _foreachEqType(function(eqType) {
-            allTypes.add(eqType);
-        });
-        
-        map.forEach(function(value, key) {
-            if (!!value) {
-                var len = value.length;
-                if (len >= 2) {
-                    // Minimal set requirement met
-                    var color = getSetColor(key);
-                    for (var eq of value) {
-                        var type = eq.type;
-                        updateSelector(type, eq.set.name, color, value.length);
-                        allTypes.delete(type);
-                    }
-                } else if (len == 1) {
-                    let eq = value[0];
-                    var type = eq.type;
-                    // Minimal set requirement not met
-                    updateSelector(type, eq.set.name, "blue", 1);
-                    allTypes.delete(type);
-                }
-            }
-        });
-        
-        allTypes.forEach(function(value) {
-            // No equipment at this spot
-            updateSelector(value, null, "blue", 0);
-        });
     }
 
     // Valid index >= 0
@@ -1391,9 +1395,18 @@ function configureCompareButton(){
 
 // The buttons to share the current equipment selection
 
-function shareLink(){
-    var link = GeneralSerializer.serialize(general, translator.getLang());
-    $("#equipment-config-controls #shareLinkBtn").next("input").val(link);
+function shareLink(replaceLangOnly){
+    var input = $("#equipment-config-controls #shareLinkBtn").next("input");
+    if (replaceLangOnly === true) {
+        var link = input.val();
+        if (!link) { // If there is no link, don't bother
+            return;
+        }
+    }
+    
+    var newLang = translator.getLang();
+    var link = GeneralSerializer.serialize(general, newLang);
+    input.val(link);
 }
 
 function copyLink(event){
