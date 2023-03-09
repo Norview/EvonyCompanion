@@ -12,6 +12,7 @@
      <script src="./scripts/i18n.js"></script>
      <script src="./scripts/general.js"></script>
      <script src="./scripts/generalset.js"></script>
+     <script src="./scripts/suit_table.js"></script>
      <script src="./scripts/equipment_inventory.js"></script>
      <script src="./scripts/general_configurator.js"></script>
      <script src="./scripts/general_serializer.js"></script>
@@ -549,7 +550,7 @@
 	<!-- 9? Comparisons -->
 	<div class="container stats-title comparison-component" style="display:none; margin-top: 1%; margin-bottom: 1%">
 		<span class="i18n" tkey="COMPARISON OF COMBINATIONS" style="padding-top:5px;">COMPARISON OF COMBINATIONS</span>
-		<select id="comparison-capacity-select" style="margin-left:2%;" onchange="changeGeneralCapacity(this);">
+		<select id="comparison-capacity-select" style="margin-left:2%;" onchange="suitTable.changeGeneralCapacity(this);">
 		  <option value="4" selected>4</option>
 		  <option value="5">5</option>
 		  <option value="6">6</option>
