@@ -18,204 +18,204 @@
      <script src="./scripts/general_serializer.js"></script>
      <script src="./scripts/refine_estimator.js"></script>
      <script>
-		$(function(){
-			initialize();
-		});
+        $(function(){
+            initialize();
+        });
      </script>
    </head>
 
    <body>
     <!-- Components on this page are laid out top down. Those numbered with #? are not shown by default. -->
     
-	<!-- 0? Error message -->
+    <!-- 0? Error message -->
     <div class="container">
         <div id="panic-box" class="panic-box"></div>
     </div>
 
-	<!-- 1. Equipment selection -->    
+    <!-- 1. Equipment selection -->    
     <div class="container" id="main-img-container">
-		<div id="general">
-		   <!-- background image -->
-		   <img class="general-image" src="./assets/general.png">
-		   <!-- animal/dragon -->
-		   <form class="btn" id="selector-animal" style="border-color: white; top:10%; left:32%; padding: 3px 3px 3px 3px">  
-		     <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon">Dragon&nbsp;&nbsp;</label>
-			 <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
-		   </form>
-		   <!-- languages -->
-		   <div class="dropdown" style="width: 15%;">
-			  <button class="dropbtn i18n" style="font-weight: bold; color: lightblue; text-decoration: underline;" tkey="Language">Language</button>
-			  <div class="dropdown-content">
-				<a href="#lang=en" onclick="switchLang('en');">English</a>
-				<a href="#lang=de" onclick="switchLang('de');">Deutsch</a>
-				<a href="#lang=it" onclick="switchLang('it');">Italiano</a>
-				<a href="#lang=ja" onclick="switchLang('ja');">日本語</a>
-				<a href="#lang=zhs" onclick="switchLang('zhs');">简体中文</a>
-				<!--<a href="#lang=ru" onclick="switchLang('ru');">Русский</a>-->
-			  </div>
-		   </div>
-		   <!-- equipments -->
-		   <form class="btn eq-selector-form" id="selector-weapon" style="top:20%; left:34%;">
+        <div id="general">
+           <!-- background image -->
+           <img class="general-image" src="./assets/general.png">
+           <!-- animal/dragon -->
+           <form class="btn" id="selector-animal" style="border-color: white; top:10%; left:32%; padding: 3px 3px 3px 3px">  
+             <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon">Dragon&nbsp;&nbsp;</label>
+             <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
+           </form>
+           <!-- languages -->
+           <div class="dropdown" style="width: 15%;">
+              <button class="dropbtn i18n" style="font-weight: bold; color: lightblue; text-decoration: underline;" tkey="Language">Language</button>
+              <div class="dropdown-content">
+                <a href="#lang=en" onclick="switchLang('en');">English</a>
+                <a href="#lang=de" onclick="switchLang('de');">Deutsch</a>
+                <a href="#lang=it" onclick="switchLang('it');">Italiano</a>
+                <a href="#lang=ja" onclick="switchLang('ja');">日本語</a>
+                <a href="#lang=zhs" onclick="switchLang('zhs');">简体中文</a>
+                <!--<a href="#lang=ru" onclick="switchLang('ru');">Русский</a>-->
+              </div>
+           </div>
+           <!-- equipments -->
+           <form class="btn eq-selector-form" id="selector-weapon" style="top:20%; left:34%;">
              <div class="equipment-selector-cont">
-				 <div class="equipment-info-box">
-					 <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
-					 <div class="equipment-props-and-traits">
-						 <span class="stars-span" id="selector-weapon-stars">
-							 <label class="star" seq="0">★</label>
-							 <label class="star" seq="1">★</label>
-							 <label class="star" seq="2">★</label>
-							 <label class="star" seq="3">★</label>
-							 <label class="star" seq="4">★</label>
-							 <span class="set-pieces" title="">(0)</span>
-						 </span>
-						 <span class="troop-icons-cont">
-							<img class="troop ground"  title="" src="./assets/ground.png">
-							<img class="troop mounted" title="" src="./assets/mounted.png">
-							<img class="troop ranged"  title="" src="./assets/ranged.png">
-							<img class="troop siege"   title="" src="./assets/siege.png">
-						 </span>
-					 </div>
-				 </div>
-				 <select disabled="true"><!-- to be populated by code -->
-			 	 </select>
-			 </div>
-		   </form>
-		   <form class="btn eq-selector-form" id="selector-armor" style="top:36%; left:34%;">
+                 <div class="equipment-info-box">
+                     <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
+                     <div class="equipment-props-and-traits">
+                         <span class="stars-span" id="selector-weapon-stars">
+                             <label class="star" seq="0">★</label>
+                             <label class="star" seq="1">★</label>
+                             <label class="star" seq="2">★</label>
+                             <label class="star" seq="3">★</label>
+                             <label class="star" seq="4">★</label>
+                             <span class="set-pieces" title="">(0)</span>
+                         </span>
+                         <span class="troop-icons-cont">
+                            <img class="troop ground"  title="" src="./assets/ground.png">
+                            <img class="troop mounted" title="" src="./assets/mounted.png">
+                            <img class="troop ranged"  title="" src="./assets/ranged.png">
+                            <img class="troop siege"   title="" src="./assets/siege.png">
+                         </span>
+                     </div>
+                 </div>
+                 <select disabled="true"><!-- to be populated by code -->
+                  </select>
+             </div>
+           </form>
+           <form class="btn eq-selector-form" id="selector-armor" style="top:36%; left:34%;">
              <div class="equipment-selector-cont">
-				 <div class="equipment-info-box">
-					 <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
-					 <div class="equipment-props-and-traits">
-						 <span class="stars-span" id="selector-armor-stars">
-							 <label class="star" seq="0">★</label>
-							 <label class="star" seq="1">★</label>
-							 <label class="star" seq="2">★</label>
-							 <label class="star" seq="3">★</label>
-							 <label class="star" seq="4">★</label>
-							 <span class="set-pieces" title="">(0)</span>
-						</span>
-						<span class="troop-icons-cont">
-							<img class="troop ground"  title="" src="./assets/ground.png">
-							<img class="troop mounted" title="" src="./assets/mounted.png">
-							<img class="troop ranged"  title="" src="./assets/ranged.png">
-							<img class="troop siege"   title="" src="./assets/siege.png">
-						</span>
-					</div>
-				</div>
-				<select disabled="true"><!-- to be populated by code -->
-				</select>
-			</div>
-		   </form>  
-		   <form class="btn eq-selector-form" id="selector-boots" style="top:52%; left:34%;">  
+                 <div class="equipment-info-box">
+                     <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
+                     <div class="equipment-props-and-traits">
+                         <span class="stars-span" id="selector-armor-stars">
+                             <label class="star" seq="0">★</label>
+                             <label class="star" seq="1">★</label>
+                             <label class="star" seq="2">★</label>
+                             <label class="star" seq="3">★</label>
+                             <label class="star" seq="4">★</label>
+                             <span class="set-pieces" title="">(0)</span>
+                        </span>
+                        <span class="troop-icons-cont">
+                            <img class="troop ground"  title="" src="./assets/ground.png">
+                            <img class="troop mounted" title="" src="./assets/mounted.png">
+                            <img class="troop ranged"  title="" src="./assets/ranged.png">
+                            <img class="troop siege"   title="" src="./assets/siege.png">
+                        </span>
+                    </div>
+                </div>
+                <select disabled="true"><!-- to be populated by code -->
+                </select>
+            </div>
+           </form>  
+           <form class="btn eq-selector-form" id="selector-boots" style="top:52%; left:34%;">  
              <div class="equipment-selector-cont">
-				<div class="equipment-info-box">
-					<div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
-					<div class="equipment-props-and-traits">
-						<span class="stars-span" id="selector-boots-stars">
-							<label class="star" seq="0">★</label>
-							<label class="star" seq="1">★</label>
-							<label class="star" seq="2">★</label>
-							<label class="star" seq="3">★</label>
-							<label class="star" seq="4">★</label>
-							<span class="set-pieces" title="">(0)</span>
-						</span>
-						<span class="troop-icons-cont">
-							<img class="troop ground"  title="" src="./assets/ground.png">
-							<img class="troop mounted" title="" src="./assets/mounted.png">
-							<img class="troop ranged"  title="" src="./assets/ranged.png">
-							<img class="troop siege"   title="" src="./assets/siege.png">
-						</span>
-					</div>
-				</div>
-				<select disabled="true"><!-- to be populated by code -->
-				</select>
-			</div>
-		   </form>  
-		   <form class="btn eq-selector-form" id="selector-helmet" style="top:20%; left:66%;">  
+                <div class="equipment-info-box">
+                    <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
+                    <div class="equipment-props-and-traits">
+                        <span class="stars-span" id="selector-boots-stars">
+                            <label class="star" seq="0">★</label>
+                            <label class="star" seq="1">★</label>
+                            <label class="star" seq="2">★</label>
+                            <label class="star" seq="3">★</label>
+                            <label class="star" seq="4">★</label>
+                            <span class="set-pieces" title="">(0)</span>
+                        </span>
+                        <span class="troop-icons-cont">
+                            <img class="troop ground"  title="" src="./assets/ground.png">
+                            <img class="troop mounted" title="" src="./assets/mounted.png">
+                            <img class="troop ranged"  title="" src="./assets/ranged.png">
+                            <img class="troop siege"   title="" src="./assets/siege.png">
+                        </span>
+                    </div>
+                </div>
+                <select disabled="true"><!-- to be populated by code -->
+                </select>
+            </div>
+           </form>  
+           <form class="btn eq-selector-form" id="selector-helmet" style="top:20%; left:66%;">  
              <div class="equipment-selector-cont">
-				 <div class="equipment-info-box">
-					 <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
-					 <div class="equipment-props-and-traits">
-						 <span class="stars-span" id="selector-helmet-stars">
-							 <label class="star" seq="0">★</label>
-							 <label class="star" seq="1">★</label>
-							 <label class="star" seq="2">★</label>
-							 <label class="star" seq="3">★</label>
-							 <label class="star" seq="4">★</label>
-							 <span class="set-pieces" title="">(0)</span>
-						 </span>
-						 <span class="troop-icons-cont">
-							<img class="troop ground"  title="" src="./assets/ground.png">
-							<img class="troop mounted" title="" src="./assets/mounted.png">
-							<img class="troop ranged"  title="" src="./assets/ranged.png">
-							<img class="troop siege"   title="" src="./assets/siege.png">
-						 </span>
-					 </div>
-				 </div>
-				 <select disabled="true"><!-- to be populated by code -->
-				 </select>
-			</div>
-		   </form> 
-		   <form class="btn eq-selector-form" id="selector-legarmor" style="top:36%; left:65%;">  
+                 <div class="equipment-info-box">
+                     <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
+                     <div class="equipment-props-and-traits">
+                         <span class="stars-span" id="selector-helmet-stars">
+                             <label class="star" seq="0">★</label>
+                             <label class="star" seq="1">★</label>
+                             <label class="star" seq="2">★</label>
+                             <label class="star" seq="3">★</label>
+                             <label class="star" seq="4">★</label>
+                             <span class="set-pieces" title="">(0)</span>
+                         </span>
+                         <span class="troop-icons-cont">
+                            <img class="troop ground"  title="" src="./assets/ground.png">
+                            <img class="troop mounted" title="" src="./assets/mounted.png">
+                            <img class="troop ranged"  title="" src="./assets/ranged.png">
+                            <img class="troop siege"   title="" src="./assets/siege.png">
+                         </span>
+                     </div>
+                 </div>
+                 <select disabled="true"><!-- to be populated by code -->
+                 </select>
+            </div>
+           </form> 
+           <form class="btn eq-selector-form" id="selector-legarmor" style="top:36%; left:65%;">  
              <div class="equipment-selector-cont">
-				 <div class="equipment-info-box">
-					 <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
-					 <div class="equipment-props-and-traits">
-						 <span class="stars-span" id="selector-legarmor-stars">
-							 <label class="star" seq="0">★</label>
-							 <label class="star" seq="1">★</label>
-							 <label class="star" seq="2">★</label>
-							 <label class="star" seq="3">★</label>
-							 <label class="star" seq="4">★</label>
-							 <span class="set-pieces" title="">(0)</span>
-						 </span>
-						 <span class="troop-icons-cont">
-							<img class="troop ground"  title="" src="./assets/ground.png">
-							<img class="troop mounted" title="" src="./assets/mounted.png">
-							<img class="troop ranged"  title="" src="./assets/ranged.png">
-							<img class="troop siege"   title="" src="./assets/siege.png">
-						 </span>
-					 </div>
-				 </div>
-				 <select disabled="true"><!-- to be populated by code -->
-				 </select>
-			</div>
-		   </form>  
-		   <form class="btn eq-selector-form" id="selector-ring" style="top:52%; left:66%;">  
+                 <div class="equipment-info-box">
+                     <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
+                     <div class="equipment-props-and-traits">
+                         <span class="stars-span" id="selector-legarmor-stars">
+                             <label class="star" seq="0">★</label>
+                             <label class="star" seq="1">★</label>
+                             <label class="star" seq="2">★</label>
+                             <label class="star" seq="3">★</label>
+                             <label class="star" seq="4">★</label>
+                             <span class="set-pieces" title="">(0)</span>
+                         </span>
+                         <span class="troop-icons-cont">
+                            <img class="troop ground"  title="" src="./assets/ground.png">
+                            <img class="troop mounted" title="" src="./assets/mounted.png">
+                            <img class="troop ranged"  title="" src="./assets/ranged.png">
+                            <img class="troop siege"   title="" src="./assets/siege.png">
+                         </span>
+                     </div>
+                 </div>
+                 <select disabled="true"><!-- to be populated by code -->
+                 </select>
+            </div>
+           </form>  
+           <form class="btn eq-selector-form" id="selector-ring" style="top:52%; left:66%;">  
              <div class="equipment-selector-cont">
-				 <div class="equipment-info-box">
-					 <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
-					 <div class="equipment-props-and-traits">
-						 <span class="stars-span" id="selector-ring-stars">
-							 <label class="star" seq="0">★</label>
-							 <label class="star" seq="1">★</label>
-							 <label class="star" seq="2">★</label>
-							 <label class="star" seq="3">★</label>
-							 <label class="star" seq="4">★</label>
-							 <span class="set-pieces" title="">(0)</span>
-						 </span>
-						 <span class="troop-icons-cont">
-							<img class="troop ground"  title="" src="./assets/ground.png">
-							<img class="troop mounted" title="" src="./assets/mounted.png">
-							<img class="troop ranged"  title="" src="./assets/ranged.png">
-							<img class="troop siege"   title="" src="./assets/siege.png">
-						 </span>
-					 </div>
-				 </div>
-				 <select disabled="true"><!-- to be populated by code -->
-				 </select>
-			</div>
-		   </form>
-		   <form id="add-to-comparison-form"> 
-			 <button type="button" disabled="true" style="top:62%; left:66%;">
-			 	<img src="../assets/add_disabled.png"/>
-			 	<span class="i18n" tkey="Compare">Compare</span>
-			 </button>   
-		   </form>		    
-		   </img>
-		</div>
-	</div>
+                 <div class="equipment-info-box">
+                     <div div class="equipment-pic"><img src="./assets/equipments/eq_unselected.png"></div>
+                     <div class="equipment-props-and-traits">
+                         <span class="stars-span" id="selector-ring-stars">
+                             <label class="star" seq="0">★</label>
+                             <label class="star" seq="1">★</label>
+                             <label class="star" seq="2">★</label>
+                             <label class="star" seq="3">★</label>
+                             <label class="star" seq="4">★</label>
+                             <span class="set-pieces" title="">(0)</span>
+                         </span>
+                         <span class="troop-icons-cont">
+                            <img class="troop ground"  title="" src="./assets/ground.png">
+                            <img class="troop mounted" title="" src="./assets/mounted.png">
+                            <img class="troop ranged"  title="" src="./assets/ranged.png">
+                            <img class="troop siege"   title="" src="./assets/siege.png">
+                         </span>
+                     </div>
+                 </div>
+                 <select disabled="true"><!-- to be populated by code -->
+                 </select>
+            </div>
+           </form>
+           <form id="add-to-comparison-form"> 
+             <button type="button" disabled="true" style="top:62%; left:66%;">
+                 <img src="../assets/add_disabled.png"/>
+                 <span class="i18n" tkey="Compare">Compare</span>
+             </button>   
+           </form>            
+           </img>
+        </div>
+    </div>
 
-	<!-- 2. Interface settings and controls -->
+    <!-- 2. Interface settings and controls -->
     <div class="container" id="equipment-config-controls" style="height:30px; margin: 1% 0% 0% 0%">
       <button type="button" class="ctrl-btn i18n" tkey="Inventory" onclick="inventory.toggle();">Inventory</button>
       <!--
@@ -227,7 +227,7 @@
       <button type="button" class="ctrl-btn i18n" tkey="Copy" onclick="copyLink(event);">Copy</button>
     </div>
 
-	<!-- 3? Equipment inventory -->
+    <!-- 3? Equipment inventory -->
     <div id="equipment-config-div" style="display:none; width:70%; margin-left:15%; margin-top:1%;">
        <div>
          <button type="button" id="eqconf-close-btn" class="ctrl-btn" style="float: right; margin-top: 1%; margin-right: 1%">
@@ -235,15 +235,15 @@
          </button>
        </div>
        <div id="equipment-config-table">
-		 <table style="margin:auto; width:90%; margin-top:2%; margin-bottom: 2%">
-		 <tr>
-		 <td style="margin: auto; width: 25%;">
+         <table style="margin:auto; width:90%; margin-top:2%; margin-bottom: 2%">
+         <tr>
+         <td style="margin: auto; width: 25%;">
            <select id="eqconf-sets" multiple size="20" style="margin: auto;"> <!-- 4 (regular) + 7 (original civ sets) + 9 (~2023/12) -->     
             <!-- Contents to be filled in during runtime. Example: -->
             <!-- <option value = "King">King</option> -->
            </select>
          </td>
-		 <td style="margin: auto; width: 25%;">
+         <td style="margin: auto; width: 25%;">
            <select id="eqconf-parts" multiple size="6">
             <option value = "weapon">Weapon</option>
             <option value = "armor">Armor</option>
@@ -253,15 +253,15 @@
             <option value = "ring">Ring</option>
            </select>
          </td>
-		 <td style="margin: auto; width: 25%;">
-		   <div style="display: block">
-      	     <!-- <div style="margin-top: 0%"><button type="button" id="eqconf-add-all-btn"    class="ctrl-btn" disabled>Add All</button></div> (handler commented out too) --> 
-      	     <div style="margin-top: 4%"><button type="button" id="eqconf-add-btn"        class="ctrl-btn" disabled>Add</button></div>
-      	     <div style="margin-top: 4%"><button type="button" id="eqconf-remove-btn"     class="ctrl-btn" disabled>Remove</button></div>
-      	     <div style="margin-top: 4%"><button type="button" id="eqconf-remove-all-btn" class="ctrl-btn" disabled>Remove All</button></div>
-      	   </div>
+         <td style="margin: auto; width: 25%;">
+           <div style="display: block">
+               <!-- <div style="margin-top: 0%"><button type="button" id="eqconf-add-all-btn"    class="ctrl-btn" disabled>Add All</button></div> (handler commented out too) --> 
+               <div style="margin-top: 4%"><button type="button" id="eqconf-add-btn"        class="ctrl-btn" disabled>Add</button></div>
+               <div style="margin-top: 4%"><button type="button" id="eqconf-remove-btn"     class="ctrl-btn" disabled>Remove</button></div>
+               <div style="margin-top: 4%"><button type="button" id="eqconf-remove-all-btn" class="ctrl-btn" disabled>Remove All</button></div>
+             </div>
          </td>
-		 <td style="margin: auto; width: 25%;">
+         <td style="margin: auto; width: 25%;">
            <select id="eqconf-selected" multiple size="20">    
             <!-- Contents to be filled in during runtime. Example: -->
             <!-- <option value = "King's Bow">King's Bow</option> -->
@@ -272,455 +272,455 @@
         </div>
     </div>
 
-	<!-- 4. Materials -->
-	<div class="container" style="margin-top: 1%;">
-		<div class="stats-title i18n" style="margin-top: 0px" tkey="MATERIALS">
-		MATERIALS
-		</div>
-		<div style="padding-left: 10px;" onclick="toggleVisibility(this, 'material-table');">
-		  <img src="../assets/hide.png" style="width: 25px"/>
-	    </div>
-	</div>
+    <!-- 4. Materials -->
+    <div class="container" style="margin-top: 1%;">
+        <div class="stats-title i18n" style="margin-top: 0px" tkey="MATERIALS">
+        MATERIALS
+        </div>
+        <div style="padding-left: 10px;" onclick="toggleVisibility(this, 'material-table');">
+          <img src="../assets/hide.png" style="width: 25px"/>
+        </div>
+    </div>
     <div class="container">
-    	<div id="material-table" class="material-table" style="display: block; margin-bottom: 2%;">
-		 <table class="material-table-rows" >
-		  <tr id="material-row-6"> 
-			<th>
-			  <img class="material" alt="Purple Crystal"    src="./assets/materials/purplecrystal-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Blue Stone"     src="./assets/materials/bluestone-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Red Agate"      src="./assets/materials/redagate-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Silver Pearl"   src="./assets/materials/silverpearl-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Meteor-olite"   src="./assets/materials/meteorolite-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Iron"           src="./assets/materials/iron-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Bronze"         src="./assets/materials/bronze-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Wood"           src="./assets/materials/wood-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Animal Bone"    src="./assets/materials/animalbone-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Leather"        src="./assets/materials/leather-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Feather"        src="./assets/materials/feather-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Dragon Scale"   src="./assets/materials/dragonscale-lv6.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-		  </tr>
-		  <tr id="material-row-7" > 
-			<th>
-			  <img class="material" alt="Purple Crystal"    src="./assets/materials/purplecrystal-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Blue Stone"     src="./assets/materials/bluestone-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Red Agate"      src="./assets/materials/redagate-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Silver Pearl"   src="./assets/materials/silverpearl-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Meteor-olite"   src="./assets/materials/meteorolite-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Iron"           src="./assets/materials/iron-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Bronze"         src="./assets/materials/bronze-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Wood"           src="./assets/materials/wood-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Animal Bone"    src="./assets/materials/animalbone-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Leather"        src="./assets/materials/leather-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Feather"        src="./assets/materials/feather-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-			<th>
-			  <img style="width: 60px" alt="Dragon Scale"   src="./assets/materials/dragonscale-lv7.png">
-			  <div class="layer"><div class="count">0</div></div>
-			</th>
-		  </tr>
-		 </table> 
-		</div>
-	</div>
+        <div id="material-table" class="material-table" style="display: block; margin-bottom: 2%;">
+         <table class="material-table-rows" >
+          <tr id="material-row-6"> 
+            <th>
+              <img class="material" alt="Purple Crystal"    src="./assets/materials/purplecrystal-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Blue Stone"     src="./assets/materials/bluestone-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Red Agate"      src="./assets/materials/redagate-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Silver Pearl"   src="./assets/materials/silverpearl-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Meteor-olite"   src="./assets/materials/meteorolite-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Iron"           src="./assets/materials/iron-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Bronze"         src="./assets/materials/bronze-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Wood"           src="./assets/materials/wood-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Animal Bone"    src="./assets/materials/animalbone-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Leather"        src="./assets/materials/leather-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Feather"        src="./assets/materials/feather-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Dragon Scale"   src="./assets/materials/dragonscale-lv6.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+          </tr>
+          <tr id="material-row-7" > 
+            <th>
+              <img class="material" alt="Purple Crystal"    src="./assets/materials/purplecrystal-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Blue Stone"     src="./assets/materials/bluestone-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Red Agate"      src="./assets/materials/redagate-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Silver Pearl"   src="./assets/materials/silverpearl-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Meteor-olite"   src="./assets/materials/meteorolite-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Iron"           src="./assets/materials/iron-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Bronze"         src="./assets/materials/bronze-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Wood"           src="./assets/materials/wood-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Animal Bone"    src="./assets/materials/animalbone-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Leather"        src="./assets/materials/leather-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Feather"        src="./assets/materials/feather-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+            <th>
+              <img style="width: 60px" alt="Dragon Scale"   src="./assets/materials/dragonscale-lv7.png">
+              <div class="layer"><div class="count">0</div></div>
+            </th>
+          </tr>
+         </table> 
+        </div>
+    </div>
 
-	<!-- 5. Battle types -->
-	<div>
-		<div style="width: 25%; display: inline-block;"></div>
-		<div id="battle-types-div" style="width: 50%; display: inline-block;">
-		  <fieldset id="battle-types">
-			  <legend style="margin: auto; font-style: italic;" class="i18n" tkey="What kind of battle?">What kind of battle?</legend>
-			  <table id="battle-types-table">
-				  <tr><td>
-				  <input class="battle-type" type="radio" id="opt-any"
-				   name="battle-type" value="any">
-				  <label for="opt-any" class="i18n" tkey="Any">Any</label>
-				  </td></tr>
-				  <tr><td>
-				  <input class="battle-type" type="radio" id="opt-attacking"
-				   name="battle-type" value="attacking" checked>
-				  <label for="opt-attacking" class="i18n" tkey="Attacking">Attacking</label> <!-- Default -->
-				  </td></tr>
-				  <tr><td>
-				  <input class="battle-type" type="radio" id="opt-defending"
-				   name="battle-type" value="defending">
-				  <label for="opt-defending" class="i18n" tkey="Defending main city">Defending main city</label>  
-				  </td></tr>
-				  <tr><td>
-				  <input class="battle-type" type="radio" id="opt-reinforcing"
-				   name="battle-type" value="reinforcing">
-				  <label for="opt-reinforcing" class="i18n" tkey="Reinforcing another city">Reinforcing another city</label>
-				  </td></tr>
-				  <tr><td> 
-				  <input class="battle-type" type="radio" id="opt-occupying"
-				   name="battle-type" value="occupying">
-				  <label for="opt-occupying" class="i18n" tkey="Defending a building">Defending a building</label>
-				  </td></tr>
-			  </table>
-		  </fieldset>
-		</div>
-		<div style="display: inline-block;">
-		  <button type="button" onclick="toggleVisibility(this, 'battle-types-table', _toggleBattleTypesTable);"
-		    style="margin-left: 1%; margin-bottom: 0%; padding: 0px; border: none; background: none;">
-		    <image src="../assets/hide.png" style="width: 25px"/>
-	      </button>
-		</div>
-	</div>
+    <!-- 5. Battle types -->
+    <div>
+        <div style="width: 25%; display: inline-block;"></div>
+        <div id="battle-types-div" style="width: 50%; display: inline-block;">
+          <fieldset id="battle-types">
+              <legend style="margin: auto; font-style: italic;" class="i18n" tkey="What kind of battle?">What kind of battle?</legend>
+              <table id="battle-types-table">
+                  <tr><td>
+                  <input class="battle-type" type="radio" id="opt-any"
+                   name="battle-type" value="any">
+                  <label for="opt-any" class="i18n" tkey="Any">Any</label>
+                  </td></tr>
+                  <tr><td>
+                  <input class="battle-type" type="radio" id="opt-attacking"
+                   name="battle-type" value="attacking" checked>
+                  <label for="opt-attacking" class="i18n" tkey="Attacking">Attacking</label> <!-- Default -->
+                  </td></tr>
+                  <tr><td>
+                  <input class="battle-type" type="radio" id="opt-defending"
+                   name="battle-type" value="defending">
+                  <label for="opt-defending" class="i18n" tkey="Defending main city">Defending main city</label>  
+                  </td></tr>
+                  <tr><td>
+                  <input class="battle-type" type="radio" id="opt-reinforcing"
+                   name="battle-type" value="reinforcing">
+                  <label for="opt-reinforcing" class="i18n" tkey="Reinforcing another city">Reinforcing another city</label>
+                  </td></tr>
+                  <tr><td> 
+                  <input class="battle-type" type="radio" id="opt-occupying"
+                   name="battle-type" value="occupying">
+                  <label for="opt-occupying" class="i18n" tkey="Defending a building">Defending a building</label>
+                  </td></tr>
+              </table>
+          </fieldset>
+        </div>
+        <div style="display: inline-block;">
+          <button type="button" onclick="toggleVisibility(this, 'battle-types-table', _toggleBattleTypesTable);"
+            style="margin-left: 1%; margin-bottom: 0%; padding: 0px; border: none; background: none;">
+            <image src="../assets/hide.png" style="width: 25px"/>
+          </button>
+        </div>
+    </div>
 
-	<!-- 6. Buffs -->
-	<div class="container stats-title i18n" tkey="BUFF">
-	BUFF
-	</div>
-	<div class="container" style="">
-    	<div id="buff-table" class="buff-table">
-		 <table>
-		  <tr>
-			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ground">Ground</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Mounted">Mounted</th>
-			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ranged">Ranged</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Siege">Siege</th>
-		  </tr>
-		  <tr>
-			<th class="i18n" tkey="Attack">Attack</th>
-			<th class="i18n" tkey="Defense">Defense</th>
-			<th class="i18n" tkey="HP">HP</th>
-			<th class="grey i18n" tkey="Attack">Attack</th>
-			<th class="grey i18n" tkey="Defense">Defense</th>
-			<th class="grey i18n" tkey="HP">HP</th>
-			<th class="i18n" tkey="Attack">Attack</th>
-			<th class="i18n" tkey="Defense">Defense</th>
-			<th class="i18n" tkey="HP">HP</th>
-			<th class="grey i18n" tkey="Attack">Attack</th>
-			<th class="grey i18n" tkey="Defense">Defense</th>
-			<th class="grey i18n" tkey="HP">HP</th>
-		  </tr>
-		  <tr id="buff-row"> 
-			<td title="">0%</td>
-			<td title="">0%</td>
-			<td title="">0%</td>
-			<td title="" class="grey">0%</td>
-			<td title="" class="grey">0%</td>
-			<td title="" class="grey">0%</td>
-			<td title="">0%</td>
-			<td title="">0%</td>
-			<td title="">0%</td>
-			<td title="" class="grey">0%</td>
-			<td title="" class="grey">0%</td>
-			<td title="" class="grey">0%</td>
-		  </tr>
-		 </table>  
-		</div>
-	</div>
-	
-	<!-- 7. Debuffs -->
-	<div class="container stats-title i18n" tkey="DEBUFF">
-	DEBUFF
-	</div>
-	<div class="container" style="">
-    	<div id="debuff-table" class="buff-table">
-		 <table>
-		  <tr>
-			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ground">Ground</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Mounted">Mounted</th>
-			<th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ranged">Ranged</th>
-			<th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Siege">Siege</th>
-		  </tr>
-		  <tr>
-			<th class="i18n" tkey="Attack">Attack</th>
-			<th class="i18n" tkey="Defense">Defense</th>
-			<th class="i18n" tkey="HP">HP</th>
-			<th class="grey i18n" tkey="Attack">Attack</th>
-			<th class="grey i18n" tkey="Defense">Defense</th>
-			<th class="grey i18n" tkey="HP">HP</th>
-			<th class="i18n" tkey="Attack">Attack</th>
-			<th class="i18n" tkey="Defense">Defense</th>
-			<th class="i18n" tkey="HP">HP</th>
-			<th class="grey i18n" tkey="Attack">Attack</th>
-			<th class="grey i18n" tkey="Defense">Defense</th>
-			<th class="grey i18n" tkey="HP">HP</th>
-		  </tr>
-		  <tr id="debuff-row"> 
-			<td title="">-0%</td>
-			<td title="">-0%</td>
-			<td title="">-0%</td>
-			<td title="" class="grey">-0%</td>
-			<td title="" class="grey">-0%</td>
-			<td title="" class="grey">-0%</td>
-			<td title="">-0%</td>
-			<td title="">-0%</td>
-			<td title="">-0%</td>
-			<td title="" class="grey">-0%</td>
-			<td title="" class="grey">-0%</td>
-			<td title="" class="grey">-0%</td>
-		  </tr>
-		 </table>    
-		</div>
-	</div>
+    <!-- 6. Buffs -->
+    <div class="container stats-title i18n" tkey="BUFF">
+    BUFF
+    </div>
+    <div class="container" style="">
+        <div id="buff-table" class="buff-table">
+         <table>
+          <tr>
+            <th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ground">Ground</th>
+            <th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Mounted">Mounted</th>
+            <th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ranged">Ranged</th>
+            <th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Siege">Siege</th>
+          </tr>
+          <tr>
+            <th class="i18n" tkey="Attack">Attack</th>
+            <th class="i18n" tkey="Defense">Defense</th>
+            <th class="i18n" tkey="HP">HP</th>
+            <th class="grey i18n" tkey="Attack">Attack</th>
+            <th class="grey i18n" tkey="Defense">Defense</th>
+            <th class="grey i18n" tkey="HP">HP</th>
+            <th class="i18n" tkey="Attack">Attack</th>
+            <th class="i18n" tkey="Defense">Defense</th>
+            <th class="i18n" tkey="HP">HP</th>
+            <th class="grey i18n" tkey="Attack">Attack</th>
+            <th class="grey i18n" tkey="Defense">Defense</th>
+            <th class="grey i18n" tkey="HP">HP</th>
+          </tr>
+          <tr id="buff-row"> 
+            <td title="">0%</td>
+            <td title="">0%</td>
+            <td title="">0%</td>
+            <td title="" class="grey">0%</td>
+            <td title="" class="grey">0%</td>
+            <td title="" class="grey">0%</td>
+            <td title="">0%</td>
+            <td title="">0%</td>
+            <td title="">0%</td>
+            <td title="" class="grey">0%</td>
+            <td title="" class="grey">0%</td>
+            <td title="" class="grey">0%</td>
+          </tr>
+         </table>  
+        </div>
+    </div>
+    
+    <!-- 7. Debuffs -->
+    <div class="container stats-title i18n" tkey="DEBUFF">
+    DEBUFF
+    </div>
+    <div class="container" style="">
+        <div id="debuff-table" class="buff-table">
+         <table>
+          <tr>
+            <th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ground">Ground</th>
+            <th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Mounted">Mounted</th>
+            <th colspan="3" style="border: 1px solid black;" class="i18n" tkey="Ranged">Ranged</th>
+            <th colspan="3" style="border: 1px solid black; background-color: #f2f2f2;" class="i18n" tkey="Siege">Siege</th>
+          </tr>
+          <tr>
+            <th class="i18n" tkey="Attack">Attack</th>
+            <th class="i18n" tkey="Defense">Defense</th>
+            <th class="i18n" tkey="HP">HP</th>
+            <th class="grey i18n" tkey="Attack">Attack</th>
+            <th class="grey i18n" tkey="Defense">Defense</th>
+            <th class="grey i18n" tkey="HP">HP</th>
+            <th class="i18n" tkey="Attack">Attack</th>
+            <th class="i18n" tkey="Defense">Defense</th>
+            <th class="i18n" tkey="HP">HP</th>
+            <th class="grey i18n" tkey="Attack">Attack</th>
+            <th class="grey i18n" tkey="Defense">Defense</th>
+            <th class="grey i18n" tkey="HP">HP</th>
+          </tr>
+          <tr id="debuff-row"> 
+            <td title="">-0%</td>
+            <td title="">-0%</td>
+            <td title="">-0%</td>
+            <td title="" class="grey">-0%</td>
+            <td title="" class="grey">-0%</td>
+            <td title="" class="grey">-0%</td>
+            <td title="">-0%</td>
+            <td title="">-0%</td>
+            <td title="">-0%</td>
+            <td title="" class="grey">-0%</td>
+            <td title="" class="grey">-0%</td>
+            <td title="" class="grey">-0%</td>
+          </tr>
+         </table>    
+        </div>
+    </div>
 
-	<!-- 8. Refines -->
-	<div class="container stats-title i18n" tkey="REFINE">
-	REFINE
-	</div>
-	<div id="refine-div">
-	<div class="container" style="margin-top:2px">
-	  <div id="refine-options" style="width:30%; display:flex; justify-content:center">
-	    <label style="user-select: none; margin-left:0%;" class="i18n" tkey="Ground">Ground</label>
-	    <input type="checkbox" id="refine-type-checkbox-ground"/>
-	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Mounted</label>
-	    <input type="checkbox" id="refine-type-checkbox-mounted"/>
-	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Ranged">Ranged</label>
-	    <input type="checkbox" id="refine-type-checkbox-ranged"/>
-	    <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Siege</label>
-	    <input type="checkbox" id="refine-type-checkbox-siege"/>
-	  </div>
-	</div>
-	<div class="container" style="margin-top:2px">
-	  <div class="refiner-div">	
-	    <div id="refine-slider">
-	      <div id="refine-handle" class="ui-slider-handle"></div>
-	    </div>
-	  </div>
-	</div>
-	</div>
+    <!-- 8. Refines -->
+    <div class="container stats-title i18n" tkey="REFINE">
+    REFINE
+    </div>
+    <div id="refine-div">
+    <div class="container" style="margin-top:2px">
+      <div id="refine-options" style="width:30%; display:flex; justify-content:center">
+        <label style="user-select: none; margin-left:0%;" class="i18n" tkey="Ground">Ground</label>
+        <input type="checkbox" id="refine-type-checkbox-ground"/>
+        <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Mounted</label>
+        <input type="checkbox" id="refine-type-checkbox-mounted"/>
+        <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Ranged">Ranged</label>
+        <input type="checkbox" id="refine-type-checkbox-ranged"/>
+        <label style="user-select: none; margin-left:4%;" class="i18n" tkey="Mounted">Siege</label>
+        <input type="checkbox" id="refine-type-checkbox-siege"/>
+      </div>
+    </div>
+    <div class="container" style="margin-top:2px">
+      <div class="refiner-div">    
+        <div id="refine-slider">
+          <div id="refine-handle" class="ui-slider-handle"></div>
+        </div>
+      </div>
+    </div>
+    </div>
 
-	<!-- 9? Comparisons -->
-	<div class="container stats-title comparison-component" style="display:none; margin-top: 1%; margin-bottom: 1%">
-		<span class="i18n" tkey="COMPARISON OF COMBINATIONS" style="padding-top:5px;">COMPARISON OF COMBINATIONS</span>
-		<select id="comparison-capacity-select" style="margin-left:2%;" onchange="suitTable.changeGeneralCapacity(this);">
-		  <option value="4" selected>4</option>
-		  <option value="5">5</option>
-		  <option value="6">6</option>
-		  <option value="7">7</option>
-		  <option value="8">8</option>
-		  <option value="9">9</option>
-		  <option value="10">10</option>
-		  <option value="11">11</option>
-		  <option value="12">12</option>
-		  <option value="13">13</option>
-		  <option value="14">14</option>
-		  <option value="15">15</option>
-		</select>  
-	</div>
-	<div class="container comparison-component" style="display:none;">
-    	<div id="comparison-table" class="buff-table">
-		 <table>
-		  <tr id="ct-delete-row">
-			<th colspan="2"></th><!-- fixed -->
-			<!-- ->
-			<th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
-			<th class="ctentry ctentry-1"><image src="./assets/delete.png" style="width:24px"></th>
-			<th class="ctentry ctentry-2"><image src="./assets/delete.png" style="width:24px"></th>
-			<th class="ctentry ctentry-3"><image src="./assets/delete.png" style="width:24px"></th>
-			<!- -->
-		  </tr>
-		  <tr id="ct-equipment-weapon-row" >
-			<th colspan="2" class="i18n" tkey="Weapon">Weapon</th><!-- fixed -->
-			<!--
-			<th class="ctentry ctentry-0">Achae.</th>
-			<th class="ctentry ctentry-1">Ares</th>
-			<th class="ctentry ctentry-2">Achae.</th>
-			<th class="ctentry ctentry-3">Plant.</th>
-			-->
-		  </tr>
-		  <tr id="ct-equipment-armor-row" class="grey">
-			<th colspan="2" class="i18n" tkey="Armor">Armor</th><!-- fixed -->
-		  </tr>
-		  <tr id="ct-equipment-boots-row">
-			<th colspan="2" class="i18n" tkey="Boots">Boots</th><!-- fixed -->
-		  </tr>
-		  <tr id="ct-equipment-helmet-row" class="grey">
-			<th colspan="2" class="i18n" tkey="Helmet">Helmet</th><!-- fixed -->
-		  </tr>
-		  <tr id="ct-equipment-legarmor-row">
-			<th colspan="2" class="i18n" tkey="Leg Armor">Leg Armor</th><!-- fixed -->
-		  </tr>
-		  <tr id="ct-equipment-ring-row" class="grey">
-			<th colspan="2" class="i18n" tkey="Ring">Ring</th><!-- fixed -->
-		  </tr>
-		  
-		  <tr id="ct-buff-groundAttack-row"> 
-			<td rowspan="3" class="i18n" tkey="Ground">Ground</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-buff-groundDefense-row"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-buff-groundHp-row"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  		  
-		  <tr id="ct-buff-mountedAttack-row" class="grey"> 
-	        <td rowspan="3" class="i18n" tkey="Mounted">Mounted</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-buff-mountedDefense-row" class="grey"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-buff-mountedHp-row" class="grey"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  
-		  <tr id="ct-buff-rangedAttack-row"> 
-	        <td rowspan="3" class="i18n" tkey="Ranged">Ranged</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-buff-rangedDefense-row"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-buff-rangedHp-row"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  	  
-		  <tr id="ct-buff-siegeAttack-row" class="grey"> 
-	        <td rowspan="3" class="i18n" tkey="Siege">Siege</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-buff-siegeDefense-row" class="grey"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-buff-siegeHp-row" class="grey"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	
-		  
-		  <tr id="ct-debuff-groundAttack-row"> 
-			<td rowspan="3" class="i18n" tkey="Enemy Ground">Enemy<br>Ground</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-debuff-groundDefense-row"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-debuff-groundHp-row"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		   
-		  <tr id="ct-debuff-mountedAttack-row" class="grey"> 
-	        <td rowspan="3" class="i18n" tkey="Enemy Mounted">Enemy<br>Mounted</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-debuff-mountedDefense-row" class="grey"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-debuff-mountedHp-row" class="grey"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  
-		  <tr id="ct-debuff-rangedAttack-row"> 
-	        <td rowspan="3" class="i18n" tkey="Enemy Ranged">Enemy<br>Ranged</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-debuff-rangedDefense-row"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-debuff-rangedHp-row"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  
-		  <tr id="ct-debuff-siegeAttack-row" class="grey"> 
-	        <td rowspan="3" class="i18n" tkey="Enemy Siege">Enemy<br>Siege</td><!-- fixed -->
-			<td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>
-		  <tr id="ct-debuff-siegeDefense-row" class="grey"> 
-			<td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>	 
-		  <tr id="ct-debuff-siegeHp-row" class="grey"> 
-			<td class="i18n" tkey="HP">HP</td><!-- fixed -->
-			<!-- Add here -->
-		  </tr>			  
-		 </table>    
-		</div>
-	</div>
-	
-	<!-- 99. Credits -->
-	<div class="container footer">
-	    <span style="width:48%; font-size: 14px; display:float; text-align: right;">Norview (ID: 135198770) @ S803</span>
-		<!-- SVG data from the footer of github.com -->
+    <!-- 9? Comparisons -->
+    <div class="container stats-title comparison-component" style="display:none; margin-top: 1%; margin-bottom: 1%">
+        <span class="i18n" tkey="COMPARISON OF COMBINATIONS" style="padding-top:5px;">COMPARISON OF COMBINATIONS</span>
+        <select id="comparison-capacity-select" style="margin-left:2%;" onchange="suitTable.changeGeneralCapacity(this);">
+          <option value="4" selected>4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="15">15</option>
+        </select>  
+    </div>
+    <div class="container comparison-component" style="display:none;">
+        <div id="comparison-table" class="buff-table">
+         <table>
+          <tr id="ct-delete-row">
+            <th colspan="2"></th><!-- fixed -->
+            <!-- ->
+            <th class="ctentry ctentry-0"><image src="./assets/delete.png" style="width:24px"></th>
+            <th class="ctentry ctentry-1"><image src="./assets/delete.png" style="width:24px"></th>
+            <th class="ctentry ctentry-2"><image src="./assets/delete.png" style="width:24px"></th>
+            <th class="ctentry ctentry-3"><image src="./assets/delete.png" style="width:24px"></th>
+            <!- -->
+          </tr>
+          <tr id="ct-equipment-weapon-row" >
+            <th colspan="2" class="i18n" tkey="Weapon">Weapon</th><!-- fixed -->
+            <!--
+            <th class="ctentry ctentry-0">Achae.</th>
+            <th class="ctentry ctentry-1">Ares</th>
+            <th class="ctentry ctentry-2">Achae.</th>
+            <th class="ctentry ctentry-3">Plant.</th>
+            -->
+          </tr>
+          <tr id="ct-equipment-armor-row" class="grey">
+            <th colspan="2" class="i18n" tkey="Armor">Armor</th><!-- fixed -->
+          </tr>
+          <tr id="ct-equipment-boots-row">
+            <th colspan="2" class="i18n" tkey="Boots">Boots</th><!-- fixed -->
+          </tr>
+          <tr id="ct-equipment-helmet-row" class="grey">
+            <th colspan="2" class="i18n" tkey="Helmet">Helmet</th><!-- fixed -->
+          </tr>
+          <tr id="ct-equipment-legarmor-row">
+            <th colspan="2" class="i18n" tkey="Leg Armor">Leg Armor</th><!-- fixed -->
+          </tr>
+          <tr id="ct-equipment-ring-row" class="grey">
+            <th colspan="2" class="i18n" tkey="Ring">Ring</th><!-- fixed -->
+          </tr>
+          
+          <tr id="ct-buff-groundAttack-row"> 
+            <td rowspan="3" class="i18n" tkey="Ground">Ground</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-buff-groundDefense-row"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-buff-groundHp-row"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+                    
+          <tr id="ct-buff-mountedAttack-row" class="grey"> 
+            <td rowspan="3" class="i18n" tkey="Mounted">Mounted</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-buff-mountedDefense-row" class="grey"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-buff-mountedHp-row" class="grey"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          
+          <tr id="ct-buff-rangedAttack-row"> 
+            <td rowspan="3" class="i18n" tkey="Ranged">Ranged</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-buff-rangedDefense-row"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-buff-rangedHp-row"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+                
+          <tr id="ct-buff-siegeAttack-row" class="grey"> 
+            <td rowspan="3" class="i18n" tkey="Siege">Siege</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-buff-siegeDefense-row" class="grey"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-buff-siegeHp-row" class="grey"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>    
+          
+          <tr id="ct-debuff-groundAttack-row"> 
+            <td rowspan="3" class="i18n" tkey="Enemy Ground">Enemy<br>Ground</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-debuff-groundDefense-row"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-debuff-groundHp-row"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+           
+          <tr id="ct-debuff-mountedAttack-row" class="grey"> 
+            <td rowspan="3" class="i18n" tkey="Enemy Mounted">Enemy<br>Mounted</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-debuff-mountedDefense-row" class="grey"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-debuff-mountedHp-row" class="grey"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          
+          <tr id="ct-debuff-rangedAttack-row"> 
+            <td rowspan="3" class="i18n" tkey="Enemy Ranged">Enemy<br>Ranged</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-debuff-rangedDefense-row"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-debuff-rangedHp-row"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          
+          <tr id="ct-debuff-siegeAttack-row" class="grey"> 
+            <td rowspan="3" class="i18n" tkey="Enemy Siege">Enemy<br>Siege</td><!-- fixed -->
+            <td class="i18n" tkey="Att.">Att.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>
+          <tr id="ct-debuff-siegeDefense-row" class="grey"> 
+            <td class="i18n" tkey="Def.">Def.</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>     
+          <tr id="ct-debuff-siegeHp-row" class="grey"> 
+            <td class="i18n" tkey="HP">HP</td><!-- fixed -->
+            <!-- Add here -->
+          </tr>              
+         </table>    
+        </div>
+    </div>
+    
+    <!-- 99. Credits -->
+    <div class="container footer">
+        <span style="width:48%; font-size: 14px; display:float; text-align: right;">Norview (ID: 135198770) @ S803</span>
+        <!-- SVG data from the footer of github.com -->
         <a style="width:4%; display: flex; justify-content: center;" href="https://github.com/Norview/EvonyCompanion">
           <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24"> 
              <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
