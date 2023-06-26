@@ -4790,6 +4790,438 @@
                   "rate": 1
               }
           ]
+       },
+       
+       {
+          "name": "Aztec Obsidian Sword",
+          "set": "Aztec",
+          "type": "weapon",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 45,
+                  "rate": 3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Aztec Armor",
+          "set": "Aztec",
+          "type": "armor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Aztec Boots",
+          "set": "Aztec",
+          "type": "boots",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -20,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Aztec Helmet",
+          "set": "Aztec",
+          "type": "helmet",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground", "mounted"],
+                  "type": "defense",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -20,
+                  "rate": -3
+              },
+              {
+                  "condition": ["attacking"],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Aztec Leg Armor",
+          "set": "Aztec",
+          "type": "legarmor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 30,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted", "ground"],
+                  "type": "defense",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -25,
+                  "rate": -3
+              },
+              {
+                  "condition": ["marching"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              }
+          ]
+       },
+       {
+          "name": "Aztec Round Shield",
+          "set": "Aztec",
+          "type": "ring",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
+       },
+       
+       {
+          "name": "Sasanian Bident",
+          "set": "Sasanian",
+          "type": "weapon",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 30,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 25,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Sasanian Armor",
+          "set": "Sasanian",
+          "type": "armor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Sasanian Boots",
+          "set": "Sasanian",
+          "type": "boots",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": 10,
+                  "rate": 3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Sasanian Helmet",
+          "set": "Sasanian",
+          "type": "helmet",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": -15,
+                  "rate": -3
+              }
+          ]
+       },
+       {
+          "name": "Sasanian Leg Armor",
+          "set": "Sasanian",
+          "type": "legarmor",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "hp",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": -15,
+                  "rate": -3
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": -10,
+                  "rate": -2
+              }
+          ]
+       },
+       {
+          "name": "Sasanian Bracers",
+          "set": "Sasanian",
+          "type": "ring",
+          "condition": "Civilization",
+          "cost": "Civilization",
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged", "siege"],
+                  "type": "attack",
+                  "value": 20,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": 15,
+                  "rate": 2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": -10,
+                  "rate": -2
+              },
+              {
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 10,
+                  "rate": 1
+              }
+          ]
        }
   ],
   "sets": [
@@ -5323,7 +5755,88 @@
                   "value": 20
               }
         ]
-    }   
-
+    },
+    {
+        "name": "Aztec",
+        "order": 63,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground","mounted","ranged","siege"],
+                  "type": "hp",
+                  "value": 15
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 20
+              }
+        ]
+    },
+    {
+        "name": "Sasanian",
+        "order": 64,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ranged","siege"],
+                  "type": "defense",
+                  "value": 15
+              },
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ranged","siege"],
+                  "type": "hp",
+                  "value": 15
+              },
+              {
+                  "pieces": 4,
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 20
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ranged","siege"],
+                  "type": "attack",
+                  "value": 12
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ranged","siege"],
+                  "type": "defense",
+                  "value": 12
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ranged","siege"],
+                  "type": "hp",
+                  "value": 12
+              }
+        ]
+    }
   ]
 }

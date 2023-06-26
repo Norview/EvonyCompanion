@@ -39,7 +39,7 @@
            <img class="general-image" src="./assets/general.png">
            <!-- animal/dragon -->
            <form class="btn" id="selector-animal" style="border-color: white; top:10%; left:32%; padding: 3px 3px 3px 3px">  
-             <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon">Dragon&nbsp;&nbsp;</label>
+             <label style="width: 50%; user-select: none;" class="i18n" tkey="Dragon (Pet)">Dragon</label>
              <input type="checkbox" id="animal-checkbox">&nbsp;</input> <!-- name="Animal" value="Animal" -->
            </form>
            <!-- languages -->
@@ -206,11 +206,15 @@
             </div>
            </form>
            <form id="add-to-comparison-form"> 
-             <button type="button" disabled="true" style="top:62%; left:66%;">
+             <!-- feature: limit usage of civ equipment to once -->
+             <!--
+             <img display="none" id="lock" src="./assets/unlock.png">  
+             -->
+             <button type="button" disabled="true" style="">
                  <img src="../assets/add_disabled.png"/>
                  <span class="i18n" tkey="Compare">Compare</span>
-             </button>   
-           </form>            
+             </button> 
+           </form>
            </img>
         </div>
     </div>

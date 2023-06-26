@@ -90,12 +90,21 @@
 	padding: 1% 1% 1% 1%;	
 }
 
-#add-to-comparison-form button {
+#add-to-comparison-form {
+  width: 15%;
   position: absolute;
+  display: flex; 
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#add-to-comparison-form button {
   margin:0px;
   padding:3px 3px 0px 2px;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  // transform: translate(-50%, -50%);
+  // -ms-transform: translate(-50%, -50%);
   font-size: 16px;
   border-radius: 8px;
   color: white;
@@ -111,12 +120,19 @@
   display:inline-block;
 }
 
+#add-to-comparison-form #lock {
+	width: 32px;
+}
+	
 @media(max-width: 1024px){
 	#add-to-comparison-form button  {
 		font-size: 28px;
 	}
 	#add-to-comparison-form span {
-	  margin-top: -18px;
+		margin-top: -18px;
+	}
+	#add-to-comparison-form #lock {
+		width: 64px;
 	}
 }
 

@@ -12,6 +12,39 @@ function SuitTable() {
     
     // For back-referencing from callbacks and internal classes.
     var _stable = this;
+    
+    // The "Lock" button
+    
+    var lockMode = false;
+    
+    // TODO (5) - call this from the button's handler
+    this.toggleLock = function() {
+        if (!lockMode) {
+            // Unlock
+            lockMode = false;
+            
+            // TODO (1) -
+            
+            // Change pic
+            
+            // Mark all options as enabled   
+                
+            // Refresh the availability of compare button     
+        } else {
+            // Lock
+            lockMode = true;
+            
+            // TODO (2) -
+                    
+            // Change pic
+        
+            // Get all civ eqs from the table
+        
+            // Mark them as disabled
+        
+            // Refresh the availability of compare button
+        }
+    }
 
     // The "Compare" button
 
@@ -41,6 +74,7 @@ function SuitTable() {
     // Enable "Compare" button if 
     // (1) we have at least one piece of equipment.
     // (2) the combination is not found in the set.
+    // (3) TODO (3) - in lock mode, if none of the selected civ eq already appears in the table.
     // Otherwise, disable it instead.
     this.tryEnableCompareButton = function(general){
         var equipped = false;
@@ -77,6 +111,8 @@ function SuitTable() {
         var succ = generalSet.add(generalRep);
     
         if (succ) {
+            // TODO (4) - if in lock mode, disable all the selected options
+        
             if (ctable == null) {
                 // Initialize the table
                 ctable = new ComparisonTable();

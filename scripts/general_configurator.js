@@ -375,7 +375,7 @@ function initialize() {
                 break;
             case "compare":
                 top = topLeftY + height * (isStretched ? 0.97 : 0.81);
-                left = topLeftX + width * (rightBase + (isStretched ? 0.125 : 0.035));
+                left = topLeftX + width * (rightBase + (isStretched ? -0.1 : -0.15));
                 break;
             }
     
@@ -740,7 +740,7 @@ function initialize() {
     
             // Reposition the "Compare" button
             if (type === "ring") {
-                var compBtn = findCompareButton();
+                var compBtn = findCompareControl();
                 setLocation(compBtn, "compare", picLoc);
             }
     
@@ -1412,6 +1412,10 @@ function copyLink(event){
 }
   
 // UI component finders
+
+function findCompareControl(){
+    return $("#add-to-comparison-form");
+}
 
 function findCompareButton(){
     return $("#add-to-comparison-form button");

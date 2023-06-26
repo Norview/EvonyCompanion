@@ -2,7 +2,7 @@
 "translation": {
   "Language": "Sprache",
   
-  "Dragon": "Drache",
+  "Dragon (Pet)": "Drache",
   "Weapon": "Waffe",
   "Armor" : "Rüstung",
   "Boots" : "Stiefel",
@@ -462,7 +462,45 @@
   "Thebes Leg Armor (table)" : "Thebes",
   "Thebes Bracers" : "Thebes Bracers",
   "Thebes Bracers (dropdown)" : "Thebes",
-  "Thebes Bracers (table)" : "Thebes"，
+  "Thebes Bracers (table)" : "Thebes",
+  
+  "Aztec Obsidian Sword" : "Aztec Obsidian Sword",
+  "Aztec Obsidian Sword (dropdown)" : "Aztec",
+  "Aztec Obsidian Sword (table)" : "Aztec", 
+  "Aztec Armor" : "Aztec Armor",
+  "Aztec Armor (dropdown)" : "Aztec",
+  "Aztec Armor (table)" : "Aztec",
+  "Aztec Boots" : "Aztec Boots",
+  "Aztec Boots (dropdown)" : "Aztec",
+  "Aztec Boots (table)" : "Aztec",
+  "Aztec Helmet" : "Aztec Helmet",
+  "Aztec Helmet (dropdown)" : "Aztec",
+  "Aztec Helmet (table)" : "Aztec", 
+  "Aztec Leg Armor" : "Aztec Leg Armor",
+  "Aztec Leg Armor (dropdown)" : "Aztec",
+  "Aztec Leg Armor (table)" : "Aztec",
+  "Aztec Round Shield" : "Aztec Round Shield",
+  "Aztec Round Shield (dropdown)" : "Aztec",
+  "Aztec Round Shield (table)" : "Aztec",
+  
+  "Sasanian Bident" : "Sasanian Bident",
+  "Sasanian Bident (dropdown)" : "Sasanian",
+  "Sasanian Bident (table)" : "Sasanian", 
+  "Sasanian Armor" : "Sasanian Armor",
+  "Sasanian Armor (dropdown)" : "Sasanian",
+  "Sasanian Armor (table)" : "Sasanian",
+  "Sasanian Boots" : "Sasanian Boots",
+  "Sasanian Boots (dropdown)" : "Sasanian",
+  "Sasanian Boots (table)" : "Sasanian",
+  "Sasanian Helmet" : "Sasanian Helmet",
+  "Sasanian Helmet (dropdown)" : "Sasanian",
+  "Sasanian Helmet (table)" : "Sasanian", 
+  "Sasanian Leg Armor" : "Sasanian Leg Armor",
+  "Sasanian Leg Armor (dropdown)" : "Sasanian",
+  "Sasanian Leg Armor (table)" : "Sasanian",
+  "Sasanian Bracers" : "Sasanian Bracers",
+  "Sasanian Bracers (dropdown)" : "Sasanian",
+  "Sasanian Bracers (table)" : "Sasanian",
   
   "King" : "King",
   "Dragon" : "Dragon",
@@ -479,6 +517,7 @@
   "Augustus" : "Augustus",
   "Antonine" : "Antonine",
   "Heian" : "Heian",
-  "Thebes" : "Thebes"
-
+  "Thebes" : "Thebes",
+  "Aztec" : "Aztec",
+  "Sasanian" : "Sasanian"
 }}

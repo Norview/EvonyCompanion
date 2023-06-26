@@ -1,8 +1,8 @@
-{ 
-"dropdownOffsets": [0,0,0,0,0,0],
+{
 "translation": {
   "Language": "",
-  "Dragon": "",
+
+  "Dragon (Pet)": "",
   "Weapon": "",
   "Armor" : "",
   "Boots" : "",
@@ -476,5 +476,45 @@
   "Thebes Leg Armor (table)" : "",
   "Thebes Bracers" : "",
   "Thebes Bracers (dropdown)" : "",
-  "Thebes Bracers (table)" : ""
+  "Thebes Bracers (table)" : "",
+  
+  "Aztec" : "",
+  "Aztec Obsidian Sword" : "",
+  "Aztec Obsidian Sword (dropdown)" : "",
+  "Aztec Obsidian Sword (table)" : "", 
+  "Aztec Armor" : "",
+  "Aztec Armor (dropdown)" : "",
+  "Aztec Armor (table)" : "",
+  "Aztec Boots" : "",
+  "Aztec Boots (dropdown)" : "",
+  "Aztec Boots (table)" : "",
+  "Aztec Helmet" : "",
+  "Aztec Helmet (dropdown)" : "",
+  "Aztec Helmet (table)" : "", 
+  "Aztec Leg Armor" : "",
+  "Aztec Leg Armor (dropdown)" : "",
+  "Aztec Leg Armor (table)" : "",
+  "Aztec Round Shield" : "",
+  "Aztec Round Shield (dropdown)" : "",
+  "Aztec Round Shield (table)" : "",
+ 
+  "Sasanian" : "", 
+  "Sasanian Bident" : "",
+  "Sasanian Bident (dropdown)" : "",
+  "Sasanian Bident (table)" : "", 
+  "Sasanian Armor" : "",
+  "Sasanian Armor (dropdown)" : "",
+  "Sasanian Armor (table)" : "",
+  "Sasanian Boots" : "",
+  "Sasanian Boots (dropdown)" : "",
+  "Sasanian Boots (table)" : "",
+  "Sasanian Helmet" : "",
+  "Sasanian Helmet (dropdown)" : "",
+  "Sasanian Helmet (table)" : "", 
+  "Sasanian Leg Armor" : "",
+  "Sasanian Leg Armor (dropdown)" : "",
+  "Sasanian Leg Armor (table)" : "",
+  "Sasanian Bracers" : "",
+  "Sasanian Bracers (dropdown)" : "",
+  "Sasanian Bracers (table)" : ""
 }}
