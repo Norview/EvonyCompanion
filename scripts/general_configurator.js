@@ -374,8 +374,8 @@ function initialize() {
                 left = topLeftX + width * rightBase;
                 break;
             case "compare":
-                top = topLeftY + height * (isStretched ? 0.97 : 0.81);
-                left = topLeftX + width * (rightBase + (isStretched ? -0.1 : -0.15));
+                top = topLeftY + height * (isStretched ? 0.93 : 0.81);
+                left = topLeftX + width * (rightBase + (isStretched ? 0.05 : -0.15));
                 break;
             }
     
