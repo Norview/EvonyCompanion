@@ -36,7 +36,7 @@ var translator = new Translator();
 var general = new General();
 
 // The generals in comparison
-var suitTable = new SuitTable(); // The table to store each configured suit.
+var suitTable;
 
 // Equipment inventory
 var inventory;
@@ -1087,7 +1087,24 @@ function initialize() {
                 }
             }
         );
-    
+
+        // Initialize the suit table
+        suitTable = new SuitTable(function(gen){ // restoreGenFunc
+            // (1) Restore pieces from the given general
+            var eqs = gen.getEquipments();
+            for (let i = 0; i < eqs.length; i++) {
+                let eq = eqs[i];
+                if (!!eq) {
+                    selectEquipmentFromDropDownMenu(eq.type, eq.name);
+                } else {
+                    selectEquipmentFromDropDownMenu(_fromEquipmentIndex(i), null);
+                }
+            }
+            
+            // (2) Disable the compare button
+            suitTable.configureCompareButton();
+        });
+        
         var result = loadUI(null);
         if (!result) {
             panic("");

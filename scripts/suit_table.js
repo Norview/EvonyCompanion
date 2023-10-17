@@ -2,7 +2,9 @@
 //
 // A table for suit comparison
 
-function SuitTable() {
+function SuitTable(/*function:*/restoreGenFunc) {
+    // The behavior of restoreGenFunc is implemented outside; here it's only 
+    // guaranteed that the function is called when "Restore" button is clicked.
 
     // The data store
     var generalSet = new GeneralSet(4);
@@ -115,7 +117,7 @@ function SuitTable() {
         
             if (ctable == null) {
                 // Initialize the table
-                ctable = new ComparisonTable();
+                ctable = new ComparisonTable(restoreGenFunc);
             }
         
             var battleType = getBattleType();
@@ -189,8 +191,7 @@ function SuitTable() {
         }
     }
 
-    function ComparisonTable(){
-
+    function ComparisonTable(restoreGenFunc){
         const c_comparison_table = "#comparison-table";
         const c_comparison_table_delete_row = "#ct-delete-row";
 
@@ -205,6 +206,7 @@ function SuitTable() {
 
         // Locate all the display rows and cache them.
         //   - 1 delete button
+        //   - 1 restore button
         //   - 6 equipments
         //   - 12 buff values
         //   - 12 debuff values
@@ -219,6 +221,7 @@ function SuitTable() {
             var buffs = [];
             var debuffs = [];
             var deleteRow = null;
+            var restoreRow = null;
             var rows = $(c_comparison_table + " tr");
             if (!!rows){
                 rows.each(function(){
@@ -233,6 +236,8 @@ function SuitTable() {
                             debuffs.push(child);
                         } else if (id === "ct-delete-row") {
                             deleteRow = child;
+                        } else if (id === "ct-restore-row") {
+                            restoreRow = child;
                         }
                     }
                 });
@@ -250,12 +255,16 @@ function SuitTable() {
             if (!deleteRow) {
                 console.warn("Couldn't locate the delete row in the comparison table.");
             }
+            if (!restoreRow) {
+                console.warn("Couldn't locate the restore row in the comparison table.");
+            }
     
             return {
                 equipments : equipments,
                 buffs : buffs,
                 debuffs : debuffs,
-                deleteRow : deleteRow
+                deleteRow : deleteRow,
+                restoreRow : restoreRow
             };
         }
     
@@ -344,6 +353,7 @@ function SuitTable() {
         this._buffs = obj.buffs;
         this._debuffs = obj.debuffs;
         this._deleteRow = obj.deleteRow;
+        this._restoreRow = obj.restoreRow;
         this._index = -1;
     
         this.updateAll = function(scenario) {
@@ -371,7 +381,11 @@ function SuitTable() {
     
         this.clearAll = function() {
             if (!!this._deleteRow){
-                 var entries = this._deleteRow.find(entry_class);
+                var entries = this._deleteRow.find(entry_class);
+                entries.remove();
+            }
+            if (!!this._restoreRow){
+                var entries = this._restoreRow.find(entry_class);
                 entries.remove();
             }
             for (var row of this._equipments) {
@@ -418,8 +432,23 @@ function SuitTable() {
                 // Attach the metadata
                 btn.data(c_data_general_obj, general);
             }
+            
+            // 2. Add restore button
+            if (!!this._restoreRow) {
+                // Example:
+                // <th class="ctentry ctentry-0"><image src="./assets/restore.png" style="width:24px"></th> <!-- provided by: https://icons8.com -->
+                var btn = $("<th class=\"ctentry ctentry-" + index + "\"><image src=\"./assets/restore.png\" style=\"width:24px\"></th>");
+                this._restoreRow.append(btn);
+             
+                // Add handler
+                btn.click(function(){
+                    if (!!restoreGenFunc && typeof restoreGenFunc === "function") {
+                        restoreGenFunc(general);
+                    }
+                });
+            }
         
-            // 2. Add equipment names
+            // 3. Add equipment names
             var eqs = general.getEquipments();
             for (var i = 0; i < 6; i++) {
                 // Example:
@@ -433,7 +462,7 @@ function SuitTable() {
                 }
             }
         
-            // 3. Add buffs
+            // 4. Add buffs and debuffs
             var buffs = general.getBuffs(scenario, c_starring_max).buffs;
             addBuffs(this._buffs, true, buffs, index);
         
