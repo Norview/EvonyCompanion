@@ -1089,21 +1089,26 @@ function initialize() {
         );
 
         // Initialize the suit table
-        suitTable = new SuitTable(function(gen){ // restoreGenFunc
-            // (1) Restore pieces from the given general
-            var eqs = gen.getEquipments();
-            for (let i = 0; i < eqs.length; i++) {
-                let eq = eqs[i];
-                if (!!eq) {
-                    selectEquipmentFromDropDownMenu(eq.type, eq.name);
-                } else {
-                    selectEquipmentFromDropDownMenu(_fromEquipmentIndex(i), null);
+        suitTable = new SuitTable(
+            // restoreGenFunc: to be called when the restore button is clicked.
+            function(gen){
+                // (1) Restore pieces from the given general
+                var eqs = gen.getEquipments();
+                for (let i = 0; i < eqs.length; i++) {
+                    let eq = eqs[i];
+                    if (!!eq) {
+                        selectEquipmentFromDropDownMenu(eq.type, eq.name);
+                    } else {
+                        selectEquipmentFromDropDownMenu(_fromEquipmentIndex(i), null);
+                    }
                 }
-            }
             
-            // (2) Disable the compare button
-            suitTable.configureCompareButton();
-        });
+                // (2) Disable the compare button
+                suitTable.configureCompareButton();
+            
+                // (3) Scroll up
+                $("html, body").animate({ scrollTop: 0 }, "fast");
+            });
         
         var result = loadUI(null);
         if (!result) {

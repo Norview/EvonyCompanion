@@ -6,6 +6,9 @@ function SuitTable(/*function:*/restoreGenFunc) {
     // The behavior of restoreGenFunc is implemented outside; here it's only 
     // guaranteed that the function is called when "Restore" button is clicked.
 
+    // UI component id
+    const c_comparison_table = "#comparison-table";
+        
     // The data store
     var generalSet = new GeneralSet(4);
 
@@ -143,6 +146,9 @@ function SuitTable(/*function:*/restoreGenFunc) {
                 var view = $(".comparison-component");
                 view.css("display", "");
             }
+            
+            // Scroll down to the table
+            $(c_comparison_table)[0].scrollIntoView({ behavior: 'smooth' });
         }
     }
 
@@ -192,7 +198,6 @@ function SuitTable(/*function:*/restoreGenFunc) {
     }
 
     function ComparisonTable(restoreGenFunc){
-        const c_comparison_table = "#comparison-table";
         const c_comparison_table_delete_row = "#ct-delete-row";
 
         const entry_class = ".ctentry";
