@@ -574,19 +574,19 @@ function initialize() {
                             continue;
                         }
             
-                        // Gather the buff value;
-                        for (troop of attr.troop) {
+                        // Gather the buff value
+                        for (let troop of attr.troop) {
                             let tindex = _toIndex(troop);
                             if (troop === "siege") {
                                 buffs[tindex] += val * (isRangeBonus ? 3 : 1); // Siege range is highly valued.
                             } else {
                                 buffs[tindex] += val;
                             }
-                        }
                 
-                        if (!isRangeBonus) {
-                            let attrTypInd = _toIndex(atype);
-                            perTypes[troop]["buff"][attrTypInd] += val;
+                            if (!isRangeBonus) {
+                                let attrTypInd = _toIndex(atype);
+                                perTypes[troop]["buff"][attrTypInd] += val;
+                            }
                         }
                     }
         
