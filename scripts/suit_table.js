@@ -299,19 +299,28 @@ function SuitTable(/*function:*/restoreGenFunc) {
         }
     
         // Populate the column for (de)buff properties
-        function addBuffs(buffRows, isBuff, buffs, index){
+        function addBuffs(buffRows, isBuff, buffs, index, refineBuffs){
             for (var buffRow of buffRows) {
                 var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
-            
-                var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
+                var btype = buffVal.type;
+                
+                // Style
+                var isGrey = btype.startsWith("mounted") || btype.startsWith("siege");
                 var bgColor = isGrey ? "grey " : "";
+                
+                // Value, merged with refines
                 var value = buffVal.value;
+                if (isBuff) {
+                    // Add the extra buffs from refines
+                    value += (refineBuffs[btype] || 0);
+                }
                 var valStr = value + "%";
+                
                 // Example:
                 // <td class="ctentry ctentry-0">15%</td>
                 var td = $("<td class=\"" + bgColor + "ctentry ctentry-" + index + "\">" + valStr + "</td>");
 
-                 var deco = getBuffDeco(function(){
+                var deco = getBuffDeco(function(){
                     return isGrey;
                 }, value);
     
@@ -319,7 +328,7 @@ function SuitTable(/*function:*/restoreGenFunc) {
                 if (!!deco.isMax) {
                     td.css("fontWeight");
                 }
-            
+
                 buffRow.append(td);
             }
         }
@@ -476,13 +485,15 @@ function SuitTable(/*function:*/restoreGenFunc) {
                     row.append(th);
                 }
             }
-        
+            
             // 4. Add buffs and debuffs
+            var refineBuffs = refiner.getBuffs(general);
+            
             var buffs = general.getBuffs(scenario, c_starring_max).buffs;
-            addBuffs(this._buffs, true, buffs, index);
+            addBuffs(this._buffs, true, buffs, index, refineBuffs);
         
             var debuffs = general.getDebuffs(c_starring_max).buffs;
-            addBuffs(this._debuffs, false, debuffs, index);
+            addBuffs(this._debuffs, false, debuffs, index, []);
         };
     }
 }
