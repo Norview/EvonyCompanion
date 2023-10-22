@@ -324,7 +324,7 @@ function SuitTable(/*function:*/restoreGenFunc) {
             }
         }
     
-        function updateBuffs(buffRows, columns, isBuff) {
+        function updateBuffs(buffRows, columns, isBuff) {        
             var propName = isBuff ? "buffs" : "debuffs";
             // Update per row
             for (var buffRow of buffRows) {
@@ -333,13 +333,21 @@ function SuitTable(/*function:*/restoreGenFunc) {
                     var td = $(this);
                     var column = columns[_index];
                 
-                    // Update the value
+                    // Get the base buff
                     var buffs = column[propName];
                     var buffVal = getBuffInfoForRow(buffRow, buffs, isBuff);
                     var value = buffVal.value;
+                    
+                    var btype = buffVal.type;
+                    if (isBuff) {
+                        // Add the extra buffs from refines
+                        var refineBuffs = column["refines"];
+                        value += (refineBuffs[btype] || 0);
+                    }
+                    
                     td.text(value + "%");
                 
-                    var isGrey = buffVal.type.startsWith("mounted") || buffVal.type.startsWith("siege");
+                    var isGrey = btype.startsWith("mounted") || btype.startsWith("siege");
                     var deco = getBuffDeco(function(){
                         return isGrey;
                     }, value);
@@ -371,11 +379,13 @@ function SuitTable(/*function:*/restoreGenFunc) {
             delHeaders.each(function(){
                 var header = $(this);
                 var general = header.data(c_data_general_obj);
-            
+
+                var refineBuffs = refiner.getBuffs(general);
+
                 columns.push({
-                    // index: index,
                     buffs: general.getBuffs(scenario, c_starring_max).buffs,
-                    debuffs: general.getDebuffs(c_starring_max).buffs
+                    debuffs: general.getDebuffs(c_starring_max).buffs,
+                    refines: refineBuffs
                 });
             });
         

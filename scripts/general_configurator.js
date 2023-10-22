@@ -1058,7 +1058,12 @@ function initialize() {
         console.log("Data loaded.");
         
         // Initialize refine estimator
-        refiner = new RefineEstimator(updateStats);
+        refiner = new RefineEstimator(
+            function() { // onChange
+                // New refine value selected, update stats
+                updateStats();
+                suitTable.updateGenerals();
+            });
         
         // Inventory configuration
         inventory = new EquipmentInventory(

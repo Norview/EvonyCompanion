@@ -127,20 +127,6 @@ RefineEstimator.prototype.getBuffs = function(general){
 			btype = "Defense";
 		}
 	
-	/*
-		var val = equipment.set.order;
-		var max = 0;
-		if (val == 26) {
-			max = 15;
-		} else if (val == 27) {
-			max = 20;
-		} else if (val > 27 && val <= 33) {
-			max = 25;
-		} else if (val >= 50) {
-			max = 30;
-		}
-	*/
-	
 		var ttype = this.getTroopType();
 		var troopBuffType = ttype + btype;
 		
@@ -162,7 +148,7 @@ RefineEstimator.getRefinePercentage = function(equipment, percentage) {
 		max = 15;
 	} else if (val == 27) {
 		max = 20;
-	} else if (val > 27 && val <= 33) {
+	} else if (val > 27 && val <= 49) {
 		max = 25;
 	} else if (val >= 50) {
 		max = 30;
