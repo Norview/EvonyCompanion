@@ -12,7 +12,7 @@ function GeneralSerializer(equipments, sets){
 	// UnencodedString ::= {SetOrder}(/{SetOrder}){5};{WeaponName}(/{EquipmentSubTypeChar}){5}
 	// SetOrder ::= <unsigned integer: set's order as defined in equipments.json>
 	// WeaponName ::= <string: full weapon name> | ''
-	// EquipmentSubTypeChar ::= 'c'|'f'|''
+	// EquipmentSubTypeChar ::= 'c'|'f'|'d'|'m'|''
 	//
 	// If it is a civilization set, WeaponName and EquipmentSubTypeChar are all empty, since there is only one piece at each part.
 	//
@@ -45,8 +45,12 @@ function GeneralSerializer(equipments, sets){
     					name = name.toLowerCase();
     					if (name.indexOf("fearless") >= 0){
     						typ = "f";
-    					} else {
+    					} else if (name.indexOf("courageous") >= 0) {
     						typ = "c";
+    					} else if (name.indexOf("majestic") >= 0) {
+    						typ = "m";
+    					} else { // if (name.indexOf("dominant") >= 0)
+    						typ = "d";
     					}
     				}
     			}
@@ -93,11 +97,16 @@ function GeneralSerializer(equipments, sets){
     					for (let pc of pieces) {
     						if (pc.type == eqPartName) {
 								let name = pc.name.toLowerCase();
-								// There are only two pieces for each part: fearless and courageous
 								if (name.indexOf("fearless") >= 0 && eqTyp === "f") {
 									selectedEq = pc;
 									break;
-								} else if (eqTyp === "c") {
+								} else if (name.indexOf("courageous") >= 0 && eqTyp === "c") {
+									selectedEq = pc;
+									break;
+								} else if (name.indexOf("majestic") >= 0 && eqTyp === "m") {
+									selectedEq = pc;
+									break;
+								} else if (eqTyp === "d") { // name.indexOf("dominant") >= 0 && 
 									selectedEq = pc;
 									break;
 								}
@@ -135,7 +144,7 @@ function GeneralSerializer(equipments, sets){
 	
 	var that = this;
 		
-	const c_maxNonCivOrder = 40; // As of 2023/01, Achaemanidae at 33 is the max.
+	const c_maxNonCivOrder = 40; // As of 2023/08, Parthian at 35 is the max.
 	const c_maxIndex = 5; // 6 equipments
 	const c_stars = 5; // always the highest
 	const c_picSplitter = "/";

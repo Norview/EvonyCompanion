@@ -232,6 +232,58 @@
                         { "name": "agate",   "level": 7, "quantity": 30 }, 
                         { "name": "crystal", "level": 7, "quantity": 40 } ]
        },
+       "Imperial": {
+			"weapon": [ { "name": "scale",  "level": 7, "quantity": 10 },
+						{ "name": "bronze", "level": 7, "quantity": 10 },
+						{ "name": "bone",   "level": 7, "quantity": 10 },
+						{ "name": "meteor", "level": 7, "quantity": 10 } ],
+       		"helmet": [ { "name": "stone",  "level": 7, "quantity": 10 },
+						{ "name": "wood",	"level": 7,	"quantity": 10 },
+						{ "name": "iron",	"level": 7,	"quantity": 10 },
+						{ "name": "scale",	"level": 7,	"quantity": 10 } ],
+			"armor":  [ { "name": "crystal","level": 7,	"quantity": 10 },
+						{ "name": "bone",	"level": 7,	"quantity": 10 },
+						{ "name": "leather","level": 7,	"quantity": 10 },
+						{ "name": "feather","level": 7,	"quantity": 10 } ],
+			"legarmor":[{ "name": "scale",  "level": 7, "quantity": 10 },
+						{ "name": "iron",   "level": 7, "quantity": 10 },
+						{ "name": "feather","level": 7, "quantity": 10 },
+						{ "name": "pearl",  "level": 7, "quantity": 10 } ],
+			"boots":  [ { "name": "bronze", "level": 7, "quantity": 10 },
+						{ "name": "leather","level": 7, "quantity": 10 },
+						{ "name": "meteor", "level": 7, "quantity": 10 },
+						{ "name": "agate",  "level": 7, "quantity": 10 } ],
+			"ring":   [ { "name": "meteor", "level": 7, "quantity": 10 },
+						{ "name": "stone",  "level": 7, "quantity": 10 },
+						{ "name": "agate",  "level": 7, "quantity": 10 },
+						{ "name": "crystal","level": 7, "quantity": 10 } ]
+       },
+       "Parthian": {
+          "weapon":  [  { "name": "meteor",  "level": 7, "quantity": 10 }, 
+                        { "name": "scale",   "level": 7, "quantity": 10 }, 
+                        { "name": "bronze",  "level": 7, "quantity": 10 }, 
+                        { "name": "bone",    "level": 7, "quantity": 10 } ],
+          "helmet":  [  { "name": "wood",    "level": 7, "quantity": 10 }, 
+                        { "name": "iron",    "level": 7, "quantity": 10 }, 
+                        { "name": "feather", "level": 7, "quantity": 10 }, 
+                        { "name": "stone",   "level": 7, "quantity": 10 } ],
+          "armor":   [  { "name": "feather", "level": 7, "quantity": 10 }, 
+                        { "name": "bone",    "level": 7, "quantity": 10 }, 
+                        { "name": "leather", "level": 7, "quantity": 10 }, 
+                        { "name": "crystal", "level": 7, "quantity": 10 } ],
+          "legarmor":[  { "name": "scale",   "level": 7, "quantity": 10 }, 
+                        { "name": "iron",    "level": 7, "quantity": 10 }, 
+                        { "name": "crystal", "level": 7, "quantity": 10 }, 
+                        { "name": "pearl",   "level": 7, "quantity": 10 } ],
+          "boots":   [  { "name": "bronze",  "level": 7, "quantity": 10 }, 
+                        { "name": "leather", "level": 7, "quantity": 10 }, 
+                        { "name": "meteor",  "level": 7, "quantity": 10 }, 
+                        { "name": "agate",   "level": 7, "quantity": 10 } ],
+          "ring":    [  { "name": "pearl",   "level": 7, "quantity": 10 }, 
+                        { "name": "stone",   "level": 7, "quantity": 10 }, 
+                        { "name": "agate",   "level": 7, "quantity": 10 }, 
+                        { "name": "wood",    "level": 7, "quantity": 10 } ]
+       },
        "Civilization": {
        		"weapon":
        		[
@@ -1233,7 +1285,7 @@
 					"troop": ["mounted"],
 					"type": "hp",
 					"value": 7,
-					"rate": 3
+					"rate": 1.6
 				}
 			]
 		},
@@ -1252,29 +1304,29 @@
 					"condition": [],
 					"troop": ["mounted"],
 					"type": "attack",
-					"value": 15,
-					"rate": 1.4
+					"value": 17,
+					"rate": 1
 				},
 				{
 					"condition": [],
 					"troop": ["mounted"],
 					"type": "defense",
-					"value": 15,
-					"rate": 1.4
+					"value": 17,
+					"rate": 1
 				},
 				{
 					"condition": ["marching"],
 					"troop": ["mounted"],
 					"type": "hp",
-					"value": 5,
-					"rate": 2
+					"value": 7,
+					"rate": 1.6
 				},
 				{
 					"condition": [],
 					"troop": ["ranged"],
 					"type": "hp",
-					"value": 15,
-					"rate": 1.4
+					"value": 17,
+					"rate": 1
 				}
 			]
 		},
@@ -1345,10 +1397,10 @@
 					"rate": 1
 				},
 				{
-					"condition": ["in-city"],
-					"troop": ["ranged"],
-					"type": "defense",
-					"value": 10,
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 17,
 					"rate": 1
 				},
 				{
@@ -1547,7 +1599,7 @@
 					"troop": [],
 					"type": "marchsize",
 					"value": 6,
-					"rate": 1.5
+					"rate": 1.2
 				}
 			]
 		},
@@ -1733,7 +1785,7 @@
                   "troop": ["ranged"],
                   "type": "attack",
                   "value": 10,
-                  "rate": 1
+                  "rate": 2
               }
           ]
        },
@@ -1775,7 +1827,7 @@
                   "troop": ["mounted"],
                   "type": "attack",
                   "value": 10,
-                  "rate": 1
+                  "rate": 2
               }
           ]
        },
@@ -2255,7 +2307,1108 @@
               }
           ]
        },
-       
+ 
+ 	    {
+			"name": "Dominant Imperial Helmet",
+			"set": "Imperial",
+			"type": "helmet",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Ares Helmet"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "attack",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "defense",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 11,
+					"rate": 2.4
+				}
+			]
+		},
+		{
+			"name": "Majestic Imperial Helmet",
+			"set": "Imperial",
+			"type": "helmet",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Ares Helmet"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 8,
+					"rate": 1.8
+				}
+			]
+		},
+		{
+			"name": "Dominant Imperial Armor",
+			"set": "Imperial",
+			"type": "armor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Ares Armor"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 8,
+					"rate": 1.8
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				}
+			]
+		},
+		{
+			"name": "Majestic Imperial Armor",
+			"set": "Imperial",
+			"type": "armor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Ares Armor"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": -23,
+					"rate": -2.2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": -23,
+					"rate": -2.2
+				}
+			]
+		},
+		{
+			"name": "Dominant Imperial Leg Armor",
+			"set": "Imperial",
+			"type": "legarmor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Ares Leg Armor"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 11,
+					"rate": 2.4
+				}
+			]
+		},
+		{
+			"name": "Majestic Imperial Leg Armor",
+			"set": "Imperial",
+			"type": "legarmor",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Ares Leg Armor"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 8,
+					"rate": 1.8
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 8,
+					"rate": 1.8
+				}
+			]
+		},
+		{
+			"name": "Dominant Imperial Boots",
+			"set": "Imperial",
+			"type": "boots",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Ares Boots"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1.2
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 11,
+					"rate": 2.4
+				}
+			]
+		},
+		{
+			"name": "Majestic Imperial Boots",
+			"set": "Imperial",
+			"type": "boots",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Ares Boots"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": 19,
+					"rate": 1
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 19,
+					"rate": 1
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 8,
+					"rate": 1.8
+				}
+			]
+		},
+		{
+			"name": "Dominant Imperial Ring",
+			"type": "ring",
+			"set": "Imperial",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Courageous Ares Ring"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 23,
+					"rate": 2.2
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 23,
+					"rate": 2.2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": -20,
+					"rate": -3.4
+				},
+				{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "range",
+					"value": 5,
+					"rate": 1
+				}
+			]
+		},
+		{
+			"name": "Majestic Imperial Ring",
+			"type": "ring",
+			"set": "Imperial",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Fearless Ares Ring"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 23,
+					"rate": 2.2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 23,
+					"rate": 2.2
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": -20,
+					"rate": -3.4
+				},
+				{
+					"condition": [],
+					"troop": [],
+					"type": "marchsize",
+					"value": 7,
+					"rate": 1.4
+				}
+			]
+		},
+		{
+			"name": "Imperial Bow",
+			"set": "Imperial",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Ares Bow"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 34,
+					"rate": 3.6
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ranged"],
+					"type": "attack",
+					"value": 11,
+					"rate": 2.8
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 11,
+					"rate": 2.8
+				}
+			]
+		},
+		{
+			"name": "Imperial Spear",
+			"set": "Imperial",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Ares Spear"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "attack",
+					"value": 34,
+					"rate": 3.6
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "defense",
+					"value": 11,
+					"rate": 2.8
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": 11,
+					"rate": 2.8
+				}
+			]
+		},
+		{
+			"name": "Imperial Axe",
+			"set": "Imperial",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Ares Axe"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["siege"],
+					"type": "attack",
+					"value": 34,
+					"rate": 3.6
+				},
+				{
+					"condition": ["marching"],
+					"troop": ["siege"],
+					"type": "hp",
+					"value": 11,
+					"rate": 2.8
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "defense",
+					"value": 23,
+					"rate": 2.2
+				},
+				{
+					"condition": [],
+					"troop": ["ranged"],
+					"type": "hp",
+					"value": -18,
+					"rate": -3
+				}
+			]
+		},
+		{
+			"name": "Imperial Sword",
+			"set": "Imperial",
+			"type": "weapon",
+			"condition": {
+				"building": "forge",
+				"level": 30,
+				"scroll": null,
+				"base": "Ares Sword"
+			},
+            "cost": null,
+			"attributes": [{
+					"condition": [],
+					"troop": ["ground"],
+					"type": "attack",
+					"value": 34,
+					"rate": 3.6
+				},
+				{
+					"condition": ["in-city"],
+					"troop": ["ground"],
+					"type": "defense",
+					"value": 17,
+					"rate": 3.4
+				},
+				{
+					"condition": [],
+					"troop": ["mounted"],
+					"type": "hp",
+					"value": -20,
+					"rate": -3.4
+				}
+			]
+	   },
+	
+	   {
+          "name": "Dominant Parthian Helmet",
+          "set": "Parthian",
+          "type": "helmet",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Courageous Achaemenidae Helmet"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 11,
+                  "rate": 2.4
+              }
+          ]
+       },
+       {
+          "name": "Majestic Parthian Helmet",
+          "set": "Parthian",
+          "type": "helmet",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Fearless Achaemenidae Helmet"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 11,
+                  "rate": 2.4
+              }
+          ]
+       },
+       {
+          "name": "Dominant Parthian Armor",
+          "set": "Parthian",
+          "type": "armor",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Courageous Achaemenidae Armor"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "defense",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": -24,
+                  "rate": -3.6
+              }
+          ]
+       },
+       {
+          "name": "Majestic Parthian Armor",
+          "set": "Parthian",
+          "type": "armor",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Fearless Achaemenidae Armor"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 11,
+                  "rate": 2.4
+              }
+          ]
+       },
+       {
+          "name": "Dominant Parthian Leg Armor",
+          "set": "Parthian",
+          "type": "legarmor",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Courageous Achaemenidae Leg Armor"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 11,
+                  "rate": 2.4
+              }
+          ]
+       },
+       {
+          "name": "Majestic Parthian Leg Armor",
+          "set": "Parthian",
+          "type": "legarmor",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Fearless Achaemenidae Leg Armor"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              }
+          ]
+       },
+       {
+          "name": "Dominant Parthian Boots",
+          "set": "Parthian",
+          "type": "boots",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Courageous Achaemenidae Boots"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 11,
+                  "rate": 2.4
+              }
+          ]
+       },
+       {
+          "name": "Majestic Parthian Boots",
+          "set": "Parthian",
+          "type": "boots",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Fearless Achaemenidae Boots"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": 19,
+                  "rate": 1.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -3.6
+              }
+          ]
+       },
+       {
+          "name": "Dominant Parthian Ring",
+          "type": "ring",
+          "set": "Parthian",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Courageous Achaemenidae Ring"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "defense",
+                  "value": 23,
+                  "rate": 2.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 23,
+                  "rate": 2.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -4.8
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "range",
+                  "value": 5,
+                  "rate": 1
+              }
+          ]
+       },
+       {
+          "name": "Majestic Parthian Ring",
+          "type": "ring",
+          "set": "Parthian",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Fearless Achaemenidae Ring"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 23,
+                  "rate": 2.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 23,
+                  "rate": 2.2
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -4.8
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -4.8
+              }
+          ]
+       },
+       {
+          "name": "Parthian Bow",
+          "set": "Parthian",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Achaemenidae Bow"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "attack",
+                  "value": 34,
+                  "rate": 3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ranged"],
+                  "type": "defense",
+                  "value": 17,
+                  "rate": 3.4
+              },
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -4.8
+              }
+          ]
+       },
+       {
+          "name": "Parthian Spear",
+          "set": "Parthian",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Achaemenidae Spear"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": 34,
+                  "rate": 3.6
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": -24,
+                  "rate": -4.8
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -4.8
+              }
+          ]
+       },
+       {
+          "name": "Parthian Axe",
+          "set": "Parthian",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Achaemenidae Axe"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["siege"],
+                  "type": "attack",
+                  "value": 34,
+                  "rate": 3.6
+              },
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -4.8
+              },
+              {
+                  "condition": [],
+                  "troop": ["ranged"],
+                  "type": "hp",
+                  "value": -24,
+                  "rate": -4.8
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 17,
+                  "rate": 3.4
+              }
+          ]
+       },
+       {
+          "name": "Parthian Sword",
+          "set": "Parthian",
+          "type": "weapon",
+          "condition": {
+              "building": "forge",
+              "level": 33,
+              "scroll": null,
+              "base": "Achaemenidae Sword"
+          },
+          "cost": null,
+          "attributes": [
+              {
+                  "condition": [],
+                  "troop": ["ground"],
+                  "type": "attack",
+                  "value": 34,
+                  "rate": 3.6
+              },
+              {
+                  "condition": ["in-city"],
+                  "troop": ["ground"],
+                  "type": "defense",
+                  "value": 17,
+                  "rate": 3.4
+              },
+              {
+                  "condition": [],
+                  "troop": ["mounted"],
+                  "type": "attack",
+                  "value": -24,
+                  "rate": -4.8
+              }
+          ]
+       },
+                
        {
           "name": "Plantagenet Golden Bow",
           "set": "Plantagenet",
@@ -5263,6 +6416,7 @@
     {
         "name": "Dragon",
         "order": 27,
+        "disabled" : true,
         "attributes": [
               {
                   "pieces": 6,
@@ -5279,7 +6433,7 @@
         "attributes": [
               {
                   "pieces": 2,
-                  "condition": [],
+                  "condition": ["marching"],
                   "troop": ["ground", "mounted", "ranged", "siege"],
                   "type": "attack",
                   "value": 15
@@ -5312,7 +6466,47 @@
                   "value": -15
               }
         ]
-    },    
+    },  
+    {
+        "name": "Imperial",
+        "order": 34,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": ["marching"],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 18
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": [],
+                  "type": "marchsize",
+                  "value": 12
+              }
+        ]
+    }, 
+    {
+        "name": "Parthian",
+        "order": 35,
+        "attributes": [
+              {
+                  "pieces": 2,
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": 12
+              },
+              {
+                  "pieces": 6,
+                  "condition": [],
+                  "troop": ["ground", "mounted", "ranged", "siege"],
+                  "type": "attack",
+                  "value": -18
+              }
+        ]
+    },      
     {
         "name": "Plantagenet",
         "order": 51,
