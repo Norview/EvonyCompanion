@@ -1315,12 +1315,13 @@ function updateSets() {
     function getSetColor(setName) {
         setName = setName.trim().toLowerCase();
         switch (setName) {
-        case "king": return "#fcf403";
-        case "dragon": return "#fcba03";
-        case "ares": return "#fc6b03";
+        case "king":         return "#fcf403";
+        case "dragon":       return "#fcba03";
+        case "ares":         return "#ea4711";
         case "achaemenidae": return "#fc2403";
-        default: // Civilization use the same color. Not ideal as they belong to different sets.
-            return "#c603fc";
+        case "imperial":     return "#ea11d0";
+        case "parthian":     return "#c603fc";
+        default:             return "#fc0391"; // Civilization use the same color. Not ideal though as they belong to different sets.
         }
     }
     
