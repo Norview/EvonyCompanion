@@ -5023,7 +5023,7 @@
               {
                   "condition": ["attacking"],
                   "troop": ["mounted", "ground"],
-                  "type": "attack",
+                  "type": "hp",
                   "value": 35,
                   "rate": 2
               },
