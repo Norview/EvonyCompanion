@@ -4896,7 +4896,7 @@
               {
                   "condition": [],
                   "troop": ["ranged"],
-                  "type": "defense",
+                  "type": "hp",
                   "value": -20,
                   "rate": -3
               }
@@ -5916,7 +5916,7 @@
           "attributes": [
               {
                   "condition": [],
-                  "troop": ["siege"],
+                  "troop": ["ranged"],
                   "type": "attack",
                   "value": 25,
                   "rate": 2

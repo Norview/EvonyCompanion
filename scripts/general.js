@@ -680,8 +680,10 @@ General.validateEquipment = function(equipment) {
        },
     */
     
+    var eqName = equipment.name;
+    
     if (equipment["verified"] === false) {
-    	console.warn("Equipment '" + equipment.name + "'s data is not verified.");
+    	console.warn("Equipment '" + eqName + "'s data is not verified.");
     }
     
     var setName = equipment.set;
@@ -703,9 +705,10 @@ General.validateEquipment = function(equipment) {
     	assertOneOf("equipment.cost.name", cname, _matNames);
     }
     
+    var attrs = {};
+    
     for (var attr of equipment.attributes) {
-    	var hasConds = false;
-    	
+    	var attrKey = "";
     	var conds = attr.condition;
     	assertObject("equipment.attributes.condition", conds, Array);
       	for (var cond of conds) {
@@ -715,7 +718,8 @@ General.validateEquipment = function(equipment) {
     			["in-city", "attacking", "defending", "marching", "reinforcing"
     			, "w/dragon"
     			]);
-    		hasConds = true;
+    		attrKey += cond;
+    		attrKey += '/';
     	}
 
     	var troops = attr.troop;
@@ -725,12 +729,16 @@ General.validateEquipment = function(equipment) {
     			"equipment.attributes.troop[]",
     			troop,
     			["ground", "mounted", "ranged", "siege"]);
+    		attrKey += troop;
+    		attrKey += '/';
     	}
     	
 		assertOneOf(
 			"equipment.attributes.type",
 			 attr.type,
 			["attack", "defense", "hp", "range", "marchsize"]);
+    	attrKey += attr.type;
+    	attrKey += '/';
     	
     	var value = attr.value;
     	assertNumeral("equipment.attributes.value", value);
@@ -746,6 +754,14 @@ General.validateEquipment = function(equipment) {
     	
     	if (value > 0 && rate < 0 || value < 0 && rate > 0) {
     		throw "equipment.attributes.value and equipment.attributes.rate do not have the same sign.";
+    	}
+    	
+    	attrKey += value > 0 ? '+' : '-';
+    	
+    	if (!!attrs[attrKey]) {
+    		throw (eqName + " contains duplicate attributes: " + attrKey);
+    	} else {
+    		attrs[attrKey] = attr;
     	}
     }   
 }
