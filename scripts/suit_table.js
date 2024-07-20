@@ -317,8 +317,9 @@ function SuitTable(/*function:*/restoreGenFunc) {
                 var valStr = value + "%";
                 
                 // Example:
-                // <td class="ctentry ctentry-0">15%</td>
-                var td = $("<td class=\"" + bgColor + "ctentry ctentry-" + index + "\">" + valStr + "</td>");
+                // <td class="ctentry ctentry-0 ct-buff-mountedAttack-cell row-vis-agg-factor">15%</td>
+                var rowName = "ct-" + (isBuff ? "buff-" : "debuff-") + btype + "-cell";
+                var td = $("<td class=\"" + bgColor + rowName + " row-vis-agg-factor ctentry ctentry-" + index + "\">" + valStr + "</td>");
 
                 var deco = getBuffDeco(function(){
                     return isGrey;
@@ -368,7 +369,45 @@ function SuitTable(/*function:*/restoreGenFunc) {
                 });
             }
         }
-    
+        
+        function installAggButton(row) {
+            const suffix = "Attack-row";
+            // console.info(" row: " + row.attr('id'));
+            let id = row.attr('id');
+            if (id.endsWith(suffix)) {
+                let attackBuff = row;
+            
+                // Find the rows representing def and hp buff for the same troop category.
+                let stem = id.substring(0, id.length - suffix.length);
+                let otherBuffs = attackBuff.siblings().filter(function() {
+                  return $(this).attr('id').startsWith(stem);
+                });
+                let allBuffs = attackBuff.add(otherBuffs);
+                            
+                let _ctrl = attackBuff.find(".row-vis-agg-ctrl");
+                _ctrl.on("click", function(){
+                    let _factors = allBuffs.find(".row-vis-agg-factor");
+                    let _img = _ctrl.children("img");
+                    let _src = _img.attr("src");
+
+                    let _excluded = !!_ctrl.data("excluded");
+                    if (_excluded) {
+                        // Reveal and enable agg
+                        _ctrl.removeData("excluded");
+                        _factors.show();
+                        _src = _src.replace("show.png", "hide.png");
+                    } else {
+                        // Hide and disable agg
+                        _ctrl.data("excluded", true);
+                        _factors.hide();
+                        _src = _src.replace("hide.png", "show.png");
+                    }
+            
+                    _img.attr("src", _src);
+                });
+            }
+        }
+        
         var obj = initialize();
     
         this._equipments = obj.equipments;
@@ -377,6 +416,28 @@ function SuitTable(/*function:*/restoreGenFunc) {
         this._deleteRow = obj.deleteRow;
         this._restoreRow = obj.restoreRow;
         this._index = -1;
+        
+        // <tr id="ct-buff-groundAttack-row"> 
+        //   <td>
+        //     <div class="row-vis-agg-ctrl" style="padding-left: 10px;"><img src="../assets/hide.png" style="width: 15px"/></div>
+        //   </td>
+        //   <td class="i18n row-vis-agg-factor" tkey="Att.">Att.</td>
+        //   <td class="ctentry ctentry-0 ct-buff-mountedAttack-cell row-vis-agg-factor">15%</td>
+        //   ...
+        // When clicking:
+        //   Check data (visibility)
+        //   -> Hide/Reveal ct-buff-ground[Attack|Defense|Hp]-cell row-vis-agg-factor
+        //   -> Change image
+        //
+        // TODO - NEXT
+        // (1) add an agg row
+        // (2) agg row shows the total based on visibility - addBuff() and updateBuffs()
+        // (3) when clicking on the button, mark "excluded" (already done), then show trigger updateBuffs()
+        
+        const suffix = "Attack-row";
+        for (let _buff of this._buffs) {
+            installAggButton(_buff);
+        }     
     
         this.updateAll = function(scenario) {
             var delHeaders = this._deleteRow.find(entry_class);
