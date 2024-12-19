@@ -156,6 +156,16 @@
 	background-color: #f2f2f2;
 }
 
+.buffaggcell {
+	background-color: #004d32;
+    color: white;
+}
+
+.debuffaggcell {
+	background-color: #7b171a;
+    color: white;
+}
+
 @media(max-width: 1024px){
 	
 	.buff-table tr th {
